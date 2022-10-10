@@ -4,13 +4,15 @@ import AboutPage from './components/AboutPage'
 import HomePage from './components/HomePage'
 import NotFound from './components/NotFound'
 import App from './App.vue'
+import LoginPage from './components/LoginPage'
 
 const router = createRouter({
     history: createWebHistory(),
     routes:[
         { path: '/about', component: AboutPage},
         { path: '/', component: HomePage},
-        { path: "/:pathMatch(.*)*", component: NotFound }
+        { path: "/:pathMatch(.*)*", component: NotFound },
+        { path: "/login", component: LoginPage}
      ]
 });
 
