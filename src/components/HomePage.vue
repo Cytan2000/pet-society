@@ -1,3 +1,7 @@
+<style>
+  @import './HomePage.css';
+</style>
+
 <template>
     
   
@@ -12,14 +16,14 @@
       </div>
 
       <div class="md:w-max mt-8 md:mt-0 flex justify-center md:justify-end">
-        <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="" />
+        <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="image-design" />
       </div>
    
     
   
 </div>
 <div class="my-20 text-black">
-      Hiiiii
+      Add more stuff IG
     </div>
 </template>
 

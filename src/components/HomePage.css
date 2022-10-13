@@ -1,0 +1,14 @@
+
+    .circle
+  {
+    border-radius: 50%;
+    width: 16rem;
+    height: 16rem; 
+    background-color: #eab308;
+  }
+
+.image-design{
+    border-radius: 25%;
+    width: 60rem;
+
+}
