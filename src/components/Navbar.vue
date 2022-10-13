@@ -1,5 +1,5 @@
 <template>
-    <Disclosure as="nav" class="" v-slot="{ open }">
+    <Disclosure as="nav" class="sticky top-0 backdrop-filter backdrop-blur-lg" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 h-20">
         <div class="relative flex h-20 items-center justify-between">
           <div class="absolute inset-y-0 left-0 flex items-center sm:hiddene">
@@ -16,8 +16,9 @@
               <img class="hidden h-8 w-auto lg:block" src="https://media.istockphoto.com/vectors/dog-paw-icon-logo-vector-id1005374612" alt="Your Company" />
             </div>
             <div class="hidden sm:ml-6 sm:block">
+              <!-- Navbar buttons -->
               <div class="flex space-x-4">
-                <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+                <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
               </div>
             </div>
           </div>
@@ -66,7 +67,7 @@
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
   
   const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
+    { name: 'Dashboard', href: '#', current: true, },
     { name: 'Home', href: '/', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
