@@ -6,6 +6,7 @@ import NotFound from './components/NotFound'
 import App from './App.vue'
 import LoginPage from './components/LoginPage'
 import Register from './components/Register'
+import ClientBooking from './components/ClientBooking'
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -33,7 +34,8 @@ const router = createRouter({
         { path: '/', component: HomePage},
         { path: "/:pathMatch(.*)*", component: NotFound },
         { path: "/login", component: LoginPage},
-        { path: "/register", component: Register}
+        { path: "/register", component: Register},
+        { path: "/client", component: ClientBooking }
      ]
 });
 
