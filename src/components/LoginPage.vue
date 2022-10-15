@@ -24,9 +24,56 @@
         </div>
         <!-- button -->
         <div class="w-3/4 mt-4">
-            <button type="submit" class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700"> LOGIN</button>
+            <button @click="signInWithGoogle" type="submit" class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700"> LOGIN</button>
+        </div>
+        <div>
+            <p v-if="errMsg">{{ errMsg }}</p>
         </div>
     </div>
    </div>
 </body>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from 'vue-router';
+const email = ref("");
+const password = ref("");
+const errMsg = ref() //ERROR MESSAGE 
+const router = useRouter()
+
+
+
+const register = () =>{
+    
+};
+
+const signInWithGoogle = () =>{
+    const auth = getAuth()
+    signInWithEmailAndPassword(auth,email.value,password.value)
+    .then((userCredential)=>{
+        console.log("Successfully signed in!");
+        router.push("/")
+    })
+    .catch((error)=>{
+        console.log(error.code);
+        switch (error.code){
+            case "auth/invalid-email":
+                errMsg.value = "Invalid email";
+                break;
+            case "auth/user-not-found":
+                errMsg.value = "No account with that email was found";
+                break;
+            case "auth/wrong-password":
+                errMsg.value = "Incorrect password";
+                break;
+            default:
+                errMsg.value = "Email or password was incorrect";
+                break;
+        }
+    });
+};
+
+
+</script>

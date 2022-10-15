@@ -53,6 +53,9 @@
                   <MenuItem v-slot="{ active }">
                     <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign Out</a>
                   </MenuItem>
+                  <MenuItem v-slot="{ active }">
+                    <a href="/register" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Register</a>
+                  </MenuItem>
                 </MenuItems>
               </transition>
             </Menu>
