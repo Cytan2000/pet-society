@@ -7,9 +7,9 @@ import App from './App.vue'
 import LoginPage from './components/LoginPage'
 import Register from './components/Register'
 import ClientBooking from './components/ClientBooking'
-
+import ProfilePage from './components/ProfilePage'
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app"
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -35,7 +35,8 @@ const router = createRouter({
         { path: "/:pathMatch(.*)*", component: NotFound },
         { path: "/login", component: LoginPage},
         { path: "/register", component: Register},
-        { path: "/client", component: ClientBooking }
+        { path: "/client", component: ClientBooking },
+        { path: "/profile", component: ProfilePage},
      ]
 });
 
