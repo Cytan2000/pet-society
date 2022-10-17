@@ -80,11 +80,25 @@
 const picture="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
 const auth = getAuth();
+const user = auth.currentUser;
+console.log(user)
+
+
+
+if(user !==null){
+  const displayName = user.displayName;
+  const email = user.email;
+  const picture = user.photoURL;
+  console.log(picture);
+}else{
+  const picture = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+}
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
     const user_picture = user.photoURL;
     console.log(user_picture);
+
     // ...
   } else {
     // User is signed out
