@@ -9,6 +9,7 @@ import Register from './components/Register'
 import ClientBooking from './components/ClientBooking'
 import ProfilePage from './components/ProfilePage'
 import SellerProfilePage from './components/seller/SellerProfilePage'
+import SellerProfileInput from './components/seller/SellerProfileInput'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 
@@ -38,7 +39,8 @@ const router = createRouter({
         { path: "/register", component: Register},
         { path: "/client", component: ClientBooking },
         { path: "/profile", component: ProfilePage},
-        { path: "/sellerprofile", component: SellerProfilePage},
+        { path: "/seller/profile", component: SellerProfilePage},
+        { path: "/seller/profileinput", component: SellerProfileInput},
      ]
 });
 
