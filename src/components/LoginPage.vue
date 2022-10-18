@@ -40,17 +40,30 @@
         </div>
         <!-- button -->
         <div class="w-3/4 mt-4">
-          <button @click="signIn" v-if="!isLoggedIn" type="submit" class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700">
+          <button
+            @click="signIn"
+            v-if="!isLoggedIn"
+            type="submit"
+            class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700"
+          >
             LOGIN
           </button>
         </div>
         <div class="w-3/4 mt-4">
-          <button @click="getout" v-if="isLoggedIn" class="py-4 bg-red-400 w-full rounded text-blue-50 font-bold hover:bg-red-700">
+          <button
+            @click="getout"
+            v-if="isLoggedIn"
+            class="py-4 bg-red-400 w-full rounded text-blue-50 font-bold hover:bg-red-700"
+          >
             Logout
           </button>
         </div>
         <div class="w-3/4 mt-4" v-if="!isLoggedIn">
-          <button @click="signInWithGoogle" type="submit" class="py-4 bg-yellow-400 w-full rounded text-blue-50 font-bold hover:bg-yellow-700">
+          <button
+            @click="signInWithGoogle"
+            type="submit"
+            class="py-4 bg-yellow-400 w-full rounded text-blue-50 font-bold hover:bg-yellow-700"
+          >
             Sign In with Google
           </button>
         </div>
@@ -71,7 +84,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-  sendPasswordResetEmail
 } from "firebase/auth";
 import { useRouter } from "vue-router";
 const email = ref("");
@@ -93,15 +105,6 @@ onMounted(() => {
     }
   });
 });
-
-sendPasswordResetEmail(auth,email)
-  .then(()=>{
-    alert("Password Reset Email Sent!")
-  })
-  .catch((error)=>{
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  })
 
 
 
