@@ -108,7 +108,7 @@ onAuthStateChanged(auth, (user) => {
   
   const navigation = [
     { name: 'Dashboard', href: '#', current: true, },
-    { name: 'Home', href: '/', current: false },
+    { name: 'Home', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
   ]
