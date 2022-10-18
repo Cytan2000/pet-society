@@ -12,6 +12,7 @@ import SellerProfilePage from './components/seller/SellerProfilePage'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -38,6 +39,7 @@ const router = createRouter({
         { path: "/register", component: Register},
         { path: "/client", component: ClientBooking },
         { path: "/profile", component: ProfilePage},
+        { path: "/forget",component:ForgetPage}
         { path: "/sellerprofile", component: SellerProfilePage},
      ]
 });

@@ -81,7 +81,6 @@ const picture="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201
 
 const auth = getAuth();
 const user = auth.currentUser;
-console.log(user)
 
 
 
@@ -112,6 +111,4 @@ onAuthStateChanged(auth, (user) => {
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
   ]
-
-
   </script>
