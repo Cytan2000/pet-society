@@ -1,47 +1,83 @@
 <template>
-    <h1>Create an Account</h1>
-    
-    <p><input type="text" placeholder="Name" v-model="name"/></p>
-    <p><input type="text" placeholder="Email" v-model="email"/></p>
-    <p><input type="password" placeholder="Password" v-model="password" /></p>
-    <p><button @click="register">Submit</button></p>
+  <body class="bg-gray-10">
+    <div class="flex justify-center h-screen w-screen items-center">
+      <div class="w-full md:w-1/2 flex flex-col items-center">
+        <!-- text login -->
+        <h1 class="text-center text-2xl font-bold text-gray-600 mb-6">Register</h1>
+        <!-- Display Name-->
+        <div class="w-3/4 mb-6">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
+            placeholder="Display Name"
+            v-model="name"
+          />
+        </div>
 
+        <!-- email input -->
+        <div class="w-3/4 mb-6">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
+            placeholder="Email"
+            v-model="email"
+          />
+        </div>
+        <!-- password input -->
+        <div class="w-3/4 mb-6">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
+            placeholder="Password"
+            v-model="password"
+          />
+        </div>
+        <div class="w-3/4 mt-4">
+          <button
+            @click="register"
+            type="submit"
+            class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700">
+            Register
+          </button>
+        </div>
+      </div>
+      </div>
+  </body>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {getDatabase, set , ref as firebaseref} from "firebase/database";
-import { useRouter } from 'vue-router';
-import {app} from "../main.js";
+import { getDatabase, set, ref as firebaseref } from "firebase/database";
+import { useRouter } from "vue-router";
+import { app } from "../main.js";
 
 const email = ref("");
 const name = ref("");
 const password = ref("");
-const router = useRouter()
+const router = useRouter();
 const database = getDatabase(app);
 
-
-
-const register = () =>{
-    createUserWithEmailAndPassword(getAuth(),email.value,password.value)
-    .then((data)=>{
-        const user = data.user;
-        set(firebaseref(database, 'users/' + user.uid),{
-            username:name,
-            email:email,
-
-        })
-        console.log("Successfully registered!");
-        router.push("/")
+const register = () => {
+  createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+    .then((data) => {
+      const user = data.user;
+      set(firebaseref(database, "users/" + user.uid), {
+        username: name,
+        email: email,
+      });
+      console.log("Successfully registered!");
+      router.push("/");
     })
-    .catch((error)=>{
-        console.log(error.code);
-        alert(error.message);
-    })
+    .catch((error) => {
+      console.log(error.code);
+      alert(error.message);
+    });
 };
-
-
-
-
 </script>

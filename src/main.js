@@ -57,6 +57,7 @@ const router = createRouter({
         { path: "/forget",component:ForgetPage},
         { path: "/seller/profile", component: SellerProfilePage},
         { path: "/seller/profileinput", component: SellerProfileInput},
+        { path: "/login", component: LoginPage}
      ]
 });
 

@@ -68,7 +68,7 @@
           </button>
         </div>
         <div>
-          <p v-if="errMsg">{{ errMsg }}</p>
+          <p v-if="errMsg && !isLoggedIn" >{{ errMsg }}</p>
         </div>
       </div>
     </div>

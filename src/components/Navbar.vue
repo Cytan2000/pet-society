@@ -51,10 +51,13 @@
                   <MenuItem v-slot="{ active }">
                     <a href="/about" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
                   </MenuItem>
-                  <MenuItem v-slot="{ active }">
-                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign Out</a>
+                  <MenuItem v-slot="{ active }" v-if="!isLoggedIn">
+                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log In</a>
                   </MenuItem>
-                  <MenuItem v-slot="{ active }">
+                  <MenuItem v-slot="{ active }" v-if="isLoggedIn">
+                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log Out</a>
+                  </MenuItem>
+                  <MenuItem v-slot="{ active }" v-if="!isLoggedIn">
                     <a href="/register" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Register</a>
                   </MenuItem>
                 </MenuItems>
@@ -76,11 +79,15 @@
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
   import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { onMounted, ref } from "vue";
+
+
 
 const picture="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
 const auth = getAuth();
 const user = auth.currentUser;
+const isLoggedIn = ref(false);
 
 
 
@@ -92,18 +99,19 @@ if(user !==null){
 }else{
   const picture = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 }
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const uid = user.uid;
-    const user_picture = user.photoURL;
-    console.log(user_picture);
 
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
+
+onMounted(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log(user);
+      isLoggedIn.value = true;
+    } else {
+      isLoggedIn.value = false;
+    }
+  });
 });
+
   
   const navigation = [
     { name: 'Dashboard', href: '#', current: true, },
