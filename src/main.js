@@ -12,9 +12,10 @@ import SellerProfilePage from './components/seller/SellerProfilePage'
 import SellerProfileInput from './components/seller/SellerProfileInput'
 import ForgetPage from './components/ForgetPage'
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app"
+import { initializeApp } from "firebase/app";
+import { getDatabase,ref,set } from "firebase/database";
 
-
+// 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,11 +26,23 @@ const firebaseConfig = {
   projectId: "wad2-e6bc2",
   storageBucket: "wad2-e6bc2.appspot.com",
   messagingSenderId: "365351862449",
-  appId: "1:365351862449:web:2cd988e0d4de07a23be290"
+  appId: "1:365351862449:web:2cd988e0d4de07a23be290",
+  databaseURL: "https://wad2-e6bc2-default-rtdb.asia-southeast1.firebasedatabase.app/",
 };
 
 initializeApp(firebaseConfig);
 
+function writeUserData(userID,name,email){
+  const db = getDatabase(initializeApp(firebaseConfig));
+  const reference = ref(db,'users/' + userId);
+
+  set(reference,{
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  })
+
+}
 
 const router = createRouter({
     history: createWebHistory(),
