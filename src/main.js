@@ -10,6 +10,7 @@ import ClientBooking from './components/ClientBooking'
 import ProfilePage from './components/ProfilePage'
 import SellerProfilePage from './components/seller/SellerProfilePage'
 import SellerProfileInput from './components/seller/SellerProfileInput'
+import ForgetPage from './components/ForgetPage'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
 
