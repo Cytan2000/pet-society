@@ -35,7 +35,7 @@
             <label for="" class="text-sm text-slate-400">Remember me</label>
           </div>
           <div>
-            <button class="text-sm text-slate-400 hover:text-blue-500">Forgot?</button>
+            <a href="/forget" class="text-sm text-slate-400 hover:text-blue-500">Forgot?</a>
           </div>
         </div>
         <!-- button -->

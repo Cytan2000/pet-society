@@ -8,7 +8,6 @@
 <script setup>
 import { ref } from "vue";
 import { getAuth, sendPasswordResetEmail  } from "firebase/auth";
-import { useRouter } from 'vue-router';
 
 const email = ref("");
 const auth = getAuth();
