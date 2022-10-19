@@ -21,9 +21,7 @@
     
 
 <div class="bg-gray-100">
-    <AddPet>
-        <h2>My Popup</h2>
-    </AddPet>
+    <add-pet></add-pet>
     <div class="container mx-auto my-5 p-5">
         <div class="md:flex no-wrap md:-mx-2 ">
             <!-- Left Side -->
@@ -229,3 +227,16 @@
 </div>
 
 </template>
+
+<script>
+import AddPet from "./AddPet.vue";
+
+
+
+export default ({
+  components: { AddPet },
+    setup() {
+        
+    },
+})
+</script>
