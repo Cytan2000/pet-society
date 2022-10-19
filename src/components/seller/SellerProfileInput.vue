@@ -5,14 +5,16 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
         First Name
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
+      <!-- first name input -->
+      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" v-model="fname" type="text" placeholder="Jane">
       <p class="text-red-500 text-xs italic">Please fill out this field.</p>
     </div>
     <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         Last Name
       </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
+      <!-- last name input -->
+      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="lname" id="grid-last-name" type="text" placeholder="Doe">
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-2">
@@ -20,6 +22,7 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
         City
       </label>
+      <!-- city input -->
       <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque">
     </div>
     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -27,6 +30,7 @@
         State
       </label>
       <div class="relative">
+        <!-- state input -->
         <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
           <option>New Mexico</option>
           <option>Missouri</option>
@@ -41,8 +45,47 @@
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
         Zip
       </label>
+      <!-- zip input -->
       <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
     </div>
+    <!-- submit btn -->
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" @click="submit_click_post">
+        Submit
+      </button>
   </div>
 </form>
 </template>
+
+<script>
+  import { ref } from "vue";
+  import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+  import { getDatabase, set, ref as firebaseref } from "firebase/database";
+  import { useRouter } from "vue-router";
+  import { onAuthStateChanged } from "firebase/auth";
+
+  export default {
+    data() {
+      return {
+        fname: '',
+        lname: '',
+
+      }
+    },
+    methods: {
+      submit_click_post() {
+        fetch('https://wad2-e6bc2-default-rtdb.asia-southeast1.firebasedatabase.app/users/eoLRkiW0tcNWL3PpIWcnmIdqgKE2.json', {
+          method: 'POST',
+          headers : {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            firstname: this.fname,
+            lastname: this.lname
+          })
+        });
+        console.log(this.lname)
+
+
+      }
+    }}
+</script>
