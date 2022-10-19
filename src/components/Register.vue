@@ -7,12 +7,34 @@
         <!-- Display Name-->
         <div class="w-3/4 mb-6">
           <input
-            type="email"
-            name="email"
-            id="email"
+            type="text"
+            name="username"
+            id="username"
             class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
             placeholder="Display Name"
-            v-model="name"
+            v-model="username"
+          />
+        </div>
+        <!-- firstname -->
+        <div class="w-3/4 mb-6">
+          <input
+            type="text"
+            name="fname"
+            id="fname"
+            class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
+            placeholder="First Name"
+            v-model="firstname"
+          />
+        </div>
+        <!-- lastname -->
+        <div class="w-3/4 mb-6">
+          <input
+            type="text"
+            name="lname"
+            id="lname"
+            class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
+            placeholder="Last Name"
+            v-model="lastname"
           />
         </div>
 
@@ -59,8 +81,10 @@ import { useRouter } from "vue-router";
 import { app } from "../main.js";
 
 const email = ref("");
-const name = ref("");
+const username = ref("");
 const password = ref("");
+const firstname = ref("")
+const lastname = ref("")
 const router = useRouter();
 const database = getDatabase(app);
 
@@ -69,8 +93,10 @@ const register = () => {
     .then((data) => {
       const user = data.user;
       set(firebaseref(database, "users/" + user.uid), {
-        username: name,
-        email: email,
+        username: username.value,
+        email: email.value,
+        firstname: firstname.value,
+        lastname: lastname.value
       });
       console.log("Successfully registered!");
       router.push("/");

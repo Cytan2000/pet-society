@@ -59,10 +59,15 @@
 <script>
   import { ref } from "vue";
   import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-  import { getDatabase, set, ref as firebaseref } from "firebase/database";
+  import { getDatabase, set, ref as firebaseref, child, push, update } from "firebase/database";
   import { useRouter } from "vue-router";
   import { onAuthStateChanged } from "firebase/auth";
-
+  function writeUserData(userId, fname, lname) {
+  const db = getDatabase();
+  update(firebaseref(db, 'users/' + userId), {
+    firstname: fname,
+    lastname: lname
+  })};
   export default {
     data() {
       return {
@@ -73,19 +78,12 @@
     },
     methods: {
       submit_click_post() {
-        fetch('https://wad2-e6bc2-default-rtdb.asia-southeast1.firebasedatabase.app/users/eoLRkiW0tcNWL3PpIWcnmIdqgKE2.json', {
-          method: 'POST',
-          headers : {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            firstname: this.fname,
-            lastname: this.lname
-          })
-        });
-        console.log(this.lname)
-
-
+        console.log(this.fname, this.lname)
+        writeUserData('eoLRkiW0tcNWL3PpIWcnmIdqgKE2',this.fname, this.lname)
       }
-    }}
+    
+    }
+
+}
+
 </script>
