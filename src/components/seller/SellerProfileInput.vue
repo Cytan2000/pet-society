@@ -57,17 +57,20 @@
 </template>
 
 <script>
-  import { ref } from "vue";
   import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   import { getDatabase, set, ref as firebaseref, child, push, update } from "firebase/database";
-  import { useRouter } from "vue-router";
-  import { onAuthStateChanged } from "firebase/auth";
-  function writeUserData(userId, fname, lname) {
-  const db = getDatabase();
-  update(firebaseref(db, 'users/' + userId), {
-    firstname: fname,
-    lastname: lname
-  })};
+  
+  // this is the function to update the existing user data
+  function UpdateUserData(userId, fname, lname) {
+    const db = getDatabase();
+    update(firebaseref(db, 'users/' + userId), {
+      firstname: fname,
+      lastname: lname
+    })};
+  //end of functions
+
+
+  
   export default {
     data() {
       return {
@@ -78,8 +81,10 @@
     },
     methods: {
       submit_click_post() {
+        const auth = getAuth();
+        const user = auth.currentUser;
         console.log(this.fname, this.lname)
-        writeUserData('eoLRkiW0tcNWL3PpIWcnmIdqgKE2',this.fname, this.lname)
+        UpdateUserData(user.uid,this.fname, this.lname)
       }
     
     }
