@@ -1,5 +1,11 @@
+<style scoped>
+.amber-color{
+  background-color: #f59e0b;
+}
+</style>
+
 <template>
-    <Disclosure as="nav" class="bg-yellow-900" v-slot="{ open }">
+    <Disclosure as="nav" class="sticky top-0 backdrop-filter backdrop-blur-lg" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 h-20">
         <div class="relative flex h-20 items-center justify-between">
           <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -16,8 +22,9 @@
               <img class="hidden h-8 w-auto lg:block" src="https://media.istockphoto.com/vectors/dog-paw-icon-logo-vector-id1005374612" alt="Your Company" />
             </div>
             <div class="hidden sm:ml-6 sm:block">
+              <!-- Navbar buttons -->
               <div class="flex space-x-4">
-                <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+                <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
               </div>
             </div>
           </div>
@@ -26,25 +33,32 @@
               <span class="sr-only">View notifications</span>
               <BellIcon class="h-6 w-6" aria-hidden="true" />
             </button>
+            
   
             <!-- Profile dropdown -->
             <Menu as="div" class="relative ml-3">
               <div>
                 <MenuButton class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <span class="sr-only">Open user menu</span>
-                  <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                  <span class="sr-only">Open user menu </span>
+                  <img class="h-8 w-8 rounded-full" :src="picture" alt="" />
                 </MenuButton>
               </div>
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <MenuItem v-slot="{ active }">
-                    <a href="/" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
+                    <a href="/profile" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
                     <a href="/about" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
                   </MenuItem>
-                  <MenuItem v-slot="{ active }">
-                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign Out</a>
+                  <MenuItem v-slot="{ active }" v-if="!isLoggedIn">
+                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log In</a>
+                  </MenuItem>
+                  <MenuItem v-slot="{ active }" v-if="isLoggedIn">
+                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log Out</a>
+                  </MenuItem>
+                  <MenuItem v-slot="{ active }" v-if="!isLoggedIn">
+                    <a href="/register" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Register</a>
                   </MenuItem>
                 </MenuItems>
               </transition>
@@ -64,10 +78,44 @@
   <script setup>
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { onMounted, ref } from "vue";
+
+
+
+const picture="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+
+const auth = getAuth();
+const user = auth.currentUser;
+const isLoggedIn = ref(false);
+
+
+
+if(user !==null){
+  const displayName = user.displayName;
+  const email = user.email;
+  const picture = user.photoURL;
+  console.log(picture);
+}else{
+  const picture = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+}
+
+
+onMounted(() => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log(user);
+      isLoggedIn.value = true;
+    } else {
+      isLoggedIn.value = false;
+    }
+  });
+});
+
   
   const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Home', href: '/', current: false },
+    { name: 'Dashboard', href: '#', current: true, },
+    { name: 'Home', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
   ]
