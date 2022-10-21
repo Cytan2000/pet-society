@@ -99,7 +99,7 @@ const register = () => {
         lastname: lastname.value
       });
       console.log("Successfully registered!");
-      router.push("/");
+      router.push("/home");
     })
     .catch((error) => {
       console.log(error.code);

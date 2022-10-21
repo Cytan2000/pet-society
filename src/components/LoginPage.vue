@@ -112,7 +112,7 @@ const signIn = () => {
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       console.log("Successfully signed in!");
-      router.push("/");
+      router.push("/home");
     })
     .catch((error) => {
       console.log(error.code);
