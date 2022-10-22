@@ -114,8 +114,8 @@ onMounted(() => {
 
   
   const navigation = [
-    { name: 'Dashboard', href: '#', current: true, },
-    { name: 'Home', href: '/home', current: false },
+    { name: 'Home', href: '/home', current: true, },
+    { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
   ]

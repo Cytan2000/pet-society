@@ -1,27 +1,30 @@
-<!-- component -->
-<style>
-    :root {
-        --main-color: #4a76a8;
-    }
-
-    .bg-main-color {
-        background-color: var(--main-color);
-    }
-
-    .text-main-color {
-        color: var(--main-color);
-    }
-
-    .border-main-color {
-        border-color: var(--main-color);
-    }
-</style>
-
 <template>
-    
-
-<div class="bg-gray-100">
+<base-dialog v-if="showDialog">
+    <template #default>
+     <!-- content -->
+     <h1 class="form-title">Your Pet</h1>
     <add-pet></add-pet>
+    </template>
+    <template #actions>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 cursor-pointer mx-2"
+        @click="confirmDialogMsg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </template>
+  </base-dialog>
+<div class="bg-gray-100">
+    
     <div class="container mx-auto my-5 p-5">
         <div class="md:flex no-wrap md:-mx-2 ">
             <!-- Left Side -->
@@ -216,7 +219,7 @@
                             
                         </div>
                         <button
-                        class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none   hover:shadow-xs p-3 my-4">Add Pet</button>
+                        class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none   hover:shadow-xs p-3 my-4" @click="showDialog=!showDialog">Add Pet</button>
                     </div>
                     <!-- End of Experience and education grid -->
                 </div>
@@ -230,13 +233,47 @@
 
 <script>
 import AddPet from "./AddPet.vue";
+import BaseDialog from "./UI/BaseDialog.vue";
+
 
 
 
 export default ({
-  components: { AddPet },
-    setup() {
-        
+  components: { AddPet,BaseDialog },
+    data() {
+        return{
+            showDialog:false
+        }
     },
+    methods:{
+        confirmDialogMsg(){
+            this.showDialog=false
+        }
+    }
 })
 </script>
+
+<style>
+    :root {
+        --main-color: #4a76a8;
+    }
+
+    .bg-main-color {
+        background-color: var(--main-color);
+    }
+
+    .text-main-color {
+        color: var(--main-color);
+    }
+
+    .border-main-color {
+        border-color: var(--main-color);
+    }
+    .form-title{
+        text-align: center;
+        font-weight: bold;
+        font-size: large;
+        
+
+    }
+</style>
