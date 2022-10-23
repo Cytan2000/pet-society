@@ -11,12 +11,13 @@ import ProfilePage from './components/ProfilePage'
 import SellerProfilePage from './components/seller/SellerProfilePage'
 import SellerProfileInput from './components/seller/SellerProfileInput'
 import ForgetPage from './components/ForgetPage'
-import JobPage from './components/jobs/JobPage'
+import ViewJobPage from './components/jobs/ViewJobPage'
 import CreateNewJob from './components/jobs/CreateNewJob'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase,ref,set } from "firebase/database";
 import { getStorage } from 'firebase/storage';
+
 
 // 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -61,7 +62,7 @@ const router = createRouter({
         { path: "/seller/profile", component: SellerProfilePage},
         { path: "/seller/profileinput", component: SellerProfileInput},
         { path: "/login", component: LoginPage},
-        { path: "/jobs/View", component:JobPage},
+        { path: "/jobs/View", component:ViewJobPage},
         { path: "/jobs/create",component:CreateNewJob}
      ]
 });
@@ -71,3 +72,5 @@ const app= createApp(App)
 app.use(router)
 
 app.mount('#app')
+
+
