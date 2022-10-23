@@ -20,14 +20,11 @@
             v-model="page"
           />
           <button @click="click1" >choose a photo</button>
-           <input type="file" ref="input1"
-            style="display: none"
+           <input type="file" ref="input1" 
             @change="previewImage" accept="image/*" >  
-                          
-          <img v-if="imageData!=null" class="preview" height="268" width="356" :src="img1">
+            
     <button 
             @click="submit_pet_post"
-            
             type="submit"
             id="submit_link"
             class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
@@ -41,13 +38,13 @@ import { getDatabase, ref as dbRef, set,update } from "firebase/database";
 import { getStorage, ref as StoRef, uploadBytes} from 'firebase/storage';
 
 
-function writeUserData(userId,pname,pbreed,page) {
+function writeUserData(userId,pname,pbreed,page,petphoto) {
   const db = getDatabase();
-  update(ref(db, 'users/' + userId), {
+  update(dbRef(db, 'users/' + userId), {
     petname: pname,
     petbreed: pbreed,
     petage: page,
-    
+    petphoto: petphoto,
   });
 }
 
@@ -57,16 +54,16 @@ export default {
       pname:"",
       pbreed:"",
       page:"",
-      selectedFile:"",
+      imageData:"",
     }
   },
   methods:{
     submit_pet_post() {
         const auth = getAuth();
         const user = auth.currentUser;
-        console.log(this.pname,this.pbreed,this.page);
-        writeUserData(user.uid,this.pname,this.pbreed,this.page);
-        this.create();
+        console.log(this.pname,this.pbreed,this.page,this.imageData.name);
+        writeUserData(user.uid,this.pname,this.pbreed,this.page,this.imageData.name);
+        
 
   },
   previewImage(event) {
