@@ -37,8 +37,9 @@
 
 <script>
 import { getAuth }  from "firebase/auth";
-import { getStorage,getDatabase, ref, set,update } from "firebase/database";
-import 'firebase/storage';
+import { getDatabase, ref as dbRef, set,update } from "firebase/database";
+import { getStorage, ref as StoRef, uploadBytes} from 'firebase/storage';
+
 
 function writeUserData(userId,pname,pbreed,page) {
   const db = getDatabase();
@@ -77,20 +78,15 @@ export default {
 click1() {
   this.$refs.input1.click()   
 },
-  onUpload(){
-  this.img1=null;
-  const storageRef=firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
-  storageRef.on(`state_changed`,snapshot=>{
-  this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-    }, error=>{console.log(error.message)},
-  ()=>{this.uploadValue=100;
-      storageRef.snapshot.ref.getDownloadURL().then((url)=>{
-          this.img1 =url;
-          console.log(this.img1)
-        });
-      }      
-    );
- },create () {
+onUpload(){
+const storage = getStorage();
+this.img1=null;
+const storageRef=StoRef(storage,`Buyers/${this.imageData.name}`)
+uploadBytes(storageRef,this.imageData).then(function(snapshot){
+          console.log("Uploaded a file");
+      })
+},
+create () {
       
       const post = {
         photo: this.img1,
