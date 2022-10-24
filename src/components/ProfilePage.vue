@@ -36,7 +36,7 @@
                             src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
                             alt="">
                     </div>
-                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">Jane Doe</h1>
+                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1" >Hi</h1>
                     <h3 class="text-gray-600 font-lg text-semibold leading-6">Owner at Her Company Inc.</h3>
                     <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
                         consectetur adipisicing elit.
@@ -234,9 +234,8 @@
 <script>
 import AddPet from "./AddPet.vue";
 import BaseDialog from "./UI/BaseDialog.vue";
-
-
-
+import { getDatabase, ref } from "firebase/database";
+import { getAuth }  from "firebase/auth";
 
 export default ({
   components: { AddPet,BaseDialog },
@@ -248,7 +247,22 @@ export default ({
     methods:{
         confirmDialogMsg(){
             this.showDialog=false
-        }
+        },
+        getData (){
+            console.log("ok")
+            const db=getDatabase();
+            const auth = getAuth();
+            const user = auth.currentUser;
+            const userRef = db.ref('users/'+user.uid);
+            userRef.orderByValue().on('value', (snapshot)  =>{
+            snapshot.forEach((data) => {
+            console.log('The ' + data.key + ' dinosaur\'s score is ' + data.val());
+  });
+});
+  }
+    },
+    mounted(){
+        this.getData();
     }
 })
 </script>
