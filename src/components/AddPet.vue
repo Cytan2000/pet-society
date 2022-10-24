@@ -22,7 +22,7 @@
           <button @click="click1" >choose a photo</button>
            <input type="file" ref="input1" 
             @change="previewImage" accept="image/*" >  
-            
+
     <button 
             @click="submit_pet_post"
             type="submit"
@@ -48,6 +48,7 @@ function writeUserData(userId,pname,pbreed,page,petphoto) {
   });
 }
 
+
 export default {
   data(){
     return{
@@ -61,14 +62,13 @@ export default {
     submit_pet_post() {
         const auth = getAuth();
         const user = auth.currentUser;
-        console.log(this.pname,this.pbreed,this.page,this.imageData.name);
+        console.log(this.pname,this.pbreed,this.page,this.imageData);
         writeUserData(user.uid,this.pname,this.pbreed,this.page,this.imageData.name);
         
 
   },
   previewImage(event) {
   this.uploadValue=0;
-  this.img1=null;
   this.imageData = event.target.files[0];
   this.onUpload()
 },
@@ -78,7 +78,7 @@ click1() {
 onUpload(){
 const storage = getStorage();
 this.img1=null;
-const storageRef=StoRef(storage,`Buyers/${this.imageData.name}`)
+const storageRef=StoRef(storage,`Images/${this.imageData.name}`)
 uploadBytes(storageRef,this.imageData).then(function(snapshot){
           console.log("Uploaded a file");
       })
@@ -97,10 +97,13 @@ create () {
       .catch(err => {
         console.log(err)
       })
-    }
+  },
+  
+  
   
 }
-}			
+}
+
 </script>
 
 <style>
