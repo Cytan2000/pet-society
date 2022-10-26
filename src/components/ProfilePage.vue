@@ -237,6 +237,7 @@ import BaseDialog from "./UI/BaseDialog.vue";
 import { getDatabase, ref } from "firebase/database";
 import { getAuth }  from "firebase/auth";
 
+
 export default ({
   components: { AddPet,BaseDialog },
     data() {

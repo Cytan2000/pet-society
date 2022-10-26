@@ -71,6 +71,8 @@ const router = createRouter({
 
 const app= createApp(App)
 
+app.config.globalProperties.loginDetails = 'login'
+
 app.use(router)
 
 app.mount('#app')

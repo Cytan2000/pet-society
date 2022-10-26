@@ -95,10 +95,16 @@ const isLoggedIn = ref(false);
 const auth = getAuth();
 
 
+
+
+
+
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log(user);
+      localStorage.setItem("userCredential",JSON.stringify(user));
+
       isLoggedIn.value = true;
     } else {
       isLoggedIn.value = false;
@@ -112,6 +118,7 @@ const signIn = () => {
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       console.log("Successfully signed in!");
+      console.log(userCredential);
       router.push("/home");
     })
     .catch((error) => {
@@ -150,8 +157,9 @@ const signInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
+      router.push("/home");
 
-      console.log(credential, token, user);
+
     })
     .catch((error) => {
       const errorCode = error.code;
