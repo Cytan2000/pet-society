@@ -24,7 +24,7 @@
     </template>
   </base-dialog>
 <div class="bg-gray-100">
-    
+    <div>{{usercreds}}</div>
     <div class="container mx-auto my-5 p-5">
         <div class="md:flex no-wrap md:-mx-2 ">
             <!-- Left Side -->
@@ -234,7 +234,7 @@
 <script>
 import AddPet from "./AddPet.vue";
 import BaseDialog from "./UI/BaseDialog.vue";
-import { getDatabase, ref } from "firebase/database";
+import { getDatabase, onValue, ref } from "firebase/database";
 import { getAuth }  from "firebase/auth";
 
 
@@ -242,7 +242,8 @@ export default ({
   components: { AddPet,BaseDialog },
     data() {
         return{
-            showDialog:false
+            showDialog:false,
+            usercreds:"test",
         }
     },
     methods:{
@@ -251,15 +252,22 @@ export default ({
         },
         getData (){
             console.log("ok")
+            this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+            console.log(this.usercreds)
             const db=getDatabase();
-            const auth = getAuth();
-            const user = auth.currentUser;
-            const userRef = db.ref('users/'+user.uid);
-            userRef.orderByValue().on('value', (snapshot)  =>{
+            const userRef = ref(db,'users/'+this.usercreds.uid);
+            onValue(userRef, (snapshot)=>{
+                const data = snapshot.val();
+                console.log(data)
+            })
+            userRef.on('value', (snapshot)  =>{
             snapshot.forEach((data) => {
             console.log('The ' + data.key + ' dinosaur\'s score is ' + data.val());
-  });
-});
+  }
+  );
+}
+
+);
   }
     },
     mounted(){
