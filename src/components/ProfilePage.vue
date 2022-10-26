@@ -260,15 +260,7 @@ export default ({
                 const data = snapshot.val();
                 console.log(data)
             })
-            userRef.on('value', (snapshot)  =>{
-            snapshot.forEach((data) => {
-            console.log('The ' + data.key + ' dinosaur\'s score is ' + data.val());
-  }
-  );
-}
-
-);
-  }
+        }
     },
     mounted(){
         this.getData();
