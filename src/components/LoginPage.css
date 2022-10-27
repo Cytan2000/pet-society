@@ -1,0 +1,22 @@
+.link-underline:link {
+    color: red;
+    text-decoration: underline;
+  }
+  
+  /* visited link */
+.link-underline:visited {
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  /* mouse over link */
+.link-underline:hover {
+    color: hotpink;
+    text-decoration: underline;
+  }
+  
+  /* selected link */
+.link-underline:active {
+    color: blue;
+    text-decoration: underline;
+  }

@@ -95,7 +95,6 @@ if(user !==null){
   const displayName = user.displayName;
   const email = user.email;
   const picture = user.photoURL;
-  console.log(picture);
 }else{
   const picture = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 }
@@ -104,7 +103,6 @@ if(user !==null){
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log(user);
       isLoggedIn.value = true;
     } else {
       isLoggedIn.value = false;
@@ -114,8 +112,8 @@ onMounted(() => {
 
   
   const navigation = [
-    { name: 'Dashboard', href: '#', current: true, },
-    { name: 'Home', href: '/home', current: false },
+    { name: 'Home', href: '/home', current: true, },
+    { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
   ]

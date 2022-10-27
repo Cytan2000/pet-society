@@ -1,3 +1,7 @@
+<style>
+  @import './LoginPage.css';
+</style>
+
 <template>
   <body class="bg-gray-10">
     <div class="flex justify-center h-screen w-screen items-center">
@@ -68,6 +72,9 @@
           </button>
         </div>
         <div>
+          Dont have an Account? Sign up <a href="./Register" class="link-underline">here</a>
+        </div>
+        <div>
           <p v-if="errMsg && !isLoggedIn" >{{ errMsg }}</p>
         </div>
       </div>
@@ -95,10 +102,16 @@ const isLoggedIn = ref(false);
 const auth = getAuth();
 
 
+
+
+
+
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log(user);
+      localStorage.setItem("userCredential",JSON.stringify(user));
+
       isLoggedIn.value = true;
     } else {
       isLoggedIn.value = false;
@@ -112,7 +125,8 @@ const signIn = () => {
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       console.log("Successfully signed in!");
-      router.push("/");
+      console.log(userCredential);
+      router.push("/home");
     })
     .catch((error) => {
       console.log(error.code);
@@ -150,8 +164,9 @@ const signInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
+      router.push("/home");
 
-      console.log(credential, token, user);
+
     })
     .catch((error) => {
       const errorCode = error.code;
