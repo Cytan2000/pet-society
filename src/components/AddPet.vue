@@ -25,6 +25,7 @@
 
     <button 
             @click="submit_pet_post"
+            
             type="submit"
             id="submit_link"
             class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
@@ -56,6 +57,7 @@ export default {
       pbreed:"",
       page:"",
       imageData:"",
+      petuid:"",
     }
   },
   methods:{
@@ -64,7 +66,9 @@ export default {
         const user = auth.currentUser;
         console.log(this.pname,this.pbreed,this.page,this.imageData);
         writeUserData(user.uid,this.pname,this.pbreed,this.page,this.imageData.name);
-        
+        this.onUpload()
+        this.petuid= $uuid.v4();
+        console.log(this.uid);
 
   },
   previewImage(event) {

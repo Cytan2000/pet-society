@@ -1,3 +1,7 @@
+<style>
+  @import './LoginPage.css';
+</style>
+
 <template>
   <body class="bg-gray-10">
     <div class="flex justify-center h-screen w-screen items-center">
@@ -66,6 +70,9 @@
           >
             Sign In with Google
           </button>
+        </div>
+        <div>
+          Dont have an Account? Sign up <a href="./Register" class="link-underline">here</a>
         </div>
         <div>
           <p v-if="errMsg && !isLoggedIn" >{{ errMsg }}</p>

@@ -6,12 +6,13 @@
         <h1 class="text-center text-2xl font-bold text-gray-600 mb-6">Register</h1>
         <!-- Display Name-->
         <div class="w-3/4 mb-6">
+          Username
           <input
             type="text"
             name="username"
             id="username"
             class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
-            placeholder="Display Name"
+            placeholder="Username"
             v-model="username"
           />
         </div>
