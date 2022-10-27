@@ -71,7 +71,7 @@
             Sign In with Google
           </button>
         </div>
-        <div>
+        <div v-if="!isLoggedIn">
           Dont have an Account? Sign up <a href="./Register" class="link-underline">here</a>
         </div>
         <div>

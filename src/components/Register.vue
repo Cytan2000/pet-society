@@ -3,7 +3,7 @@
     <div class="flex justify-center h-screen w-screen items-center">
       <div class="w-full md:w-1/2 flex flex-col items-center">
         <!-- text login -->
-        <h1 class="text-center text-2xl font-bold text-gray-600 mb-6">Register</h1>
+        <h1 class="text-center text-2xl font-bold text-gray-600 mb-6">Create an account</h1>
         <!-- Display Name-->
         <div class="w-3/4 mb-6">
           Username
@@ -18,6 +18,7 @@
         </div>
         <!-- firstname -->
         <div class="w-3/4 mb-6">
+          First Name
           <input
             type="text"
             name="fname"
@@ -29,6 +30,7 @@
         </div>
         <!-- lastname -->
         <div class="w-3/4 mb-6">
+          Last Name
           <input
             type="text"
             name="lname"
@@ -41,6 +43,7 @@
 
         <!-- email input -->
         <div class="w-3/4 mb-6">
+          Email
           <input
             type="email"
             name="email"
@@ -52,6 +55,7 @@
         </div>
         <!-- password input -->
         <div class="w-3/4 mb-6">
+          Password
           <input
             type="password"
             name="password"
@@ -61,6 +65,10 @@
             v-model="password"
           />
         </div>
+        <div>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+      </div>
         <div class="w-3/4 mt-4">
           <button
             @click="register"
@@ -99,6 +107,7 @@ const register = () => {
         firstname: firstname.value,
         lastname: lastname.value
       });
+      console.log(checkedNames)
       console.log("Successfully registered!");
       router.push("/home");
     })
@@ -108,3 +117,4 @@ const register = () => {
     });
 };
 </script>
+

@@ -35,17 +35,21 @@
 
 <script>
 import { getAuth }  from "firebase/auth";
-import { getDatabase, ref as dbRef, set,update } from "firebase/database";
+import { getDatabase, ref as dbRef, set,update,push,child } from "firebase/database";
 import { getStorage, ref as StoRef, uploadBytes} from 'firebase/storage';
 
 
 function writeUserData(userId,pname,pbreed,page,petphoto) {
   const db = getDatabase();
-  update(dbRef(db, 'users/' + userId), {
+  var newPetkey = push(child(dbRef(db), 'pets')).key;
+  var petid=newPetkey;
+    update(dbRef(db, 'pets/' + petid), {
     petname: pname,
     petbreed: pbreed,
     petage: page,
-    petphoto: petphoto,
+  });
+  update(dbRef(db, 'users/' + userId), {
+    petid:petid
   });
 }
 
@@ -57,24 +61,23 @@ export default {
       pbreed:"",
       page:"",
       imageData:"",
-      petuid:"",
+      
     }
   },
   methods:{
     submit_pet_post() {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        console.log(this.pname,this.pbreed,this.page,this.imageData);
-        writeUserData(user.uid,this.pname,this.pbreed,this.page,this.imageData.name);
-        this.onUpload()
-        this.petuid= $uuid.v4();
-        console.log(this.uid);
+        var usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        var userId= usercreds.uid
+        writeUserData(userId,this.pname,this.pbreed,this.page,this.imageData.name);
+        // this.onUpload();
+       
+        
 
   },
   previewImage(event) {
   this.uploadValue=0;
   this.imageData = event.target.files[0];
-  this.onUpload()
+  
 },
 click1() {
   this.$refs.input1.click()   
