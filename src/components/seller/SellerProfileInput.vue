@@ -81,7 +81,6 @@
     </div>
 </div> 
 <img id="myimg" src="" alt="">
-<button @click="retrieve_image()">retrieve image</button>
 </template>
 
 <script>
