@@ -31,9 +31,10 @@
                 <!-- Profile Card -->
                 <div class="bg-white p-3 border-t-4 border-green-400">
                     <div class="image overflow-hidden">
-                        <img class="h-auto w-full mx-auto"
-                            src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
-                            alt="">
+                        <img class="h-auto w-full mx-auto" id="myimg"
+                            src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
+                            alt=""
+                            />
                     </div>
                     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">Jane Doe</h1>
                     <h3 class="text-gray-600 font-lg text-semibold leading-6">Owner at Her Company Inc.</h3>
@@ -180,5 +181,38 @@
         </div>
     </div>
 </div>
-
 </template>
+<script>
+import { getAuth} from "firebase/auth";
+import { getStorage, ref as storageref,getDownloadURL, uploadBytes} from "firebase/storage";
+export default {
+    data() {
+      return {
+      }
+    },
+    methods: {
+      //this is the function to retrieve image
+      retrieve_image(){
+      this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+      const storage = getStorage();
+      const userid = this.usercreds.uid
+      const imagename = 'Seller/' + userid
+      const imagesRef = storageref(storage, imagename);
+      getDownloadURL(imagesRef)
+        .then((url) => {
+          // this retrieves the image and inserts it into the img tag
+          const img = document.getElementById('myimg');
+          img.setAttribute('src', url);
+        })
+        .catch((error) => {
+          // Handle any errors
+          console.log('image not found')
+        });
+      }
+    }
+    ,mounted(){
+        this.retrieve_image();
+    }
+}
+</script>
+
