@@ -109,7 +109,7 @@ const auth = getAuth();
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log(user);
+        // console.log(user);
       localStorage.setItem("userCredential",JSON.stringify(user));
 
       isLoggedIn.value = true;
@@ -150,8 +150,9 @@ const signIn = () => {
 const getout = () => {
   signOut(auth)
     .then(() => {
+      window.localStorage.clear();
       console.log("Successfully Signed Out");
-      router.push("/");
+      router.push("/login");
     })
     .catch((error) => {
       console.log(error.code);

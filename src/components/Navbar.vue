@@ -40,7 +40,7 @@
               <div>
                 <MenuButton class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span class="sr-only">Open user menu </span>
-                  <img class="h-8 w-8 rounded-full" :src="picture" alt="" />
+                  <img class="h-8 w-8 rounded-full" src="" alt="" id="profileimg" referrerpolicy="no-referrer"/>
                 </MenuButton>
               </div>
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -75,29 +75,25 @@
     </Disclosure>
   </template>
   
-  <script setup>
+
+
+
+<script setup>
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
   import { getAuth, onAuthStateChanged } from "firebase/auth";
   import { onMounted, ref } from "vue";
 
+// const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
+// "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
 
-const picture="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+
 
 const auth = getAuth();
 const user = auth.currentUser;
 const isLoggedIn = ref(false);
 
-
-
-if(user !==null){
-  const displayName = user.displayName;
-  const email = user.email;
-  const picture = user.photoURL;
-}else{
-  const picture = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-}
 
 
 onMounted(() => {
@@ -108,6 +104,8 @@ onMounted(() => {
       isLoggedIn.value = false;
     }
   });
+
+
 });
 
   
@@ -117,4 +115,38 @@ onMounted(() => {
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
   ]
-  </script>
+
+
+</script>
+
+
+<script>
+export default {
+  data(){
+    return{
+
+    }
+  },methods:{
+    getProfilePic(){
+      try{
+      const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
+      console.log(image);
+      
+      const img = document.getElementById("profileimg");
+      img.setAttribute('src',image)
+      console.log(image);
+      }catch(error){
+        const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+        const img = document.getElementById("profileimg");
+        img.setAttribute('src',image)
+      }
+    }
+  },
+
+  mounted(){
+    this.getProfilePic();
+  }
+}
+
+
+</script>
