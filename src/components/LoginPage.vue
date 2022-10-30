@@ -35,7 +35,7 @@
         <!-- remember input -->
         <div class="w-3/4 flex flex-row justify-between" v-if="!isLoggedIn">
           <div class="flex items-center gap-x-1">
-            <input type="checkbox" name="remember" id="" class="w-4 h-4"/>
+            <input type="checkbox" name="remember" id="" class="w-4 h-4" checked/>
             <label for="" class="text-sm text-slate-400">Remember me</label>
           </div>
           <div>
