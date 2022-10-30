@@ -39,7 +39,7 @@ import { getDatabase, ref as dbRef, set,update,push,child } from "firebase/datab
 import { getStorage, ref as StoRef, uploadBytes} from 'firebase/storage';
 
 
-function writeUserData(userId,pname,pbreed,page,petphoto) {
+function writeData(userId,pname,pbreed,page,petphoto) {
   const db = getDatabase();
   var newPetkey = push(child(dbRef(db), 'pets')).key;
   var petid=newPetkey;
@@ -47,6 +47,7 @@ function writeUserData(userId,pname,pbreed,page,petphoto) {
     petname: pname,
     petbreed: pbreed,
     petage: page,
+    petphoto: petphoto,
   });
   update(dbRef(db, 'users/' + userId), {
     petid:petid
@@ -68,8 +69,8 @@ export default {
     submit_pet_post() {
         var usercreds = JSON.parse(localStorage.getItem("userCredential"));
         var userId= usercreds.uid
-        writeUserData(userId,this.pname,this.pbreed,this.page,this.imageData.name);
-        // this.onUpload();
+        writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name);
+        this.onUpload();
        
         
 
@@ -88,6 +89,7 @@ this.img1=null;
 const storageRef=StoRef(storage,`Images/${this.imageData.name}`)
 uploadBytes(storageRef,this.imageData).then(function(snapshot){
           console.log("Uploaded a file");
+          
       })
 },
 create () {
