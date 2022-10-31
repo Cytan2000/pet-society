@@ -34,8 +34,14 @@
                             src=""
                             alt=""
                             />
+                
+                Change Profile Photo
+                <input type="file"  id="imagefileid" name="filename">
+                <button @click="upload_image()">Upload Image</button>
+                
+                
                     </div>
-                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">Jane Doe</h1>
+                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{fname + " " + lname}}</h1>
                     <h3 class="text-gray-600 font-lg text-semibold leading-6">Owner at Her Company Inc.</h3>
                     <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
                         consectetur adipisicing elit.
@@ -70,7 +76,8 @@
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </span>
-                        <span class="tracking-wide">About</span>
+                        <span class="tracking-wide">About (click to edit profile)</span>
+                
                     </div>
                     <div class="text-gray-700">
                         <div class="grid md:grid-cols-2 text-sm">
@@ -187,7 +194,7 @@
 <script>
 import { getAuth} from "firebase/auth";
 import {getDatabase, ref as pref, child, get, update} from "firebase/database"
-import { getStorage, ref as storageref,getDownloadURL} from "firebase/storage";
+import { getStorage, ref as storageref,getDownloadURL, uploadBytes} from "firebase/storage";
 export default {
     data() {
       return {
@@ -258,12 +265,25 @@ export default {
         address: this.address
             })
         console.log("successfully updated")
-
         //refresh page!
         
 
 
 
+        },
+        //this function is for the uploading of the new profile picture
+    upload_image(){
+        const storage = getStorage();
+        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const userid = this.usercreds.uid
+        const imagename = 'Seller/' + userid
+        const imagesRef = storageref(storage, imagename);
+        //this will retrieve the image file from the upload
+        const selectedFile = document.getElementById('imagefileid').files[0];
+        uploadBytes(imagesRef, selectedFile).then((snapshot) => {
+            console.log('successfuly uploaded');
+            location.reload();
+        });
         }
     },
     created(){

@@ -85,7 +85,7 @@
 
 <script>
   import { getAuth} from "firebase/auth";
-  import { getDatabase, set, ref as firebaseref, update } from "firebase/database";
+  import { getDatabase, ref as firebaseref, update } from "firebase/database";
   import { getStorage, ref as storageref,getDownloadURL, uploadBytes} from "firebase/storage";
   
   // this is the function to update the existing user data
@@ -123,7 +123,7 @@
       //this will retrieve the image file from the upload
       const selectedFile = document.getElementById('imagefileid').files[0];
       uploadBytes(imagesRef, selectedFile).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
+        console.log('successfuly uploaded');
       });
       },
       
