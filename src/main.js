@@ -40,22 +40,7 @@ initializeApp(firebaseConfig);
 
 //here is the configuration for cloud storage
 const storageapp = initializeApp(firebaseConfig);
-// Initialize Cloud Storage and get a reference to the service
-const storage = getStorage(storageapp);
 
-
-//can we delete this function?
-function writeUserData(userID,name,email){
-  const db = getDatabase(initializeApp(firebaseConfig));
-  const reference = ref(db,'users/' + userId);
-
-  set(reference,{
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  })
-
-}
 
 //routing
 const router = createRouter({

@@ -96,6 +96,7 @@ const isLoggedIn = ref(false);
 
 
 
+
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -108,12 +109,24 @@ onMounted(() => {
 
 });
 
+  console.log(localStorage.acctype)
+
+
+  //this is for the redirection of the profile page, depending on whether the person logged in is
+  //a seller or buyer
+  if (localStorage.acctype==="seller"){
+    var profilehref = "/seller/profile"
+  }
+  else{
+    var profilehref = "/addpet";
+  }
   
   const navigation = [
     { name: 'Home', href: '/home', current: true, },
     { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
+    { name: 'Profile', href: profilehref, current: false }
   ]
 
 
@@ -131,7 +144,7 @@ export default {
       try{
       const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
       console.log(image);
-      
+
       const img = document.getElementById("profileimg");
       img.setAttribute('src',image)
       console.log(image);

@@ -82,7 +82,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, getAdditionalUserInfo, signOut } from "firebase/auth";
 import { getDatabase, set, ref as firebaseref } from "firebase/database";
 import { useRouter } from "vue-router";
 import { app } from "../main.js";
@@ -106,11 +106,22 @@ const register = () => {
         email: email.value,
         firstname: firstname.value,
         lastname: lastname.value
+      
       });
-      //console.log(checkedNames)
-      console.log("Successfully registered!");
-      router.push("/home");
+      //after account creation is successful, redirect to the login page
+      signOut(getAuth())
+      .then(() => {
+        console.log("Successfully registered!");
+        window.localStorage.clear();
+        router.push("/login");
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
+      router.push("/login");
     })
+
+    //if cannot create account
     .catch((error) => {
       console.log(error.code);
       console.log("cannot create account")

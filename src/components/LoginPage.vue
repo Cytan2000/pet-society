@@ -113,7 +113,7 @@ import {
 import { useRouter } from "vue-router";
 const email = ref("");
 const password = ref("");
-const acctype = ref("");
+const acctype = ref("")
 const errMsg = ref(); //ERROR MESSAGE
 const router = useRouter();
 const provider = new GoogleAuthProvider();
@@ -131,6 +131,9 @@ onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       //storing the user credentials locally on clients browser
+      if (acctype.value==""){
+        acctype.value="buyer"
+      }
       localStorage.setItem("acctype", acctype.value)
       //this stores the acc type that the user chose to login in
       localStorage.setItem("userCredential",JSON.stringify(user));

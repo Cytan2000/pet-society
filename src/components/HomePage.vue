@@ -27,6 +27,7 @@
 </template>
 
 <script>
+
 import BuyerCard from './UI/buyerCard.vue'
 export default {
   components: { BuyerCard }
