@@ -65,10 +65,8 @@
             v-model="password"
           />
         </div>
-        <div>
-        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
-        <label for="jack">Jack</label>
-      </div>
+       <!-- <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label> -->
         <div class="w-3/4 mt-4">
           <button
             @click="register"
@@ -92,10 +90,12 @@ import { app } from "../main.js";
 const email = ref("");
 const username = ref("");
 const password = ref("");
-const firstname = ref("")
-const lastname = ref("")
+const firstname = ref("");
+const lastname = ref("");
 const router = useRouter();
 const database = getDatabase(app);
+
+
 
 const register = () => {
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
@@ -107,12 +107,13 @@ const register = () => {
         firstname: firstname.value,
         lastname: lastname.value
       });
-      console.log(checkedNames)
+      //console.log(checkedNames)
       console.log("Successfully registered!");
       router.push("/home");
     })
     .catch((error) => {
       console.log(error.code);
+      console.log("cannot create account")
       alert(error.message);
     });
 };
