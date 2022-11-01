@@ -35,9 +35,12 @@
               <!-- insert user profile picture here -->
               <img
                 class="h-auto w-full mx-auto"
+                
                 src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
                 alt=""
               />
+              <input type="file"  id="imagefileid" name="filename">
+                <button @click="upload_image()">Upload Image</button>
             </div>
             <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">
               {{ firstname }} {{ lastname }}
@@ -238,6 +241,7 @@ export default {
       petname: "",
       petbreed: "",
       petid: "",
+
     };
   },
   methods: {
@@ -246,19 +250,24 @@ export default {
     },
     getData() {
       const usercreds = JSON.parse(localStorage.getItem("userCredential"));
-      console.log(usercreds);
       const db = getDatabase();
       const userRef = ref(db, "users/" + usercreds.uid);
+      this.usercreds=usercreds;
+      
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data)
         this.firstname = data.firstname;
         this.lastname = data.lastname;
         this.petid = data.petid;
-        
+        localStorage.setItem("petid", `${data.petid}`)
       });
       
-      const petRef = ref(db, "pets/" + this.usercreds.petid);
+
+    },
+    getPetdata(){
+      const petid = localStorage.getItem("petid");
+      const db=getDatabase();
+      const petRef = ref(db, "pets/" + petid);
       onValue(petRef, (snapshot) => {
         const data = snapshot.val();
         console.log(data)
@@ -266,13 +275,15 @@ export default {
         this.petage = data.petage;
         this.petbreed = data.petbreed;
         this.petphoto = data.petphoto;
+        localStorage.setItem("petphoto",`${data.petphoto}`)
       });
     },
 
-    retrieve_image() {
+    retrieve_pet_image() {
       this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
       const storage = getStorage();
-      const imagename = "Images/" + this.petphoto;
+      var petpic=localStorage.getItem("petphoto");
+      const imagename = "Images/" + petpic;
       const imagesRef = stoRef(storage, imagename);
       getDownloadURL(imagesRef)
         .then((url) => {
@@ -285,10 +296,14 @@ export default {
           console.log("image not found");
         });
     },
+    retrieve_user_image(){
+      
+    }
   },
   mounted() {
     this.getData();
-    this.retrieve_image();
+    this.getPetdata();
+    this.retrieve_pet_image();
   },
 };
 </script>
