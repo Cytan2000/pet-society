@@ -48,23 +48,7 @@
                 v-model="password"
               />
             </div>
-            <div class="w-full mb-6">
-            <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Log in as: </h3>
-            <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                    <div class="flex items-center pl-3">
-                        <input name="acc" id="horizontal-list-radio-license" v-model="acctype" type="radio" value="buyer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="horizontal-list-radio-license" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">I'm looking for a pet sitter!</label>
-                    </div>
-                </li>
-                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                    <div class="flex items-center pl-3">
-                        <input name="acc" id="horizontal-list-radio-id" v-model="acctype" type="radio" value="seller"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="horizontal-list-radio-id" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">I want to pet sit!</label>
-                    </div>
-                </li>
-              </ul>
-        </div>
+            
             <div class="flex items-start">
               <div class="flex items-start">
                 <div class="flex items-center h-5">
@@ -126,7 +110,6 @@ import { useRouter } from "vue-router";
 import { getDatabase, ref as dbref, child, get } from "firebase/database";
 const email = ref("");
 const password = ref("");
-const acctype = ref("");
 const errMsg = ref(); //ERROR MESSAGE
 const router = useRouter();
 const provider = new GoogleAuthProvider();
@@ -143,7 +126,6 @@ onMounted(() => {
       const tableRef = dbref(getDatabase());
       get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
         if(snapshot.exists()){
-          console.log(snapshot.val());
           localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
         }else{
           console.log("No Data Available");

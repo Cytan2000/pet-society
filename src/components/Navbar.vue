@@ -83,6 +83,8 @@
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
   import { getAuth, onAuthStateChanged,signOut } from "firebase/auth";
   import { onMounted, ref } from "vue";
+  import { getDatabase, ref as dbref, child, get } from "firebase/database";
+
 
 // const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
 // "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
@@ -110,6 +112,18 @@ const getout = () => {
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      const unique_id = user.uid;
+      const tableRef = dbref(getDatabase());
+      get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
+        if(snapshot.exists()){
+          console.log(snapshot.val());
+          localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
+        }else{
+          console.log("No Data Available");
+        }
+      }).catch((error)=>{
+        console.error(error);
+      })
       isLoggedIn.value = true;
     } else {
       isLoggedIn.value = false;
@@ -119,7 +133,7 @@ onMounted(() => {
 
 });
 
-  console.log(localStorage.acctype)
+
 
 
   //this is for the redirection of the profile page, depending on whether the person logged in is
