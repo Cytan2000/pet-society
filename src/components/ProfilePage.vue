@@ -35,7 +35,7 @@
               <!-- insert user profile picture here -->
               <img
                 class="h-auto w-full mx-auto"
-                
+                id="userimg"
                 src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
                 alt=""
               />
@@ -226,7 +226,7 @@ import AddPet from "./AddPet.vue";
 import BaseDialog from "./UI/BaseDialog.vue";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import { getStorage, ref as stoRef, getDownloadURL } from "firebase/storage";
+import { getStorage, ref as stoRef, getDownloadURL,uploadBytes } from "firebase/storage";
 
 export default {
   components: { AddPet, BaseDialog },
@@ -261,7 +261,7 @@ export default {
         this.petid = data.petid;
         localStorage.setItem("petid", `${data.petid}`)
       });
-      
+      this.retrieve_user_image()
 
     },
     getPetdata(){
@@ -270,7 +270,7 @@ export default {
       const petRef = ref(db, "pets/" + petid);
       onValue(petRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data)
+        
         this.petname = data.petname;
         this.petage = data.petage;
         this.petbreed = data.petbreed;
@@ -297,9 +297,39 @@ export default {
         });
     },
     retrieve_user_image(){
-      
-    }
+        const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const storage = getStorage();
+        const userid = usercreds.uid;
+        const imagename = 'Buyers/' + userid;
+        const imagesRef = stoRef(storage, imagename);
+        
+        getDownloadURL(imagesRef)
+            .then((url) => {
+            // this retrieves the image and inserts it into the img tag
+            const img = document.getElementById('userimg');
+            img.setAttribute('src', url);
+            })
+            .catch((error) => {
+            // Handle any errors
+            console.log('image not found')
+            img.setAttribute('src', "https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE=");
+            });
+    },
+    upload_image(){
+        const storage = getStorage();
+        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const userid = this.usercreds.uid
+        const imagename = 'Buyers/' + userid
+        const imagesRef = stoRef(storage, imagename);
+        //this will retrieve the image file from the upload
+        const selectedFile = document.getElementById('imagefileid').files[0];
+        uploadBytes(imagesRef, selectedFile).then((snapshot) => {
+            console.log('successfuly uploaded');
+            location.reload();
+        });
+        }
   },
+  
   mounted() {
     this.getData();
     this.getPetdata();

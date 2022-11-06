@@ -8,15 +8,15 @@
       <div class="back-img h-26 flex-auto md:col-span-2 col-span-3"></div>
 
 
-      <div class="text-white h-26 flex-auto md:col-span-1 col-span-3 md:order-last order-first">
+      <div class="text-white h-26 flex-auto md:col-span-1 col-span-3 md:order-last order-first ">
         <div
           class="p-4 max-w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
         >
-          <div class="space-y-6" >
-            <h5 class="text-xl font-medium text-gray-900 dark:text-white">
+          <div class="space-y-6 pb-10" >
+            <h5 class="text-xl pb-5 font-medium text-gray-900 dark:text-white">
               Sign in to Pets Society!
             </h5>
-            <div>
+            <div class="pb-1">
               <label
                 for="email"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -32,7 +32,7 @@
                 v-model="email"
               />
             </div>
-            <div>
+            <div class="pb-1">
               <label
                 for="password"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -68,6 +68,7 @@
             </div>
             <button
               @click="signIn"
+              @keyup.enter="signIn"
               type="submit"
               class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
@@ -81,7 +82,7 @@
             >
               Sign In with Google
             </button>
-            <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+            <div class="text-sm font-medium text-gray-500 dark:text-gray-300 ">
               Not registered?
               <a
                 href="./Register"
@@ -115,6 +116,12 @@ const router = useRouter();
 const provider = new GoogleAuthProvider();
 const isLoggedIn = ref(false);
 const auth = getAuth();
+
+window.addEventListener('keyup', function(event) {
+      if (event.keyCode === 13) { 
+        signIn();
+      }
+    });
 
 onMounted(() => {
   //this checks whether the user is already logged in
