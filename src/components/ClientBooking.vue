@@ -5,10 +5,10 @@
 <template>
   <div>
     <div class="grid grid-cols-3 gap-4 h-full md:flex-row">
-      <div class="h-26 flex-auto col-span-2" >
+      <div class="h-26 flex-auto md:col-span-2 col-span-3">
         <div
           href="#"
-          class="flex flex-col items-center bg-white border md:flex-row md:max-w-full  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          class="flex flex-col items-center bg-white border md:flex-row md:max-w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
         >
           <img
             class="image-sizing mx-5 my-5"
@@ -25,46 +25,38 @@
             </p>
 
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Statistics
+              Statistics
             </p>
           </div>
         </div>
-        <div class="border-t-2 border-b-2 py-5">
-            <!-- add location here -->
-            Location
+        <div class="border-t border-b py-5 ml-5">
+          <!-- add location here -->
+          Location
         </div>
-        <div>
-            About Pet Sitting For Small Pets Only (East Coast)
-Summary.
+        <div class="ml-5">
+          About Pet Sitting For Small Pets Only (East Coast) Summary. My
+          daughter (Shermaine) and I are providing pet sitting services for
+          birds only. We are both animal lovers. She works at the zoo while I
+          work in the turf club. <br /><br />
 
-My daughter (Shermaine) and I are providing pet sitting services for birds only. We are both animal lovers. She works at the zoo while I work in the turf club. <br/><br/>
-
-As a standard practice, food/cage/stand/toys have to be provided by the owner so that your pet(s) will have a similar diet and feel comfortable in a new environment. We will:
-- send video daily
-- replenish and clean up daily
-- ensure sufficient playtime
-- shower/bathe them at least once every 5 days.
-
-If you like to, our pet sitting services are customisable and on a request basis.
-
-Pick up / Drop off services are also available.
-
-
-
-Number of pets that will be watched at one time.
-
-6
+          As a standard practice, food/cage/stand/toys have to be provided by
+          the owner so that your pet(s) will have a similar diet and feel
+          comfortable in a new environment. We will: - send video daily -
+          replenish and clean up daily - ensure sufficient playtime -
+          shower/bathe them at least once every 5 days. If you like to, our pet
+          sitting services are customisable and on a request basis. Pick up /
+          Drop off services are also available. Number of pets that will be
+          watched at one time. 6
         </div>
+        <div class="py-5 border-t border-b ml-5">Area</div>
+        <div class="my-2 py-5 border-t border-b ml-5">include map here</div>
+
+        <div class="my-2 py-5 border-t border-b ml-5">Reviews</div>
       </div>
 
-
-
-      <div class="bg-blue-500 text-white h-26 flex-auto">
+      <div class="bg-blue-500 text-white h-26 flex-auto md:col-span-1 col-span-3">
         <p>Flex item 2</p>
       </div>
-
-
-
     </div>
   </div>
 </template>

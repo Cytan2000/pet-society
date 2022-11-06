@@ -55,7 +55,7 @@
                     <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log In</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }" v-if="isLoggedIn">
-                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log Out</a>
+                    <a href="/login" @click="getout" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log Out</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }" v-if="!isLoggedIn">
                     <a href="/register" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Register</a>
@@ -81,7 +81,7 @@
 <script setup>
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { getAuth, onAuthStateChanged,signOut } from "firebase/auth";
   import { onMounted, ref } from "vue";
 
 // const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
@@ -95,7 +95,17 @@ const user = auth.currentUser;
 const isLoggedIn = ref(false);
 
 
-
+const getout = () => {
+  signOut(auth)
+    .then(() => {
+      window.localStorage.clear();
+      console.log("Successfully Signed Out");
+      router.push("/login");
+    })
+    .catch((error) => {
+      console.log(error.code);
+    });
+};
 
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
