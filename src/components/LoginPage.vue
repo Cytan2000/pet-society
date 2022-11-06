@@ -123,6 +123,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useRouter } from "vue-router";
+import { getDatabase, ref as dbref, child, get } from "firebase/database";
 const email = ref("");
 const password = ref("");
 const acctype = ref("");
@@ -138,10 +139,19 @@ onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       //storing the user credentials locally on clients browser
-      if (acctype.value == "") {
-        acctype.value = "buyer";
-      }
-      localStorage.setItem("acctype", acctype.value);
+      const unique_id = user.uid;
+      const tableRef = dbref(getDatabase());
+      get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
+        if(snapshot.exists()){
+          console.log(snapshot.val());
+          localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
+        }else{
+          console.log("No Data Available");
+        }
+      }).catch((error)=>{
+        console.error(error);
+      })
+
       //this stores the acc type that the user chose to login in
       localStorage.setItem("userCredential", JSON.stringify(user));
 
