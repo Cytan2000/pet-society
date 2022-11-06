@@ -65,23 +65,6 @@
             v-model="password"
           />
         </div>
-        <div class="w-full mb-6">
-            <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Log in as: </h3>
-            <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                    <div class="flex items-center pl-3">
-                        <input name="acc" id="horizontal-list-radio-license" type="radio" value="buyer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
-                        <label for="horizontal-list-radio-license" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">I'm looking for a pet sitter!</label>
-                    </div>
-                </li>
-                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                    <div class="flex items-center pl-3">
-                        <input name="acc" id="horizontal-list-radio-id" type="radio" value="seller"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="horizontal-list-radio-id" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">I want to pet sit!</label>
-                    </div>
-                </li>
-              </ul>
-        </div>
        <!-- <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
         <label for="jack">Jack</label> -->
         <div class="w-3/4 mt-4">
@@ -109,15 +92,12 @@ const username = ref("");
 const password = ref("");
 const firstname = ref("");
 const lastname = ref("");
-const acctype = ref("");
 const router = useRouter();
 const database = getDatabase(app);
 
 
 
 const register = () => {
-  console.log(document.querySelector('input[name="acc"]:checked').value);
-  acctype.value = document.querySelector('input[name="acc"]:checked').value;
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
       const user = data.user;
@@ -125,11 +105,9 @@ const register = () => {
         username: username.value,
         email: email.value,
         firstname: firstname.value,
-        lastname: lastname.value,
-        acc_type: acctype.value,
+        lastname: lastname.value
       
       });
-      console.log(user.uid);
       //after account creation is successful, redirect to the login page
       signOut(getAuth())
       .then(() => {

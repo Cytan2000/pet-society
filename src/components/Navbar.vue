@@ -159,9 +159,9 @@ export default {
       img.setAttribute('src',image)
       console.log(image);
       }catch(error){
-        console.log(error);
-        console.log(image);
-        document.getElementById("profileimg").setAttribute('src',"https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+        const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+        const img = document.getElementById("profileimg");
+        img.setAttribute('src',image)
       }
     }
   },
