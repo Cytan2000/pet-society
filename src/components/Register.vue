@@ -157,6 +157,7 @@ const username = ref("");
 const password = ref("");
 const firstname = ref("");
 const lastname = ref("");
+const acctype = ref("");
 const router = useRouter();
 const database = getDatabase(app);
 
@@ -167,6 +168,8 @@ window.addEventListener('keyup', function(event) {
     });
 
 const register = () => {
+  console.log(document.querySelector('input[name="acc"]:checked').value);
+  acctype.value = document.querySelector('input[name="acc"]:checked').value;
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
       const user = data.user;
@@ -175,8 +178,10 @@ const register = () => {
         email: email.value,
         firstname: firstname.value,
         lastname: lastname.value,
+        acc_type: acctype.value,
       });
       //after account creation is successful, redirect to the login page
+      console.log(user.uid);
       signOut(getAuth())
         .then(() => {
           console.log("Successfully registered!");

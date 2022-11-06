@@ -249,7 +249,7 @@ export default {
       this.showDialog = false;
     },
     getData() {
-      const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+      const usercreds = JSON.parse(localStorage.getItem("db_data"));
       const db = getDatabase();
       const userRef = ref(db, "users/" + usercreds.uid);
       this.usercreds=usercreds;
@@ -280,7 +280,7 @@ export default {
     },
 
     retrieve_pet_image() {
-      this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+      this.usercreds = JSON.parse(localStorage.getItem("db_data"));
       const storage = getStorage();
       var petpic=localStorage.getItem("petphoto");
       const imagename = "Images/" + petpic;
@@ -297,7 +297,7 @@ export default {
         });
     },
     retrieve_user_image(){
-        const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const usercreds = JSON.parse(localStorage.getItem("db_data"));
         const storage = getStorage();
         const userid = usercreds.uid;
         const imagename = 'Buyers/' + userid;
@@ -317,7 +317,7 @@ export default {
     },
     upload_image(){
         const storage = getStorage();
-        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        this.usercreds = JSON.parse(localStorage.getItem("db_data"));
         const userid = this.usercreds.uid
         const imagename = 'Buyers/' + userid
         const imagesRef = stoRef(storage, imagename);

@@ -210,7 +210,7 @@ export default {
     methods: {
       //this is the function to retrieve image
       retrieve_image(){
-        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        this.usercreds = JSON.parse(localStorage.getItem("db_data"));
         const storage = getStorage();
         const userid = this.usercreds.uid
         const imagename = 'Seller/' + userid
@@ -229,7 +229,7 @@ export default {
       },
       //this function will get the seller profile data from the database
       getProfileData(){
-        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        this.usercreds = JSON.parse(localStorage.getItem("db_data"));
         const userid = this.usercreds.uid
         const dbRef = pref(getDatabase());
         console.log(this.bday)
@@ -252,7 +252,7 @@ export default {
       },
       //this function will be called when there is any change to the data in the profile page
       modifyProfile(){
-        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        this.usercreds = JSON.parse(localStorage.getItem("db_data"));
         const userid = this.usercreds.uid
         const db = getDatabase();
         update(pref(db, 'users/' + userid), {
@@ -274,7 +274,7 @@ export default {
         //this function is for the uploading of the new profile picture
     upload_image(){
         const storage = getStorage();
-        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        this.usercreds = JSON.parse(localStorage.getItem("db_data"));
         const userid = this.usercreds.uid
         const imagename = 'Seller/' + userid
         const imagesRef = storageref(storage, imagename);

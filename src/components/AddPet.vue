@@ -67,7 +67,7 @@ export default {
   },
   methods:{
     submit_pet_post() {
-        var usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        var usercreds = JSON.parse(localStorage.getItem("db_data"));
         var userId= usercreds.uid
         writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name);
         this.onUpload();

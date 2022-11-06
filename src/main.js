@@ -14,6 +14,7 @@ import ForgetPage from './components/ForgetPage'
 import ViewJobPage from './components/jobs/ViewJobPage'
 import CreateNewJob from './components/jobs/CreateNewJob'
 import AddPet from './components/AddPet'
+import SellerHomePage from "./components/seller/SellerHomePage"
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase,ref,set } from "firebase/database";
@@ -59,7 +60,8 @@ const router = createRouter({
         { path: "/login", component: LoginPage},
         { path: "/jobs/View", component:ViewJobPage},
         { path: "/jobs/create",component:CreateNewJob},
-        { path: "/AddPet", component:AddPet}
+        { path: "/AddPet", component:AddPet},
+        { path: "/sellerhome", component:SellerHomePage}
      ]
 });
 

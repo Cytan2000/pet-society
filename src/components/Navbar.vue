@@ -23,7 +23,13 @@
             </div>
             <div class="hidden sm:ml-6 sm:block">
               <!-- Navbar buttons -->
-              <div class="flex space-x-4">
+              <div v-if="account=='buyer'" class="flex space-x-4">
+                <a v-for="item in buyer_navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+              </div>
+              <div v-if="account=='seller'" class="flex space-x-4">
+                <a v-for="item in seller_navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+              </div>
+              <div v-if="account==''" class="flex space-x-4">
                 <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
               </div>
             </div>
@@ -45,7 +51,10 @@
               </div>
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <MenuItem v-slot="{ active }">
+                  <MenuItem v-slot="{ active }" v-if="!isBuyer">
+                    <a href="/seller/profile" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
+                  </MenuItem>
+                  <MenuItem v-slot="{ active }" v-if="isBuyer">
                     <a href="/profile" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
@@ -95,6 +104,20 @@
 const auth = getAuth();
 const user = auth.currentUser;
 const isLoggedIn = ref(false);
+const base_data=JSON.parse(localStorage.getItem("db_data"));
+var account=ref("");
+var isBuyer=ref("")
+
+
+if(base_data!=null){
+  account=base_data.acc_type;
+  if (account=="buyer"){
+  isBuyer.value= true
+}else if(account=="seller"){
+  isBuyer.value=false
+}
+}
+
 
 
 const getout = () => {
@@ -138,21 +161,29 @@ onMounted(() => {
 
   //this is for the redirection of the profile page, depending on whether the person logged in is
   //a seller or buyer
-  if (localStorage.acctype==="seller"){
-    var profilehref = "/seller/profile"
-  }
-  else{
-    var profilehref = "/addpet";
-  }
+ 
   
+  const buyer_navigation = [
+    { name: 'Home', href: '/home', current: true, },
+    { name: 'Pet Updates', href: '/home', current: false },
+    { name: 'About', href: '/about', current: false },
+    { name: 'Notfound', href: '*', current: false },
+    
+  ]
+  const seller_navigation = [
+    { name: 'Home', href: '/sellerhome', current: true, },
+    { name: 'Pet Updates', href: '/home', current: false },
+    { name: 'About', href: '/about', current: false },
+    { name: 'Notfound', href: '*', current: false },
+    
+  ]
   const navigation = [
     { name: 'Home', href: '/home', current: true, },
     { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
-    { name: 'Profile', href: profilehref, current: false }
+    
   ]
-
 
 </script>
 
