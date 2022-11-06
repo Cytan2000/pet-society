@@ -122,8 +122,10 @@ import {
   signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
+import { getDatabase , ref as dbref,child,get } from "firebase/database";
 import { useRouter } from "vue-router";
 const email = ref("");
+const db = getDatabase();
 const password = ref("");
 const acctype = ref("");
 const errMsg = ref(); //ERROR MESSAGE
@@ -137,8 +139,19 @@ onMounted(() => {
   //this function will be called when the user logs in or out
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      const unique_id = user.uid;
+      const tableRef = dbref(getDatabase());
+      get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
+        if(snapshot.exists()){
+          console.log(snapshot.val());
+          localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
+        }else{
+          console.log("No Data Available");
+        }
+      }).catch((error)=>{
+        console.error(error);
+      })
       //storing the user credentials locally on clients browser
-      localStorage.setItem("acctype", acctype.value);
       //this stores the acc type that the user chose to login in
       localStorage.setItem("userCredential", JSON.stringify(user));
 
@@ -150,8 +163,6 @@ onMounted(() => {
 });
 
 const signIn = () => {
-  console.log(document.querySelector('input[name="acc"]:checked').value);
-  acctype.value = document.querySelector('input[name="acc"]:checked').value;
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       console.log("Successfully signed in!");
