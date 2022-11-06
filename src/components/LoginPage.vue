@@ -53,13 +53,13 @@
             <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input name="acc" id="horizontal-list-radio-license" type="radio" value="buyer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" checked>
+                        <input name="acc" id="horizontal-list-radio-license" v-model="acctype" type="radio" value="buyer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="horizontal-list-radio-license" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">I'm looking for a pet sitter!</label>
                     </div>
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input name="acc" id="horizontal-list-radio-id" type="radio" value="seller"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <input name="acc" id="horizontal-list-radio-id" v-model="acctype" type="radio" value="seller"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="horizontal-list-radio-id" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">I want to pet sit!</label>
                     </div>
                 </li>
@@ -138,6 +138,9 @@ onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       //storing the user credentials locally on clients browser
+      if (acctype.value == "") {
+        acctype.value = "buyer";
+      }
       localStorage.setItem("acctype", acctype.value);
       //this stores the acc type that the user chose to login in
       localStorage.setItem("userCredential", JSON.stringify(user));
@@ -150,8 +153,6 @@ onMounted(() => {
 });
 
 const signIn = () => {
-  console.log(document.querySelector('input[name="acc"]:checked').value);
-  acctype.value = document.querySelector('input[name="acc"]:checked').value;
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       console.log("Successfully signed in!");
@@ -174,7 +175,6 @@ const signIn = () => {
           errMsg.value = "Email or password was incorrect";
           break;
       }
-      alert(errMsg.value);
     });
 };
 
@@ -191,8 +191,6 @@ const getout = () => {
 };
 
 const signInWithGoogle = () => {
-  console.log(document.querySelector('input[name="acc"]:checked').value);
-  acctype.value = document.querySelector('input[name="acc"]:checked').value;
   signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
