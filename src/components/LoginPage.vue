@@ -134,6 +134,12 @@ onMounted(() => {
       get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
         if(snapshot.exists()){
           localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
+          console.log(snapshot.val());
+          if(snapshot.val().acc_type == "buyer"){
+            router.push("/home");
+          }else{
+            router.push("/sellerhome");
+          }
         }else{
           console.log("No Data Available");
         }
@@ -157,7 +163,8 @@ const signIn = () => {
       console.log("Successfully signed in!");
       console.log(userCredential);
       // pls fix this routing
-      router.push("/home");
+      // if(JSON.parse(localStorage.getItem("db_data")))
+      
     })
     .catch((error) => {
       console.log(error.code);
