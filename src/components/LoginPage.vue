@@ -10,7 +10,7 @@
 
       <div class="text-white h-26 flex-auto md:col-span-1 col-span-3 md:order-last order-first ">
         <div
-          class="p-4 max-w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
+          class="p-4 max-w-full max-w-sm bg-white rounded-lg md:rounded-l-none border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
         >
           <div class="space-y-6 pb-10" >
             <h5 class="text-xl pb-5 font-medium text-gray-900 dark:text-white">

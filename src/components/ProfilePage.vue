@@ -249,9 +249,11 @@ export default {
       this.showDialog = false;
     },
     getData() {
-      const usercreds = JSON.parse(localStorage.getItem("db_data"));
+      const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+      console.log(usercreds)
       const db = getDatabase();
       const userRef = ref(db, "users/" + usercreds.uid);
+      
       this.usercreds=usercreds;
       
       onValue(userRef, (snapshot) => {
@@ -280,7 +282,7 @@ export default {
     },
 
     retrieve_pet_image() {
-      this.usercreds = JSON.parse(localStorage.getItem("db_data"));
+      this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
       const storage = getStorage();
       var petpic=localStorage.getItem("petphoto");
       const imagename = "Images/" + petpic;
@@ -297,7 +299,7 @@ export default {
         });
     },
     retrieve_user_image(){
-        const usercreds = JSON.parse(localStorage.getItem("db_data"));
+        const usercreds = JSON.parse(localStorage.getItem("userCredential"));
         const storage = getStorage();
         const userid = usercreds.uid;
         const imagename = 'Buyers/' + userid;
@@ -317,7 +319,7 @@ export default {
     },
     upload_image(){
         const storage = getStorage();
-        this.usercreds = JSON.parse(localStorage.getItem("db_data"));
+        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
         const userid = this.usercreds.uid
         const imagename = 'Buyers/' + userid
         const imagesRef = stoRef(storage, imagename);
