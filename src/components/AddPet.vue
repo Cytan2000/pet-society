@@ -22,6 +22,7 @@
           <button @click="click1" >choose a photo</button>
            <input type="file" ref="input1" 
             @change="previewImage" accept="image/*" >  
+            <p><img id="output" width="300"/></p>
 
     <button 
             @click="submit_pet_post"
@@ -76,8 +77,10 @@ export default {
 
   },
   previewImage(event) {
-  this.uploadValue=0;
-  this.imageData = event.target.files[0];
+  var image = document.getElementById('output');
+  image.src = URL.createObjectURL(event.target.files[0]);
+  // this.uploadValue=0;
+  // this.imageData = event.target.files[0];
   
 },
 click1() {
