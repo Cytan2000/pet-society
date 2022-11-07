@@ -44,6 +44,7 @@
       <div class="overflow-hidden max-h-5">
         {{this.imageData.name}}
       </div>
+      <p><img id="output" style="height:200px"/></p>
     </div>
 </div> 
 
@@ -101,10 +102,8 @@ export default {
 
   },
   previewImage(event) {
-  console.log("ok")
-  this.uploadValue=0;
-  this.imageData = event.target.files[0];
-  console.log(this.imageData)
+  var image = document.getElementById('output');
+  image.src = URL.createObjectURL(event.target.files[0]);
   
 },
 click1() {
