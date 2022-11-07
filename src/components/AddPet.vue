@@ -1,4 +1,11 @@
 <template>
+  Pet Type: 
+        <select name="animal" id="animal_type" v-model="animal_type" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500">
+          <option value="Dog">Dog</option>
+          <option value="Cat">Cat</option>
+          <option value="Kangaroo">Kangaroo</option>
+          <option value="Giraffe" selected>Giraffe</option>
+        </select>
         Pet Name<input
             type="text"
             class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
@@ -65,7 +72,7 @@ import { getDatabase, ref as dbRef, set,update,push,child } from "firebase/datab
 import { getStorage, ref as StoRef, uploadBytes} from 'firebase/storage';
 
 
-function writeData(userId,pname,pbreed,page,petphoto) {
+function writeData(userId,pname,pbreed,page,petphoto,animal_type) {
   const db = getDatabase();
   var newPetkey = push(child(dbRef(db), 'pets')).key;
   var petid=newPetkey;
@@ -74,6 +81,7 @@ function writeData(userId,pname,pbreed,page,petphoto) {
     petbreed: pbreed,
     petage: page,
     petphoto: petphoto,
+    animal_type:animal_type
   });
   update(dbRef(db, 'users/' + userId), {
     petid:petid
@@ -88,6 +96,7 @@ export default {
       pbreed:"",
       page:"",
       imageData:"",
+      animal_type:"",
       
     }
   },
@@ -95,7 +104,7 @@ export default {
     submit_pet_post() {
         var usercreds = JSON.parse(localStorage.getItem("userCredential"));
         var userId= usercreds.uid
-        writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name);
+        writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name,this.animal_type);
         this.onUpload();
        
         
@@ -103,6 +112,7 @@ export default {
   },
   previewImage(event) {
   var image = document.getElementById('output');
+  this.imageData = event.target.files[0];
   image.src = URL.createObjectURL(event.target.files[0]);
   
 },
