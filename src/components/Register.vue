@@ -23,7 +23,9 @@
           placeholder="Username"
           v-model="username"
         />
-        <input
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-1">
+            <input
           type="text"
           class="block border border-grey-light w-full p-3 rounded mb-4"
           name="fname"
@@ -31,13 +33,25 @@
           placeholder="First name"
           v-model="firstname"
         />
-        <input
+          </div>
+          <div class="col-span-1">
+            <input
           type="text"
           class="block border border-grey-light w-full p-3 rounded mb-4"
           name="lname"
           id="lname"
           placeholder="Last Name"
           v-model="lastname"
+        />
+          </div>
+        </div>
+        <input
+          type="text"
+          class="block border border-grey-light w-full p-3 rounded mb-4"
+          name="address"
+          id="address"
+          placeholder="Address"
+          v-model="address"
         />
 
         <input
@@ -158,6 +172,7 @@ const password = ref("");
 const firstname = ref("");
 const lastname = ref("");
 const acctype = ref("");
+const address = ref("")
 const router = useRouter();
 const database = getDatabase(app);
 
@@ -179,6 +194,7 @@ const register = () => {
         firstname: firstname.value,
         lastname: lastname.value,
         acc_type: acctype.value,
+        address: address.value
       });
       //after account creation is successful, redirect to the login page
       console.log(user.uid);
