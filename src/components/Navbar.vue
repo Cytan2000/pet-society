@@ -23,7 +23,13 @@
             </div>
             <div class="hidden sm:ml-6 sm:block">
               <!-- Navbar buttons -->
-              <div class="flex space-x-4">
+              <div v-if="account=='buyer'" class="flex space-x-4">
+                <a v-for="item in buyer_navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+              </div>
+              <div v-if="account=='seller'" class="flex space-x-4">
+                <a v-for="item in seller_navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+              </div>
+              <div v-if="account==''" class="flex space-x-4">
                 <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
               </div>
             </div>
@@ -40,12 +46,15 @@
               <div>
                 <MenuButton class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span class="sr-only">Open user menu </span>
-                  <img class="h-8 w-8 rounded-full" :src="picture" alt="" />
+                  <img class="h-8 w-8 rounded-full" src="" alt="" id="profileimg" referrerpolicy="no-referrer"/>
                 </MenuButton>
               </div>
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <MenuItem v-slot="{ active }">
+                  <MenuItem v-slot="{ active }" v-if="!isBuyer">
+                    <a href="/seller/profile" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
+                  </MenuItem>
+                  <MenuItem v-slot="{ active }" v-if="isBuyer">
                     <a href="/profile" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
@@ -55,7 +64,7 @@
                     <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log In</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }" v-if="isLoggedIn">
-                    <a href="/login" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log Out</a>
+                    <a href="/login" @click="getout" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" >Log Out</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }" v-if="!isLoggedIn">
                     <a href="/register" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Register</a>
@@ -75,46 +84,137 @@
     </Disclosure>
   </template>
   
-  <script setup>
+
+
+
+<script setup>
   import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
   import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import { getAuth, onAuthStateChanged,signOut } from "firebase/auth";
   import { onMounted, ref } from "vue";
+  import { getDatabase, ref as dbref, child, get } from "firebase/database";
+
+
+// const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
+// "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
 
 
-const picture="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
 
 const auth = getAuth();
 const user = auth.currentUser;
 const isLoggedIn = ref(false);
+const base_data=JSON.parse(localStorage.getItem("db_data"));
+var account=ref("");
+var isBuyer=ref("")
 
 
-
-if(user !==null){
-  const displayName = user.displayName;
-  const email = user.email;
-  const picture = user.photoURL;
-}else{
-  const picture = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+if(base_data!=null){
+  account=base_data.acc_type;
+  if (account=="buyer"){
+  isBuyer.value= true
+}else if(account=="seller"){
+  isBuyer.value=false
+}
 }
 
+
+
+const getout = () => {
+  signOut(auth)
+    .then(() => {
+      window.localStorage.clear();
+      console.log("Successfully Signed Out");
+      router.push("/login");
+    })
+    .catch((error) => {
+      console.log(error.code);
+    });
+};
 
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      const unique_id = user.uid;
+      const tableRef = dbref(getDatabase());
+      get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
+        if(snapshot.exists()){
+          console.log(snapshot.val());
+          localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
+        }else{
+          console.log("No Data Available");
+        }
+      }).catch((error)=>{
+        console.error(error);
+      })
       isLoggedIn.value = true;
     } else {
       isLoggedIn.value = false;
     }
   });
+
+
 });
 
+
+
+
+  //this is for the redirection of the profile page, depending on whether the person logged in is
+  //a seller or buyer
+ 
   
+  const buyer_navigation = [
+    { name: 'Home', href: '/home', current: true, },
+    { name: 'Pet Updates', href: '/home', current: false },
+    { name: 'About', href: '/about', current: false },
+    { name: 'Notfound', href: '*', current: false },
+    
+  ]
+  const seller_navigation = [
+    { name: 'Home', href: '/sellerhome', current: true, },
+    { name: 'Pet Updates', href: '/home', current: false },
+    { name: 'About', href: '/about', current: false },
+    { name: 'Notfound', href: '*', current: false },
+    
+  ]
   const navigation = [
     { name: 'Home', href: '/home', current: true, },
     { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
+    
   ]
-  </script>
+
+</script>
+
+
+<script>
+export default {
+  data(){
+    return{
+
+    }
+  },methods:{
+    getProfilePic(){
+      try{
+      const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
+      console.log(image);
+
+      const img = document.getElementById("profileimg");
+      img.setAttribute('src',image)
+      console.log(image);
+      }catch(error){
+        const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+        const img = document.getElementById("profileimg");
+        img.setAttribute('src',image)
+      }
+    }
+  },
+
+  mounted(){
+    this.getProfilePic();
+  }
+}
+
+
+</script>

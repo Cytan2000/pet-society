@@ -12,9 +12,8 @@
         color: var(--main-color);
     }
 
-    .border-main-color {
-        border-color: var(--main-color);
-    }
+
+    
 </style>
 
 <template>
@@ -31,11 +30,18 @@
                 <!-- Profile Card -->
                 <div class="bg-white p-3 border-t-4 border-green-400">
                     <div class="image overflow-hidden">
-                        <img class="h-auto w-full mx-auto"
-                            src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
-                            alt="">
+                        <img class="h-auto w-full mx-auto" id="myimg"
+                            src=""
+                            alt=""
+                            />
+                
+                Change Profile Photo
+                <input type="file"  id="imagefileid" name="filename">
+                <button @click="upload_image()">Upload Image</button>
+                
+                
                     </div>
-                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">Jane Doe</h1>
+                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{fname + " " + lname}}</h1>
                     <h3 class="text-gray-600 font-lg text-semibold leading-6">Owner at Her Company Inc.</h3>
                     <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
                         consectetur adipisicing elit.
@@ -70,41 +76,45 @@
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </span>
-                        <span class="tracking-wide">About</span>
+                        <span class="tracking-wide">About (click to edit profile)</span>
+                
                     </div>
                     <div class="text-gray-700">
                         <div class="grid md:grid-cols-2 text-sm">
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">First Name</div>
-                                <div class="px-4 py-2">Jane</div>
+                                <!-- <div class="px-4 py-2"></div> -->
+                                <input v-model="fname" class="px-4 py-2" type="text">
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Last Name</div>
-                                <div class="px-4 py-2">Doe</div>
+                                <input v-model="lname" class="px-4 py-2" type="text">
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Gender</div>
-                                <div class="px-4 py-2">Female</div>
+                                <select  v-model="gender" class="px-4 py-2" name="gender" id="">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Contact No.</div>
-                                <div class="px-4 py-2">+11 998001001</div>
+                                <input v-model="contact" class="px-4 py-2" type="text">
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Address</div>
-                                <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
+                                <input v-model="address" class="px-4 py-2" type="text">
                             </div>
                             <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Email.</div>
-                                <div class="px-4 py-2">
-                                    <a class="text-blue-800" href="mailto:jane@example.com">jane@example.com</a>
-                                </div>
+                                <div class="px-4 py-2 font-semibold">Contact Email</div>
+                                <input v-model="email" class="px-4 py-2" type="text">
                             </div>
                             <div class="grid grid-cols-2">
                                 <div class="px-4 py-2 font-semibold">Birthday</div>
-                                <div class="px-4 py-2">Feb 06, 1998</div>
+                                <input v-model="birthday" class="px-4 py-2" type="date">
                             </div>
                         </div>
+                        <button @click="modifyProfile()" style="background-color: #4CAF50; " class="">Update Profile</button>
                     </div>
                     
                 </div>
@@ -180,5 +190,113 @@
         </div>
     </div>
 </div>
-
 </template>
+<script>
+import { getAuth} from "firebase/auth";
+import {getDatabase, ref as pref, child, get, update} from "firebase/database"
+import { getStorage, ref as storageref,getDownloadURL, uploadBytes} from "firebase/storage";
+export default {
+    data() {
+      return {
+        fname: "",
+        lname: "",
+        gender: "",
+        address: "",
+        birthday: "",
+        contact: "",
+        email: ""
+      }
+    },
+    methods: {
+      //this is the function to retrieve image
+      retrieve_image(){
+        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const storage = getStorage();
+        const userid = this.usercreds.uid
+        const imagename = 'Seller/' + userid
+        const imagesRef = storageref(storage, imagename);
+        getDownloadURL(imagesRef)
+            .then((url) => {
+            // this retrieves the image and inserts it into the img tag
+            const img = document.getElementById('myimg');
+            img.setAttribute('src', url);
+            })
+            .catch((error) => {
+            // Handle any errors
+            console.log('image not found')
+            img.setAttribute('src', "https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE=");
+            });
+      },
+      //this function will get the seller profile data from the database
+      getProfileData(){
+        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const userid = this.usercreds.uid
+        const dbRef = pref(getDatabase());
+        console.log(this.bday)
+        get(child(dbRef, `users/${userid}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const profiledata = snapshot.val()
+                this.fname = profiledata.firstname
+                this.lname = profiledata.lastname
+                this.gender = profiledata.gender
+                this.address = profiledata.address
+                this.contact = profiledata.contact
+                this.email = profiledata.email
+                this.birthday = profiledata.birthday
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
+            });
+      },
+      //this function will be called when there is any change to the data in the profile page
+      modifyProfile(){
+        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const userid = this.usercreds.uid
+        const db = getDatabase();
+        update(pref(db, 'users/' + userid), {
+        firstname: this.fname,
+        lastname: this.lname,
+        gender: this.gender,
+        birthday: this.birthday,
+        contact: this.contact,
+        email: this.email,
+        address: this.address
+            })
+        console.log("successfully updated")
+        //refresh page!
+        
+
+
+
+        },
+        //this function is for the uploading of the new profile picture
+    upload_image(){
+        const storage = getStorage();
+        this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        const userid = this.usercreds.uid
+        const imagename = 'Seller/' + userid
+        const imagesRef = storageref(storage, imagename);
+        //this will retrieve the image file from the upload
+        const selectedFile = document.getElementById('imagefileid').files[0];
+        uploadBytes(imagesRef, selectedFile).then((snapshot) => {
+            console.log('successfuly uploaded');
+            location.reload();
+        });
+        }
+    },
+    created(){
+        this.getProfileData();
+        
+    }
+
+
+    ,mounted(){
+        this.retrieve_image();
+        
+
+    }
+}
+</script>
+

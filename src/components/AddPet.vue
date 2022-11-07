@@ -19,9 +19,35 @@
             placeholder="Pet Age"
             v-model="page"
           />
-          <button @click="click1" >choose a photo</button>
-           <input type="file" ref="input1" 
-            @change="previewImage" accept="image/*" >  
+         
+      Upload Pet Image
+            <div class="flex">
+    <div class="w-full rounded-lg">
+        <div class="">
+            <label class="inline-block mb-2 text-gray-500"></label>
+            <div class="flex items-center justify-center w-full">
+                <label
+                    class="flex flex-col w-full h-32 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                    <div class="flex flex-col items-center justify-center pt-7">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                            Attach a file</p>
+                    </div>
+                    <input type="file" ref="input1" class="opacity-0" @change="previewImage" accept="image/*"/>
+                </label>
+            </div>
+        </div>
+      <div class="overflow-hidden max-h-5">
+        {{this.imageData.name}}
+      </div>
+      <p><img id="output" style="height:200px"/></p>
+    </div>
+</div> 
+
 
     <button 
             @click="submit_pet_post"
@@ -35,17 +61,22 @@
 
 <script>
 import { getAuth }  from "firebase/auth";
-import { getDatabase, ref as dbRef, set,update } from "firebase/database";
+import { getDatabase, ref as dbRef, set,update,push,child } from "firebase/database";
 import { getStorage, ref as StoRef, uploadBytes} from 'firebase/storage';
 
 
-function writeUserData(userId,pname,pbreed,page,petphoto) {
+function writeData(userId,pname,pbreed,page,petphoto) {
   const db = getDatabase();
-  update(dbRef(db, 'users/' + userId), {
+  var newPetkey = push(child(dbRef(db), 'pets')).key;
+  var petid=newPetkey;
+    update(dbRef(db, 'pets/' + petid), {
     petname: pname,
     petbreed: pbreed,
     petage: page,
     petphoto: petphoto,
+  });
+  update(dbRef(db, 'users/' + userId), {
+    petid:petid
   });
 }
 
@@ -57,24 +88,23 @@ export default {
       pbreed:"",
       page:"",
       imageData:"",
-      petuid:"",
+      
     }
   },
   methods:{
     submit_pet_post() {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        console.log(this.pname,this.pbreed,this.page,this.imageData);
-        writeUserData(user.uid,this.pname,this.pbreed,this.page,this.imageData.name);
-        this.onUpload()
-        this.petuid= $uuid.v4();
-        console.log(this.uid);
+        var usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        var userId= usercreds.uid
+        writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name);
+        this.onUpload();
+       
+        
 
   },
   previewImage(event) {
-  this.uploadValue=0;
-  this.imageData = event.target.files[0];
-  this.onUpload()
+  var image = document.getElementById('output');
+  image.src = URL.createObjectURL(event.target.files[0]);
+  
 },
 click1() {
   this.$refs.input1.click()   
@@ -85,6 +115,7 @@ this.img1=null;
 const storageRef=StoRef(storage,`Images/${this.imageData.name}`)
 uploadBytes(storageRef,this.imageData).then(function(snapshot){
           console.log("Uploaded a file");
+          
       })
 },
 create () {
