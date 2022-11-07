@@ -6,13 +6,16 @@
     
   
   
-    <div>
+    <div v-for="seller in list1">
         <buyer-card>
+          <template v-slot:name>
+              <h1>{{seller.firstname}}</h1>
+          </template >
           <template v-slot:description>
-              <h1>gamer</h1>
+            <p>{{seller.email}}</p>
           </template>
         </buyer-card>
-        <buyer-card></buyer-card>
+        
       </div>
       <div class="md:w-max  flex justify-center md:justify-end">
         <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="image-design" />
@@ -37,11 +40,19 @@ import BuyerCard from './UI/buyerCard.vue'
 import { computed, ref, onMounted } from 'vue';
 import { useGeolocation } from "./useGeolocation";
 import { Loader } from '@googlemaps/js-api-loader';
+import { getDatabase, ref as stoRef, onValue, child } from "firebase/database";
+
+
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyCukyKCDxVUE4SitWeADOGFdaW6hWH9T20'
 
 export default {
   components: { BuyerCard },
+  data(){
+    return {
+      list1:[]
+    }
+  },
   setup() {
     const { coords } = useGeolocation()
     const currPos = computed(() => ({
@@ -59,6 +70,28 @@ export default {
       })
     })
     return { currPos, mapDiv }
+  },
+  methods:{
+    getSeller(){
+      const db = getDatabase();
+      const dbRef = stoRef(db, 'users/');
+
+      onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const childKey = childSnapshot.key;
+          const childData = childSnapshot.val();
+          if (childData["acc_type"]=="seller"){
+          this.list1.push(childData);
+          console.log(this.list1)
+          }
+  });
+}, {
+  onlyOnce: true
+});
+    }
+  },
+  mounted(){
+    this.getSeller();
   }
 }
 </script>
@@ -68,4 +101,3 @@ export default {
 
 
 
-BuyerCard

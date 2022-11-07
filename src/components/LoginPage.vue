@@ -156,6 +156,7 @@ const signIn = () => {
     .then((userCredential) => {
       console.log("Successfully signed in!");
       console.log(userCredential);
+      // pls fix this routing
       router.push("/home");
     })
     .catch((error) => {
@@ -205,4 +206,6 @@ const signInWithGoogle = () => {
       console.log(errorCode, errorMessage, email, credential);
     });
 };
+
+
 </script>
