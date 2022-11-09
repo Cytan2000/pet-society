@@ -82,7 +82,7 @@
             >
               Sign In with Google
             </button>
-            <div class="text-sm font-medium text-gray-500 dark:text-gray-300 ">
+            <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
               Not registered?
               <a
                 href="./Register"

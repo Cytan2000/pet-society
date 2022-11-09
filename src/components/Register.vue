@@ -146,9 +146,9 @@
 
       <div class="text-grey-dark mt-6">
         Already have an account?
-        <a class="no-underline border-b border-blue text-blue" href="../login/">
+        <a class="text-blue-700 hover:underline dark:text-blue-500" href="../login/">
           Log in </a
-        >.
+        >
       </div>
     </div>
   </div>
