@@ -68,8 +68,8 @@
 
 <script>
 import { getAuth }  from "firebase/auth";
-import { getDatabase, ref as dbRef, set,update,push,child } from "firebase/database";
-import { getStorage, ref as StoRef, uploadBytes} from 'firebase/storage';
+import { getDatabase, ref as dbRef, set ,update,push,child } from "firebase/database";
+import { getStorage, ref as StoRef, uploadBytes,getDownloadURL} from 'firebase/storage';
 
 
 function writeData(userId,pname,pbreed,page,petphoto,animal_type) {
@@ -123,8 +123,18 @@ onUpload(){
 const storage = getStorage();
 this.img1=null;
 const storageRef=StoRef(storage,`Images/${this.imageData.name}`)
-uploadBytes(storageRef,this.imageData).then(function(snapshot){
+uploadBytes(storageRef,this.imageData)
+.then(function(snapshot){
+      const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+      console.log(usercreds);
           console.log("Uploaded a file");
+          console.log(snapshot);
+          getDownloadURL(storageRef)
+          .then((url)=>{
+            update(dbRef(getDatabase(),"users/" + usercreds.uid),{
+              imageURL: url
+            })
+          })
           
       })
 },

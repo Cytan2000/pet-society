@@ -223,8 +223,7 @@
 <script>
 import AddPet from "./AddPet.vue";
 import BaseDialog from "./UI/BaseDialog.vue";
-import { getDatabase, onValue, ref } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getDatabase, onValue, ref, child } from "firebase/database";
 import { getStorage, ref as stoRef, getDownloadURL,uploadBytes } from "firebase/storage";
 
 export default {
@@ -289,6 +288,8 @@ export default {
       getDownloadURL(imagesRef)
         .then((url) => {
           // this retrieves the image and inserts it into the img tag
+          console.log(url);
+
           const img = document.getElementById("myimg");
           img.setAttribute("src", url);
         })
