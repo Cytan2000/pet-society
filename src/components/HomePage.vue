@@ -23,12 +23,15 @@
     <div class="grid grid-cols-3 gap-4">
       <div class="col-span-2 overflow-auto">
         <div v-for="seller in list1">
-          <buyer-card>
+          <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
-              <h1>{{ seller.firstname }}</h1>
+              <h1>{{ seller.val().Description }}</h1>
             </template>
             <template v-slot:description>
               <p>{{ seller.email }}</p>
+            </template>
+            <template v-slot:price>
+              SGD {{seller.val().Rate}}
             </template>
           </buyer-card>
         </div>
@@ -91,9 +94,9 @@ export default {
     return { currPos, mapDiv };
   },
   methods: {
-    getSeller() {
+    getBooking() {
       const db = getDatabase();
-      const dbRef = stoRef(db, "users/");
+      const dbRef = stoRef(db, "bookings/");
 
       onValue(
         dbRef,
@@ -101,10 +104,10 @@ export default {
           snapshot.forEach((childSnapshot) => {
             const childKey = childSnapshot.key;
             const childData = childSnapshot.val();
-            if (childData["acc_type"] == "seller") {
-              this.list1.push(childData);
-              console.log(this.list1);
-            }
+           
+              this.list1.push(childSnapshot);
+              console.log(childSnapshot.val())
+            
           });
         },
         {
@@ -114,7 +117,7 @@ export default {
     },
   },
   mounted() {
-    this.getSeller();
+    this.getBooking();
     var autocomplete = new google.maps.places.Autocomplete(
     document.getElementById("autocomplete"),
     );
