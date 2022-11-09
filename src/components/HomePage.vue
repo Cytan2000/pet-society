@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="col-span-1">
-        <div class="d-flex text-center" >
+        <div class="d-flex text-center">
     <div class="m-auto">
       <!-- <h4>Your Position</h4>
       Latitude: {{ currPos.lat.toFixed(2) }}, Longitude:
