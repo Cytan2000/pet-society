@@ -5,7 +5,7 @@
 <template>
   <section class="container mx-auto">
     <div class="grid grid-cols-3 gap-4">
-      <div class="col-span-2">
+      <div class="col-span-2 overflow-auto">
         <div v-for="seller in list1">
           <buyer-card>
             <template v-slot:name>
