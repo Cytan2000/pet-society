@@ -256,6 +256,7 @@ export default {
       
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
+        console.log(data.petid);
         this.firstname = data.firstname;
         this.lastname = data.lastname;
         this.petid = data.petid;
@@ -275,7 +276,6 @@ export default {
         this.petage = data.petage;
         this.petbreed = data.petbreed;
         this.petphoto = data.petphoto;
-        localStorage.setItem("petphoto",`${data.petphoto}`)
       });
     },
 

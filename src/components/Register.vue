@@ -194,7 +194,9 @@ const register = () => {
         firstname: firstname.value,
         lastname: lastname.value,
         acc_type: acctype.value,
-        address: address.value
+        address: address.value,
+        petid_array: "",
+
       });
       //after account creation is successful, redirect to the login page
       console.log(user.uid);
