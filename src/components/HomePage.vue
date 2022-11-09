@@ -4,12 +4,12 @@
 
 <template>
 
-<div class="container mt-12 form-section mx-auto px-4 font-sans">
-  <form class="shadow-md rounded-lg px-8 py-6 mb-4 border-2 border-gray-200"> 
-    <h3 class="text-xl mb-8  text-center font-bold text-red-400"> Services Near Me</h3>
+<div class="container form-section mx-auto px-4 font-sans">
+  <form class="shadow-md rounded-lg px-8 py-6 border-2 border-gray-200"> 
+    <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
       <div class="flex items-center justify-between space-x-4">
-        <input id="autocomplete" type="text" placeholder="Location" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
-        <button class="cursor-pointer mt-5 w-64 shadow bg-red-400 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-5" type="button">
+        <input id="autocomplete" type="text" placeholder="Location" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
+        <button class="cursor-pointer mt-5 w-64 shadow bg-yellow-500 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-5" type="button">
           Search
         </button>
       </div>
@@ -55,6 +55,8 @@
 </template>
 
 <script>
+
+
 import BuyerCard from "./UI/buyerCard.vue";
 import { computed, ref, onMounted } from "vue";
 import { useGeolocation } from "./useGeolocation";
