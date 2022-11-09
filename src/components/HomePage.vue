@@ -45,7 +45,7 @@ import { useGeolocation } from "./useGeolocation";
 import { Loader } from "@googlemaps/js-api-loader";
 import { getDatabase, ref as stoRef, onValue, child } from "firebase/database";
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyCukyKCDxVUE4SitWeADOGFdaW6hWH9T20";
+const GOOGLE_MAPS_API_KEY = "AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg";
 
 export default {
   components: { BuyerCard },
