@@ -20,7 +20,7 @@
 <template>
 
 <div class="container form-section mx-auto px-4 font-sans">
-  <form class="shadow-md rounded-lg px-8 py-6 border-2 border-gray-200"> 
+  <form @submit.prevent="submit" class="shadow-md rounded-lg px-8 py-6 border-2 border-gray-200"> 
     <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
       <div class="flex items-center justify-between space-x-4">
         <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
@@ -31,7 +31,7 @@
           </svg>
         </button>
       </div>
- 
+      <div class="container mt-5 text-red-400" v-show="error">{{error}}</div>
   </form>
 </div>
 
@@ -107,6 +107,7 @@ export default {
   data() {
     return {
       list1: [],
+      list2: [],
       address: "",
       error:"",
     };
@@ -134,8 +135,28 @@ export default {
         }
       );
     },
+    /* getSellersLocation() {
+      const db = getDatabase();
+      const dbRef = stoRef(db, "bookings/WorkPostal");
 
-    
+      onValue(
+        dbRef,
+        (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+           
+              this.list2.push(childSnapshot);
+              console.log(childData);
+          });
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    },
+
+    */
     locatorButtonPressed() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -160,7 +181,7 @@ export default {
       }
     },
     getAddressFrom(lat, long) {
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg")
+    axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=dAIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg")
       .then(response => {
         if (response.data.error_message) {
           this.error = response.data.error_message;
@@ -190,6 +211,7 @@ export default {
     },
   },  
   mounted() {
+    console.log(this.list2);
     navigator.geolocation.getCurrentPosition(
       function (position) {
           initMap(position.coords.latitude, position.coords.longitude);
@@ -213,6 +235,7 @@ export default {
         });
     }
     this.getBooking();
+    // this.getSellersLocation();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
     );
