@@ -165,23 +165,21 @@ onMounted(() => {
   
   const buyer_navigation = [
     { name: 'Home', href: '/home', current: true, },
-    { name: 'Pet Updates', href: '/home', current: false },
+    { name: 'Pet Updates', href: '/buyerjob', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
     
   ]
   const seller_navigation = [
     { name: 'Home', href: '/sellerhome', current: true, },
-    { name: 'Pet Updates', href: '/home', current: false },
+    { name: 'Jobs Update', href: '/sellerjob', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
     
   ]
   const navigation = [
     { name: 'Home', href: '/home', current: true, },
-    { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
-    { name: 'Notfound', href: '*', current: false },
     
   ]
 
