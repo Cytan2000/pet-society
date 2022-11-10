@@ -77,9 +77,9 @@
         <div class="my-2 py-5 border-t border-b ml-5">Reviews</div>
       </div>
 
-      <div class="flex items-end text-white h-26 flex-auto md:col-span-1 col-span-3">
+      <div class="flex flex-col mr-2 items-center border justify-end text-white h-26 flex-auto md:col-span-1 col-span-3">
        
-        <div class="">
+        <div class="align-middle">
           
           <button
           @click="showDialog = !showDialog"
