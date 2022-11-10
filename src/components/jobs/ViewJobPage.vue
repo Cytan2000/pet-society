@@ -1,6 +1,6 @@
 <template>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <base-dialog v-if="showDialog" style="height: 50%">
+    <base-dialog2 v-if="showDialog">
       <template #default>
         <!-- content -->
         <JobCreation></JobCreation>
@@ -13,7 +13,7 @@
           stroke-width="1.5"
           stroke="currentColor"
           class="w-6 h-6 cursor-pointer mx-2"
-          @click="confirmDialogMsg"
+          @click="showDialog=false"
         >
           <path
             stroke-linecap="round"
@@ -22,7 +22,7 @@
           />
         </svg>
       </template>
-    </base-dialog>
+    </base-dialog2>
     <h1>My Jobs</h1>
     <div class="mx-4" id="myjob1">
   <a href="/client" class="flex flex-row mb-5 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -154,11 +154,11 @@
 
 <script>
 import JobCreation from "../jobs/JobCreation.vue";
-import BaseDialog from "../UI/BaseDialog.vue";
+import BaseDialog2 from "../UI/BaseDialog2.vue";
 import { getStorage, ref as stoRef, getDownloadURL  } from 'firebase/storage';
 
 export default {
-  components: { JobCreation, BaseDialog },
+  components: { JobCreation, BaseDialog2 },
   data() {
     return {
       showDialog: false,

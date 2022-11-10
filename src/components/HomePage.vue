@@ -122,8 +122,6 @@ export default {
         dbRef,
         (snapshot) => {
           snapshot.forEach((childSnapshot) => {
-            const childKey = childSnapshot.key;
-            const childData = childSnapshot.val();
               this.list1.push(childSnapshot);
               
             
@@ -133,30 +131,26 @@ export default {
           onlyOnce: true,
         }
       );
-      console.log(this.list1)
+
     },
-    /* getSellersLocation() {
+    getSellersLocation() {
       const db = getDatabase();
-      const dbRef = stoRef(db, "bookings/WorkPostal");
+      const dbRef = stoRef(db, "bookings/");
 
       onValue(
         dbRef,
         (snapshot) => {
-          snapshot.forEach((childSnapshot) => {
-            const childKey = childSnapshot.key;
-            const childData = childSnapshot.val();
-           
-              this.list2.push(childSnapshot);
-              console.log(childData);
-          });
+          snapshot.forEach((childSnapshot)=>{
+            console.log(childSnapshot.val().WorkPostal);
+            this.list2.push(childSnapshot.val().WorkPostal);
+          })
+              //this.list2.push(childSnapshot);
         },
-        {
-          onlyOnce: true,
-        }
       );
+
+      console.log(this.list2);
     },
 
-    */
     locatorButtonPressed() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -236,7 +230,7 @@ export default {
         });
     }
     
-    // this.getSellersLocation();
+    this.getSellersLocation();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
     );
