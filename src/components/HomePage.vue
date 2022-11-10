@@ -24,7 +24,7 @@
     <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
       <div class="flex items-center justify-between space-x-4">
         <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
-        <button @click="locatorButtonPressed" class="w-12 h-10 mt-5 rounded bg-red-400 text-white">
+        <button @click="locatorButtonPressed" class="w-12 h-10 mt-5 rounded bg-yellow-500 text-white">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 24" stroke-width="2" stroke="currentColor" class="w-8 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
@@ -79,7 +79,29 @@ import { getDatabase, ref as stoRef, onValue, child } from "firebase/database";
 
 import axios from 'axios'
 
- 
+
+/* var query = firebase.database().ref("bookings").orderByKey();
+query.once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var workPostal = snapshot.child("bookings/workpostal").val();
+  });
+});
+
+for (var i = 0; i < workPostal.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(seller_locations[i][1], seller_locations[i][2]),
+        map: map
+      });
+      
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+*/ 
 export default {
   components: { BuyerCard },
   data() {
@@ -168,6 +190,7 @@ export default {
     },
   },  
   mounted() {
+    this.showUserLocationOnTheMap(1.3521, 103.8198);
     this.getBooking();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
