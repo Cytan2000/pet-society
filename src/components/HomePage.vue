@@ -235,7 +235,7 @@ export default {
         });
     }
     this.getBooking();
-    this.getSellersLocation();
+    // this.getSellersLocation();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
     );
