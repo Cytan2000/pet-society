@@ -108,6 +108,11 @@ function writeData(userId,pname,pbreed,page,petphoto,animal_type) {
 }
 
 
+
+
+
+
+
 export default {
   data(){
     return{
@@ -159,17 +164,11 @@ uploadBytes(storageRef,this.imageData)
           
       })
 },
-create () {
-      
-      const post = {
-        photo: this.img1,
-        caption: this.caption        
-      }
-  },
   
   
   
-}
+},
+
 }
 
 </script>

@@ -151,7 +151,7 @@
           <div class="my-4"></div>
 
           <!-- Experience and education -->
-          <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div class="bg-white p-3 shadow-sm rounded-sm" v-for="pet_id in pet_array">
             <div class="grid grid-cols-2">
               <div>
                 <div
@@ -187,7 +187,7 @@
                 <div
                   class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
                 >
-                  <span clas="text-green-500"> </span>
+                  <span class="text-green-500">{{pet_id}} </span>
                 </div>
                 <ul class="list-inside space-y-2">
                   <li>
@@ -223,7 +223,7 @@
 <script>
 import AddPet from "./AddPet.vue";
 import BaseDialog from "./UI/BaseDialog.vue";
-import { getDatabase, onValue, ref, child } from "firebase/database";
+import { getDatabase, onValue, ref, child,get } from "firebase/database";
 import { getStorage, ref as stoRef, getDownloadURL,uploadBytes } from "firebase/storage";
 
 export default {
@@ -239,9 +239,11 @@ export default {
       petname: "",
       petbreed: "",
       petid: "",
+      pet_array: [],
 
     };
   },
+
   methods: {
     confirmDialogMsg() {
       this.showDialog = false;
@@ -263,20 +265,34 @@ export default {
         localStorage.setItem("petid", `${data.petid}`)
       });
       this.retrieve_user_image()
+      
 
     },
     getPetdata(){
-      const petid = localStorage.getItem("petid");
+      const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+      const uid = usercreds.uid
+      console.log(uid);
       const db=getDatabase();
-      const petRef = ref(db, "pets/" + petid);
-      onValue(petRef, (snapshot) => {
-        const data = snapshot.val();
-        
-        this.petname = data.petname;
-        this.petage = data.petage;
-        this.petbreed = data.petbreed;
-        this.petphoto = data.petphoto;
+      const petArrayRef = ref(db,`users/${uid}`);
+      onValue(petArrayRef, (snapshot)=>{
+
+        snapshot.val().petid_array.forEach((childSnapshot)=>{
+          this.pet_array.push(childSnapshot);
+        });
       });
+
+
+
+      // const petRef = ref(db, "pets/" + petid);
+      // onValue(petRef, (snapshot) => {
+      //   const data = snapshot.val();
+        
+      //   this.petname = data.petname;
+      //   this.petage = data.petage;
+      //   this.petbreed = data.petbreed;
+      //   this.petphoto = data.petphoto;
+
+      // });
     },
 
     retrieve_pet_image() {
