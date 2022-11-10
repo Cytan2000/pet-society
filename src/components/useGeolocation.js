@@ -1,4 +1,4 @@
-/*
+
 import { onUnmounted, onMounted, ref } from "vue";
 
 export function useGeolocation() {
@@ -18,4 +18,3 @@ export function useGeolocation() {
 
     return { coords, isSupported }
 }
-*/

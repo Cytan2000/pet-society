@@ -111,7 +111,7 @@ export default {
       error:"",
     };
   },
-
+  
   methods: {
     getBooking() {
       const db = getDatabase();
@@ -190,7 +190,28 @@ export default {
     },
   },  
   mounted() {
-    this.showUserLocationOnTheMap(1.3521, 103.8198);
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+          initMap(position.coords.latitude, position.coords.longitude);
+      },
+      function errorCallback(error) {
+          console.log(error);
+      }
+    );
+    function initMap(lat, lng) {
+    var myLatLng = {
+        lat,
+        lng,
+    };
+    var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: myLatLng,
+        });
+    var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+        });
+    }
     this.getBooking();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
