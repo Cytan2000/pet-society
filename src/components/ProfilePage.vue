@@ -362,6 +362,7 @@ export default {
   },
   
   mounted() {
+    this.getData();
     this.getPetdata();
     this.retrieve_pet_image();
   },
