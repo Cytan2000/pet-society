@@ -9,11 +9,12 @@
       <h1 class="form-title">Confirm Booking?</h1>
       <div class="flex flex-row">
       <button 
+      @click="confirmDialogMsg"
       class="mx-5 mt-10 w-24 border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >Cancel</button>
       <button 
       class="mx-5 mt-10 w-24 text-white bg-yellow-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      @click="confirmDialogMsg"
+      @click="accept_job"
       
       >Yes</button>
     </div>
@@ -109,7 +110,6 @@ import BaseDialog from "./UI/BaseDialog.vue";
   methods:{
     confirmDialogMsg() {
       this.showDialog = false;
-      
 
     },
     get_data(){
@@ -123,6 +123,7 @@ import BaseDialog from "./UI/BaseDialog.vue";
       
 },
  accept_job(){
+    this.confirmDialogMsg();
     const db=getDatabase();
     const usercreds = JSON.parse(localStorage.getItem("userCredential"));
     var newJobkey = push(child(ref(db), 'accepted_job')).key;
