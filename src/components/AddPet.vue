@@ -48,10 +48,12 @@
                 </label>
             </div>
         </div>
-      <div class="overflow-hidden max-h-5">
+      <!-- <div class="overflow-hidden max-h-5">
         {{this.imageData.name}}
+      </div> -->
+      <div >
+        <img v-if="this.imageURL" :src="this.imageURL"  />
       </div>
-      <p><img id="output" style="height:200px"/></p>
     </div>
 </div> 
 
@@ -122,6 +124,7 @@ export default {
       imageData:"",
       animal_type:"",
       petid_array: [],
+      imageURL: null,
       
     }
   },
@@ -139,7 +142,7 @@ export default {
   previewImage(event) {
   var image = document.getElementById('output');
   this.imageData = event.target.files[0];
-  image.src = URL.createObjectURL(event.target.files[0]);
+  this.imageURL = URL.createObjectURL(event.target.files[0]);
   
 },
 click1() {
