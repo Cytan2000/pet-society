@@ -107,6 +107,7 @@ export default {
   data() {
     return {
       list1: [],
+      list2: [],
       address: "",
       error:"",
     };
@@ -134,8 +135,28 @@ export default {
         }
       );
     },
+    /* getSellersLocation() {
+      const db = getDatabase();
+      const dbRef = stoRef(db, "bookings/WorkPostal");
 
-    
+      onValue(
+        dbRef,
+        (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+           
+              this.list2.push(childSnapshot);
+              console.log(childData);
+          });
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    },
+
+    */
     locatorButtonPressed() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -160,7 +181,7 @@ export default {
       }
     },
     getAddressFrom(lat, long) {
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg")
+    axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=dAIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg")
       .then(response => {
         if (response.data.error_message) {
           this.error = response.data.error_message;
@@ -190,6 +211,7 @@ export default {
     },
   },  
   mounted() {
+    console.log(this.list2);
     navigator.geolocation.getCurrentPosition(
       function (position) {
           initMap(position.coords.latitude, position.coords.longitude);
@@ -213,6 +235,7 @@ export default {
         });
     }
     this.getBooking();
+    this.getSellersLocation();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
     );
