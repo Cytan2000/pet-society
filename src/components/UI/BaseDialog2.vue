@@ -69,7 +69,7 @@
   }
   
   dialog {
-    height: 50%;
+    height: 70%;
     position: fixed;
     left: 50%;
     top: 50%;

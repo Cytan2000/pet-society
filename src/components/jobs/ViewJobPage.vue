@@ -23,7 +23,7 @@
         </svg>
       </template>
     </base-dialog2>
-    <h1>My Jobs</h1>
+    <h1>My Bookings</h1>
     <div class="mx-4" id="myjob1">
   <a href="/client" class="flex flex-row mb-5 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
   <img class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="/docs/images/blog/image-4.jpg" alt="">
@@ -142,7 +142,7 @@
 </div>
 
 <button @click="showDialog = true" class="bg-blue-500  mx-4 mb-8 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-  Add Jobs!
+  Add Booking!
 </button>
 
 

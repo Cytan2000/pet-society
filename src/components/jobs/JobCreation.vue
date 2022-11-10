@@ -66,7 +66,6 @@
   
       <button 
               @click="submit_booking"
-              
               type="submit"
               id="submit_link"
               class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
