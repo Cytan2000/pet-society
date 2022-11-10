@@ -77,7 +77,7 @@ import BuyerCard from "./UI/buyerCard.vue";
 
 import { getDatabase, ref as stoRef, onValue, child } from "firebase/database";
 
-import axios from 'axios'
+import axios from 'axios';
 
 
 /* var query = firebase.database().ref("bookings").orderByKey();
@@ -124,9 +124,8 @@ export default {
           snapshot.forEach((childSnapshot) => {
             const childKey = childSnapshot.key;
             const childData = childSnapshot.val();
-           
               this.list1.push(childSnapshot);
-              console.log(childSnapshot.val())
+              
             
           });
         },
@@ -134,6 +133,7 @@ export default {
           onlyOnce: true,
         }
       );
+      console.log(this.list1)
     },
     /* getSellersLocation() {
       const db = getDatabase();
@@ -211,7 +211,8 @@ export default {
     },
   },  
   mounted() {
-    console.log(this.list2);
+    this.getBooking();
+    // console.log(this.list2);
     navigator.geolocation.getCurrentPosition(
       function (position) {
           initMap(position.coords.latitude, position.coords.longitude);
@@ -234,7 +235,7 @@ export default {
             map: map,
         });
     }
-    this.getBooking();
+    
     // this.getSellersLocation();
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),

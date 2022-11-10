@@ -1,5 +1,5 @@
 <template>
-  <base-dialog v-if="showDialog">
+  <base-dialog v-if="showDialog" style="vheight: 50%; overflow:scroll;">
     <template #default>
       <!-- content -->
       <h1 class="form-title">Your Pet</h1>
