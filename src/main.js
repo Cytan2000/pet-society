@@ -54,7 +54,7 @@ const router = createRouter({
         { path: "/:pathMatch(.*)*", component: NotFound },
         { path: "/", component: LoginPage},
         { path: "/register", component: Register},
-        { path: "/client", component: ClientBooking },
+        { path: "/client/:id",name:'ClientBooking', component: ClientBooking },
         { path: "/profile", component: ProfilePage},
         { path: "/forget",component:ForgetPage},
         { path: "/seller/profile", component: SellerProfilePage},
@@ -69,6 +69,11 @@ const router = createRouter({
      ]
 });
 
+// router.beforeEach((to, from, next)=>{
+//   console.log(to);
+//   document.title = `${process.env.VUE_APP_TITLE} - ${to.name}`
+//   next()
+// })
 const app= createApp(App)
 
 
