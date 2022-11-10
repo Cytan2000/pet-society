@@ -25,13 +25,10 @@
       <div class="flex items-center justify-between space-x-4">
         <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
         <button @click="locatorButtonPressed" class="w-12 h-10 mt-5 rounded bg-red-400 text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 24" stroke-width="2" stroke="currentColor" class="w-8 h-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 24" stroke-width="2" stroke="currentColor" class="w-8 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
           </svg>
-        </button>
-        <button class="cursor-pointer mt-5 w-64 shadow bg-yellow-500 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-5" type="button">
-          Search
         </button>
       </div>
       <div class="container mt-5 text-red-400" v-show="error">{{error}}</div>
@@ -115,6 +112,8 @@ export default {
         }
       );
     },
+
+    
     locatorButtonPressed() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -176,6 +175,14 @@ export default {
     autocomplete.setComponentRestrictions({ // restrict the country
     country: ["sg"]
     })
+    autocomplete.addListener("place_changed", () => {
+      var place = autocomplete.getPlace();
+
+      this.showUserLocationOnTheMap(
+        place.geometry.location.lat(),
+        place.geometry.location.lng()
+      );
+    });
   },
 };
 
