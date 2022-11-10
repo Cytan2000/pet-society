@@ -1,5 +1,5 @@
 <template>
-  <base-dialog v-if="showDialog" style="vheight: 50%; overflow:scroll;">
+  <base-dialog v-if="showDialog">
     <template #default>
       <!-- content -->
       <h1 class="form-title">Your Pet</h1>
@@ -23,14 +23,60 @@
       </svg>
     </template>
   </base-dialog>
-  <div class="bg-gray-100">
+  <!-- second pop-up -->
+  <base-dialog v-if="showUpload" >
+    <template #default>
+      <!-- content -->
+      <div class="flex items-center justify-center w-full">
+                <label
+                    class="flex flex-col w-full h-32 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                    <div class="flex flex-col items-center justify-center pt-7">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                            Attach a file</p>
+                    </div>
+                    <input type="file" ref="input1" id="imagefileid" class="opacity-0" @change="previewUser" accept="image/*"/>
+                </label>
+            </div>
+            <img v-if="this.imgURL" :src="this.imgURL"  />
+            <button 
+            @click="upload_image()"
+            type="submit"
+            id="submit_link"
+            class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
+            Submit
+          </button>
+    </template>
+    <template #actions>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 cursor-pointer mx-2"
+        @click="confirmUploadMsg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </template>
+  </base-dialog>
+  <div class="bg-gray-100 h-full">
     <div class="container mx-auto my-5 p-5">
             <!-- Left Side -->
       <div class="md:flex no-wrap md:-mx-2">
         <!-- Left Side -->
         <div class="w-full md:w-3/12 md:mx-2">
           <!-- Profile Card -->
-          <div class="bg-white p-3 border-t-4 border-green-400">
+          <div class="h-full bg-white p-3 border-t-4 border-green-400">
             <div class="image overflow-hidden">
               <!-- insert user profile picture here -->
               <img
@@ -39,7 +85,17 @@
                 src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
                 alt=""
               />
-              <input type="file"  id="imagefileid" name="filename" @change="upload_image()">
+              <button class="bg-blue-500 py-2 px-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
+              @click="showUpload = !showUpload"
+              >
+                  <div class="flex">
+                    <div class="inline-flex py-auto">Upload Image </div>
+                    <div class="bg-blue-600 text-sm font-semibold inline-flex items-center p-3 rounded-full ">
+                      &#8593;
+                    </div>
+                  </div>
+              </button>
+              <!-- <input type="file"  id="imagefileid" name="filename" @change="upload_image()"> -->
             </div>
             <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">
               {{ firstname }} {{ lastname }}
@@ -66,7 +122,7 @@
               </li>
               <li class="flex items-center py-3">
                 <span>Member since</span>
-                <span class="ml-auto">Nov 07, 2016</span>
+                <span class="ml-auto">2022</span>
               </li>
             </ul>
           </div>
@@ -111,47 +167,45 @@
                   <div class="px-4 py-2">{{ lastname }}</div>
                 </div>
                 <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Gender</div>
-                  <div class="px-4 py-2">Female</div>
-                </div>
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Contact No.</div>
-                  <div class="px-4 py-2">+11 998001001</div>
-                </div>
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Current Address</div>
-                  <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
-                </div>
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Permanant Address</div>
+                  <div class="px-4 py-2 font-semibold">Address</div>
                   <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Email.</div>
                   <div class="px-4 py-2">
                     <a class="text-blue-800" href="mailto:jane@example.com"
-                      >jane@example.com</a
+                      >{{email}}</a
                     >
                   </div>
                 </div>
-                <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Birthday</div>
-                  <div class="px-4 py-2">Feb 06, 1998</div>
-                </div>
+                
               </div>
             </div>
-            <button
+            <!-- <button
               class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
             >
               Show Full Information
-            </button>
+            </button> -->
           </div>
           <!-- End of about section -->
 
           <div class="my-4"></div>
 
           <!-- Experience and education -->
-          <div class="bg-white p-3 shadow-sm rounded-sm" v-for="pet in pet_array">
+          
+          <div class="bg-white overflow-y-auto h-96">
+            <div class="flex justify-between">
+              <div class="text-xl p-3">Pets </div>
+              <div class="p-3">
+                <button
+                class="py-2 px-4 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
+                @click="showDialog = !showDialog"
+              >
+                + Add Pet
+              </button>
+              </div>
+            </div>
+          <div class=" p-3 shadow-sm rounded-sm" v-for="pet in pet_array">
             <div class="grid grid-cols-2">
               <div>
                 <div
@@ -173,7 +227,8 @@
                       />
                     </svg>
                   </span>
-                  <span class="tracking-wide">Pet</span>
+                  <span class="tracking-wide">{{pet[1]}}</span>
+                  
                 </div>
                 <!-- insert pet image here -->
                 <img
@@ -187,16 +242,20 @@
                 <div
                   class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
                 >
-                  <span class="text-green-500">{{pet}} </span>
+                  <!-- <span class="text-green-500">{{pet}} </span> -->
                 </div>
                 <ul class="list-inside space-y-2">
-                  <li>
-                    <div class="text-teal-600">Pet Name</div>
+                  <!-- <li>
+                    <div class="text-teal-600 mt-10">Pet Name</div>
                     <div class="text-gray-500">{{ pet[1] }}</div>
+                  </li> -->
+                  <li>
+                    <div class="text-teal-600 mt-10">Pet Age</div>
+                    <div class="text-gray-500">{{ pet[2] }}</div>
                   </li>
                   <li>
-                    <div class="text-teal-600">Pet Age</div>
-                    <div class="text-gray-500">{{ pet[2] }}</div>
+                    <div class="text-teal-600">Pet Type</div>
+                    <div class="text-gray-500">{{ pet[5] }}</div>
                   </li>
                   <li>
                     <div class="text-teal-600">Pet Breed</div>
@@ -209,16 +268,13 @@
             <!-- End of Experience and education grid -->
             
           </div>
-          <button
-                class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none hover:shadow-xs p-3 my-4"
-                @click="showDialog = !showDialog"
-              >
-                Add Pet
-              </button>
+          
           <!-- End of profile tab -->
+          </div>
         </div>
       </div>
     </div>
+    <div class="h-64"></div>
   </div>
 </template>
 
@@ -233,10 +289,13 @@ export default {
   data() {
     return {
       showDialog: false,
+      showUpload: false,
+      imgURL:null,
       usercreds: "",
       petphoto: "",
       firstname: "",
       lastname: "",
+      email:"",
       petage: "",
       petname: "",
       petbreed: "",
@@ -249,6 +308,13 @@ export default {
   methods: {
     confirmDialogMsg() {
       this.showDialog = false;
+    },
+    confirmUploadMsg() {
+      this.showUpload = false;
+    },
+    previewUser(){
+      this.imgURL = URL.createObjectURL(event.target.files[0])
+      
     },
     getData() {
       const usercreds = JSON.parse(localStorage.getItem("userCredential"));
@@ -263,6 +329,7 @@ export default {
         console.log(data.petid);
         this.firstname = data.firstname;
         this.lastname = data.lastname;
+        this.email=data.email;
         this.petid = data.petid;
         localStorage.setItem("petid", `${data.petid}`)
       });
@@ -287,6 +354,7 @@ export default {
           new_array.push(snapshot.val().petage);
           new_array.push(snapshot.val().petbreed);
           new_array.push(snapshot.val().imageURL);
+          new_array.push(snapshot.val().animal_type);
           this.imageURL = new_array[3]
           this.pet_array.push(new_array);
         }
