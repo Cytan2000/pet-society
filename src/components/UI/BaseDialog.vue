@@ -44,6 +44,7 @@ div {
 }
 
 dialog {
+  height: 50%;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -53,7 +54,7 @@ dialog {
   box-shadow: 0 2px 8px (0, 0, 0, 0.26);
   padding: 0px;
   margin: 0px;
-  overflow: hidden;
+  overflow: scroll;
   z-index: 1000;
 }
 
