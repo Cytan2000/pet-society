@@ -151,7 +151,7 @@
           <div class="my-4"></div>
 
           <!-- Experience and education -->
-          <div class="bg-white p-3 shadow-sm rounded-sm" v-for="pet_id in pet_array">
+          <div class="bg-white p-3 shadow-sm rounded-sm" v-for="pet in pet_array">
             <div class="grid grid-cols-2">
               <div>
                 <div
@@ -179,7 +179,7 @@
                 <img
                   class="h-auto w-full mx-auto"
                   id="myimg"
-                  src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
+                  v-bind:src="pet[4]"
                   alt=""
                 />
               </div>
@@ -187,32 +187,34 @@
                 <div
                   class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
                 >
-                  <span class="text-green-500">{{pet_id}} </span>
+                  <span class="text-green-500">{{pet}} </span>
                 </div>
                 <ul class="list-inside space-y-2">
                   <li>
                     <div class="text-teal-600">Pet Name</div>
-                    <div class="text-gray-500">{{ petname }}</div>
+                    <div class="text-gray-500">{{ pet[1] }}</div>
                   </li>
                   <li>
                     <div class="text-teal-600">Pet Age</div>
-                    <div class="text-gray-500">{{ petage }}</div>
+                    <div class="text-gray-500">{{ pet[2] }}</div>
                   </li>
                   <li>
                     <div class="text-teal-600">Pet Breed</div>
-                    <div class="text-gray-500">{{ petbreed }}</div>
+                    <div class="text-gray-500">{{ pet[3] }}</div>
                   </li>
                 </ul>
               </div>
-              <button
+              
+            </div>
+            <!-- End of Experience and education grid -->
+            
+          </div>
+          <button
                 class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none hover:shadow-xs p-3 my-4"
                 @click="showDialog = !showDialog"
               >
                 Add Pet
               </button>
-            </div>
-            <!-- End of Experience and education grid -->
-          </div>
           <!-- End of profile tab -->
         </div>
       </div>
@@ -277,22 +279,33 @@ export default {
       onValue(petArrayRef, (snapshot)=>{
 
         snapshot.val().petid_array.forEach((childSnapshot)=>{
-          this.pet_array.push(childSnapshot);
+          const new_array = [];
+          new_array.push(childSnapshot);
+          const dbRef = ref(getDatabase());
+          get(child(dbRef,`pets/${childSnapshot}`)).then((snapshot)=>{
+          new_array.push(snapshot.val().petname);
+          new_array.push(snapshot.val().petage);
+          new_array.push(snapshot.val().petbreed);
+          new_array.push(snapshot.val().imageURL);
+          this.imageURL = new_array[3]
+          this.pet_array.push(new_array);
+        }
+      )
+          
+
+
         });
       });
+    },
 
-
-
-      // const petRef = ref(db, "pets/" + petid);
-      // onValue(petRef, (snapshot) => {
-      //   const data = snapshot.val();
-        
-      //   this.petname = data.petname;
-      //   this.petage = data.petage;
-      //   this.petbreed = data.petbreed;
-      //   this.petphoto = data.petphoto;
-
-      // });
+    publishPetData(petid){
+      const dbRef = ref(getDatabase());
+      get(child(dbRef,`pets/${petid}`)).then((snapshot)=>{
+        console.log(snapshot.val());
+        this.petname= snapshot.val().petname;
+        this.petage = snapshot.val().petage;
+      }
+      )
     },
 
     retrieve_pet_image() {
@@ -349,7 +362,6 @@ export default {
   },
   
   mounted() {
-    this.getData();
     this.getPetdata();
     this.retrieve_pet_image();
   },
