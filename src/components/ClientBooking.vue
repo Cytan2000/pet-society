@@ -109,7 +109,7 @@ import BaseDialog from "./UI/BaseDialog.vue";
   methods:{
     confirmDialogMsg() {
       this.showDialog = false;
-      this.accept_job();
+      
 
     },
     get_data(){
