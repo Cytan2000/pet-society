@@ -20,7 +20,7 @@
 <template>
 
 <div class="container form-section mx-auto px-4 font-sans">
-  <form @submit.prevent="submit" class="shadow-md rounded-lg px-8 py-6 border-2 border-gray-200"> 
+  <form class="shadow-md rounded-lg px-8 py-6 border-2 border-gray-200"> 
     <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
       <div class="flex items-center justify-between space-x-4">
         <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
@@ -31,7 +31,7 @@
           </svg>
         </button>
       </div>
-      <div class="container mt-5 text-red-400" v-show="error">{{error}}</div>
+ 
   </form>
 </div>
 
