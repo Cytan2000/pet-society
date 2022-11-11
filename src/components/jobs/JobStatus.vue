@@ -17,6 +17,21 @@
                         Snoopy + Jason
                       </span>
                   </div>
+                  <div>
+                  <button class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg fill="#FFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                    </svg>
+                    <span class="ml-2">Upload Document</span>
+                </button>
+            </div>
+                <input
+                    class="cursor-pointer absolute block py-2 px-4 w-full opacity-0 pin-r pin-t"
+                    type="file"
+                    name="documents[]"
+                    accept="image/*"
+                >
               </div>
           </article> 
 
@@ -38,7 +53,7 @@
             </div>
 
             <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
+                <a href="">
                     <img class="rounded-t-lg" style="display:block; margin:auto" src="https://media.tenor.com/30P5ZQJBQUMAAAAC/dog-play.gif" alt="" />
                 </a>
                 <div class="p-6">

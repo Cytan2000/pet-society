@@ -208,7 +208,7 @@ export default {
   created(){
     this.getBooking();
   },
-  mounted() {
+  beforeMount() {
     // console.log(this.list2);
     navigator.geolocation.getCurrentPosition(
       function (position) {
