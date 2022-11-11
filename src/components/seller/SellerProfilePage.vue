@@ -21,7 +21,7 @@
 
 <div class="bg-gray-100">
     <AddPet>
-        <h1 class="form-title">SELLER PROFILE</h1>
+        <h1>SELLER PROFILE</h1>
     </AddPet>
     <div class="container mx-auto my-5 p-5">
         <div class="md:flex no-wrap md:-mx-2 ">
@@ -35,7 +35,9 @@
                             alt=""
                             />
                 
-                <input type="file"  id="imagefileid" name="filename" @change="upload_image()">
+                Change Profile Photo
+                <input type="file"  id="imagefileid" name="filename">
+                <button @click="upload_image()">Upload Image</button>
                 
                 
                     </div>

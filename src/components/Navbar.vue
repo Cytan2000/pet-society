@@ -46,18 +46,18 @@
               <div>
                 <MenuButton class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span class="sr-only">Open user menu </span>
-                  <img class="h-8 w-8 rounded-full" src="https://i.postimg.cc/5N2WHwrd/Screenshot-2022-11-11-at-9-59-58-AM.png" alt="" id="profileimg" referrerpolicy="no-referrer"/>
+                  <img class="h-8 w-8 rounded-full" src="" alt="" id="profileimg" referrerpolicy="no-referrer"/>
                 </MenuButton>
               </div>
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                 <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <MenuItem v-slot="{ active }" v-if="account=='seller'">
+                  <MenuItem v-slot="{ active }" v-if="!isBuyer">
                     <a href="/seller/profile" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
                   </MenuItem>
-                  <MenuItem v-slot="{ active }" v-if="account=='buyer'">
+                  <MenuItem v-slot="{ active }" v-if="isBuyer">
                     <a href="/profile" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Profile</a>
                   </MenuItem>
-                  <MenuItem v-slot="{ active }" v-if="isLoggedIn">
+                  <MenuItem v-slot="{ active }">
                     <a href="/about" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
                   </MenuItem>
                   <MenuItem v-slot="{ active }" v-if="!isLoggedIn">
@@ -105,7 +105,7 @@ const auth = getAuth();
 const user = auth.currentUser;
 const isLoggedIn = ref(false);
 const base_data=JSON.parse(localStorage.getItem("db_data"));
-var account=ref("")
+var account=ref("");
 var isBuyer=ref("")
 
 
@@ -139,7 +139,7 @@ onMounted(() => {
       const tableRef = dbref(getDatabase());
       get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
         if(snapshot.exists()){
-          // console.log(snapshot.val());
+          console.log(snapshot.val());
           localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
         }else{
           console.log("No Data Available");
@@ -165,21 +165,23 @@ onMounted(() => {
   
   const buyer_navigation = [
     { name: 'Home', href: '/home', current: true, },
-    { name: 'Pet Updates', href: '/buyerjob', current: false },
+    { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
     
   ]
   const seller_navigation = [
     { name: 'Home', href: '/sellerhome', current: true, },
-    { name: 'Jobs Update', href: '/sellerjob', current: false },
+    { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
     
   ]
   const navigation = [
     { name: 'Home', href: '/home', current: true, },
+    { name: 'Pet Updates', href: '/home', current: false },
     { name: 'About', href: '/about', current: false },
+    { name: 'Notfound', href: '*', current: false },
     
   ]
 
@@ -192,27 +194,25 @@ export default {
     return{
 
     }
-  },
-  methods:{
-    // getProfilePic(){
-    //   try{
-    //   const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
-    //   console.log(image);
+  },methods:{
+    getProfilePic(){
+      try{
+      const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
+      console.log(image);
 
-    //   const img = document.getElementById("profileimg");
-    //   img.setAttribute('src',image)
-    //   console.log(image);
-    //   }catch(error){
-    //     const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-    //     const img = document.getElementById("profileimg");
-    //     img.setAttribute('src',image)
-    //   }
-    // }
+      const img = document.getElementById("profileimg");
+      img.setAttribute('src',image)
+      console.log(image);
+      }catch(error){
+        const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+        const img = document.getElementById("profileimg");
+        img.setAttribute('src',image)
+      }
+    }
   },
 
   mounted(){
-    // error function
-    // this.getProfilePic();
+    this.getProfilePic();
   }
 }
 
