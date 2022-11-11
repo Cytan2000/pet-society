@@ -11,10 +11,13 @@ import ProfilePage from './components/ProfilePage'
 import SellerProfilePage from './components/seller/SellerProfilePage'
 import SellerProfileInput from './components/seller/SellerProfileInput'
 import ForgetPage from './components/ForgetPage'
-import ViewJobPage from './components/jobs/ViewJobPage'
 import CreateNewJob from './components/jobs/CreateNewJob'
 import AddPet from './components/AddPet'
 import SellerHomePage from "./components/seller/SellerHomePage"
+import BuyerJob from "./components/Buyer/BuyerJob"
+import JobCreation from "./components/jobs/JobCreation"
+import SellerJobs from "./components/seller/SellerJobs"
+import JobStatus from "./components/jobs/JobStatus"
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase,ref,set } from "firebase/database";
@@ -52,19 +55,27 @@ const router = createRouter({
         { path: "/:pathMatch(.*)*", component: NotFound },
         { path: "/", component: LoginPage},
         { path: "/register", component: Register},
-        { path: "/client", component: ClientBooking },
+        { path: "/client/:id",name:'ClientBooking', component: ClientBooking },
         { path: "/profile", component: ProfilePage},
         { path: "/forget",component:ForgetPage},
         { path: "/seller/profile", component: SellerProfilePage},
         { path: "/seller/profileinput", component: SellerProfileInput},
         { path: "/login", component: LoginPage},
-        { path: "/jobs/View", component:ViewJobPage},
         { path: "/jobs/create",component:CreateNewJob},
         { path: "/AddPet", component:AddPet},
-        { path: "/sellerhome", component:SellerHomePage}
+        { path: "/sellerhome", component:SellerHomePage},
+        { path: "/buyerjob", component: BuyerJob},
+        { path: "/jobcreation", component: JobCreation},
+        { path: "/sellerjob", component: SellerJobs},
+        { path: "/JobStatus", component: JobStatus},
      ]
 });
 
+// router.beforeEach((to, from, next)=>{
+//   console.log(to);
+//   document.title = `${process.env.VUE_APP_TITLE} - ${to.name}`
+//   next()
+// })
 const app= createApp(App)
 
 

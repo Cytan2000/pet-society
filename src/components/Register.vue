@@ -146,9 +146,9 @@
 
       <div class="text-grey-dark mt-6">
         Already have an account?
-        <a class="no-underline border-b border-blue text-blue" href="../login/">
+        <a class="text-blue-700 hover:underline dark:text-blue-500" href="../login/">
           Log in </a
-        >.
+        >
       </div>
     </div>
   </div>
@@ -194,7 +194,9 @@ const register = () => {
         firstname: firstname.value,
         lastname: lastname.value,
         acc_type: acctype.value,
-        address: address.value
+        address: address.value,
+        petid_array: "",
+
       });
       //after account creation is successful, redirect to the login page
       console.log(user.uid);

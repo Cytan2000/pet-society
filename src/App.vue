@@ -1,8 +1,8 @@
 <template>
   <div>
-  <NavBar></NavBar>
+  <NavBar :key="$route.fullPath" class="z-10"></NavBar>
   <div></div>
-  <router-view></router-view>
+  <router-view ></router-view>
   <div></div>
   </div>
   
