@@ -139,7 +139,7 @@ onMounted(() => {
       const tableRef = dbref(getDatabase());
       get(child(tableRef, `users/${unique_id}`)).then((snapshot)=>{
         if(snapshot.exists()){
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
         }else{
           console.log("No Data Available");

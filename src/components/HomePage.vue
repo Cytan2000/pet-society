@@ -124,6 +124,7 @@ export default {
           snapshot.forEach((childSnapshot) => {
               this.list1.push(childSnapshot);
               
+              
             
           });
         },
@@ -131,7 +132,7 @@ export default {
           onlyOnce: true,
         }
       );
-
+        console.log(this.list1);
     },
     getSellersLocation() {
       const db = getDatabase();
@@ -141,14 +142,14 @@ export default {
         dbRef,
         (snapshot) => {
           snapshot.forEach((childSnapshot)=>{
-            console.log(childSnapshot.val().WorkPostal);
+            // console.log(childSnapshot.val().WorkPostal);
             this.list2.push(childSnapshot.val().WorkPostal);
           })
               //this.list2.push(childSnapshot);
         },
       );
 
-      console.log(this.list2);
+      // console.log(this.list2);
     },
 
     locatorButtonPressed() {
@@ -205,10 +206,9 @@ export default {
     },
   },  
   created(){
-    // this.getBooking();
+    this.getBooking();
   },
   mounted() {
-    this.getBooking();
     // console.log(this.list2);
     navigator.geolocation.getCurrentPosition(
       function (position) {

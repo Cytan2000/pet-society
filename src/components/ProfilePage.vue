@@ -85,14 +85,16 @@
                 src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
                 alt=""
               />
-              <button class="bg-blue-500 py-2 px-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
+              <button class="h-10 bg-blue-500  pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
               @click="showUpload = !showUpload"
               >
-                  <div class="flex">
-                    <div class="inline-flex py-auto">Upload Image </div>
-                    <div class="bg-blue-600 text-sm font-semibold inline-flex items-center p-3 rounded-full ">
-                      &#8593;
-                    </div>
+                  <div class="grid grid-cols-4 items-center justify-center">
+                    
+                      <div class="col-span-3 ">Upload Image</div>
+                      <div class="col-span-1 rounded-full bg-blue-600 w-10 h-10 pt-1">
+                        <span class="text-xl underline">&#8593;</span>
+                      </div>
+                    
                   </div>
               </button>
               <!-- <input type="file"  id="imagefileid" name="filename" @change="upload_image()"> -->
