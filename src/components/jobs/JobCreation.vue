@@ -35,8 +35,6 @@
         />
         Description<textarea cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Description" v-model="bDesc">
             </textarea>
-        Upload Image Here:
-        <input type="file"  id="imagefileid" name="filename" multiple/>
         <!-- Upload House Images
               <div class="flex"> -->
       <!-- <div class="w-full rounded-lg">
@@ -76,67 +74,24 @@
   </template>
   
   <script>
-  import { numberLiteralTypeAnnotation } from "@babel/types";
-import { getAuth }  from "firebase/auth";
+  import { getAuth }  from "firebase/auth";
   import { getDatabase, ref as dbRef, set ,update,push,child } from "firebase/database";
   import { getStorage, ref as StoRef, uploadBytes,getDownloadURL} from 'firebase/storage';
-  var imgurlarr = new Array()
-  function upload_image(mybookingid, count){
-        const storage = getStorage();
-        const imagename = 'Booking/' + mybookingid + count
-        const imagesRef = StoRef(storage, imagename);
-        console.log(mybookingid)
-        //this will retrieve the image file from the upload
-        const selectedFile = document.getElementById('imagefileid').files[count];
-        uploadBytes(imagesRef, selectedFile).then((snapshot) => {getDownloadURL(imagesRef)
-            .then((url) => {
-            // this retrieves the image and inserts it into the img tag
-            
-            imgurlarr.push(url)
-            
-
-            })
-            .catch((error) => {
-            // Handle any errors
-            });});
-        
-        }
-
-
-
+  
+  
   function writeData(bAddress, bPostal, bRate, bHomeType, bPetType, bDesc) {
     const db = getDatabase();
     var newBookingKey = push(child(dbRef(db), 'bookings')).key;
     var bookingid=newBookingKey;
-    length = document.getElementById('imagefileid').files.length
-    for (let i=0; i<length; i++){
-          upload_image(bookingid,i)
-    }
-    
-    function poll () {
-      if (imgurlarr.length!=0) {
-        // Do something with el
-        console.log(imgurlarr)
         update(dbRef(db, 'bookings/' + bookingid), {
-      SellerId: "testing1",
-      Workaddress: bAddress,
-      WorkPostal: bPostal,
-      Rate: bRate,
-      HomeType: bHomeType,
-      PetType: bPetType,
-      Description: bDesc,
-      imgurls: imgurlarr
-  })
-
-      } else {
-        setTimeout(poll, 300); // try again in 300 milliseconds
-      }
-    }
-    poll()
-    
-  
-    
-        ;
+            SellerId: "testing1",
+            Workaddress: bAddress,
+            WorkPostal: bPostal,
+            Rate: bRate,
+            HomeType: bHomeType,
+            PetType: bPetType,
+            Description: bDesc,
+        });
   }
   
   
@@ -149,7 +104,6 @@ import { getAuth }  from "firebase/auth";
         bHomeType: "",
         bPetType: "",
         bDesc: "",
-        imgurlarr:[],
       }
     },
     methods:{
@@ -161,8 +115,6 @@ import { getAuth }  from "firebase/auth";
           this.bHomeType = ""
           this.bPetType =""
           this.bDesc = ""
-          
-          //need a way to return the id of the booking
     },
     previewImage(event) {
     var image = document.getElementById('output');
@@ -173,7 +125,25 @@ import { getAuth }  from "firebase/auth";
   click1() {
     this.$refs.input1.click()   
   },
-  
+  onUpload(){
+  const storage = getStorage();
+  this.img1=null;
+  const storageRef=StoRef(storage,`Images/${this.imageData.name}`)
+  uploadBytes(storageRef,this.imageData)
+  .then(function(snapshot){
+        const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+        console.log(usercreds);
+            console.log("Uploaded a file");
+            console.log(snapshot);
+            getDownloadURL(storageRef)
+            .then((url)=>{
+              update(dbRef(getDatabase(),"users/" + usercreds.uid),{
+                imageURL: url
+              })
+            })
+            
+        })
+  },
   create () {
         
         const post = {
