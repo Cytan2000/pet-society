@@ -1,7 +1,7 @@
 <template>
     <router-link :to=" {name: 'ClientBooking', params: {id:link, data:info}}"
     class="flex flex-row my-3 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-    <slot name="image"></slot>
+    <img class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="/docs/images/blog/image-4.jpg" alt="">
     <div class="flex flex-col justify-between p-4 leading-normal">
         <div class="flex flex-row">
             <div>
