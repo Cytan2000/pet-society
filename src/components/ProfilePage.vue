@@ -74,18 +74,18 @@
             <!-- Left Side -->
       <div class="md:flex no-wrap md:-mx-2">
         <!-- Left Side -->
-        <div class="w-full md:w-3/12 md:mx-2">
+        <div class="w-full md:w-4/12 md:mx-2">
           <!-- Profile Card -->
-          <div class="h-full bg-white p-3 border-t-4 border-green-400">
+          <div class="h-full bg-white p-3 border-t-4 border-green-400 h-full">
             <div class="image overflow-hidden">
               <!-- insert user profile picture here -->
-              <img
+              <img 
                 class="h-auto w-full mx-auto"
                 id="userimg"
                 src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
                 alt=""
               />
-              <button class="h-10 bg-blue-500  pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
+              <button class="h-10 bg-blue-500  mt-2 pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
               @click="showUpload = !showUpload"
               >
                   <div class="grid grid-cols-4 items-center justify-center">
@@ -103,17 +103,15 @@
               {{ firstname }} {{ lastname }}
             </h1>
             <h3 class="text-gray-600 font-lg text-semibold leading-6">
-              Owner at Her Company Inc.
+              Pet Owner
             </h3>
             <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur
-              non deserunt
+             
             </p>
             <ul
               class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
             >
-              <li class="flex items-center py-3">
+              <li class="flex items-center ">
                 <span>Status</span>
                 <span class="ml-auto"
                   ><span
@@ -133,10 +131,10 @@
           <!-- Friends card -->
         </div>
         <!-- Right Side -->
-        <div class="w-full md:w-9/12 mx-2 h-64">
+        <div class="w-full md:w-8/12 mx-2 h-full">
           <!-- Profile tab -->
           <!-- About Section -->
-          <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div class="bg-white p-6 shadow-sm rounded-sm">
             <div
               class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
             >
@@ -195,7 +193,7 @@
 
           <!-- Experience and education -->
           
-          <div class="bg-white overflow-y-auto h-96">
+          <div class="bg-white overflow-y-auto" style="height: 26rem;">
             <div class="flex justify-between">
               <div class="text-xl p-3">Pets </div>
               <div class="p-3">
