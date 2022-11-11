@@ -19,8 +19,8 @@
 
 <template>
 
-<div class="banner h-96 w-full form-section font-sans">
-  <form @submit.prevent="submit" class="rounded-lg px-8 py-6 content">
+<div class="container form-section mx-auto px-4 font-sans">
+  <form @submit.prevent="submit" class="shadow-md rounded-lg px-8 py-6 border-2 border-gray-200"> 
     <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
       <div class="flex items-center justify-between space-x-4">
         <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
@@ -35,10 +35,9 @@
   </form>
 </div>
 
+  <br>
 
-
-
-  <section class="container mx-auto z-50">
+  <section class="container mx-auto">
     <div class="grid grid-cols-3 gap-4">
       <div class="col-span-2 overflow-auto">
         <div v-for="seller in list1">
@@ -66,7 +65,7 @@
           </buyer-card>
         </div>
       </div>
-      <div id="map" class="mt-2" style="width: 100%; height: 80vh">
+      <div id="map" style="width: 100%; height: 80vh">
       </div>
     </div>
       <!-- <h4>Your Position</h4>
@@ -114,7 +113,6 @@ for (var i = 0; i < workPostal.length; i++) {
       })(marker, i));
     }
 */ 
-
 export default {
   components: { BuyerCard },
   data() {
