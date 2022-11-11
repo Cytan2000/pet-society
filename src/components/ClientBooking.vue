@@ -3,21 +3,24 @@
 </style>
 
 <template>
-    <base-dialog v-if="showDialog">
+  <base-dialog v-if="showDialog">
     <template #default>
       <!-- content -->
       <h1 class="form-title">Confirm Booking?</h1>
       <div class="flex flex-row">
-      <button 
-      @click="confirmDialogMsg"
-      class="mx-5 mt-10 w-24 border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >Cancel</button>
-      <button 
-      class="mx-5 mt-10 w-24 text-white bg-yellow-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      @click="accept_job"
-      
-      >Yes</button>
-    </div>
+        <button
+          @click="confirmDialogMsg"
+          class="mx-5 mt-10 w-24 border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Cancel
+        </button>
+        <button
+          class="mx-5 mt-10 w-24 text-white bg-yellow-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          @click="accept_job"
+        >
+          Yes
+        </button>
+      </div>
     </template>
     <template #actions>
       <svg
@@ -38,115 +41,171 @@
     </template>
   </base-dialog>
 
-  
-    <div class="grid grid-cols-3 gap-4 h-full md:flex-row">
-      <div class="h-26 flex-auto md:col-span-2 col-span-3">
-        <div
-          href="#"
-          class="flex flex-col items-center bg-white border md:flex-row md:max-w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          <img
-            class="image-sizing mx-5 my-5"
-            src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          />
-          <div class="flex flex-col justify-between p-4 leading-normal">
-            <h5
-              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-            >
-              Pet Sitting for Small Pets Only(East Coast) @ Katong
-            </h5>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Reviews
-            </p>
+  <div class="grid grid-cols-3 gap-4 h-full md:flex-row">
+    <div class="h-26 flex-auto md:col-span-2 col-span-3">
+      <div
+        href="#"
+        class="flex flex-col items-center bg-white border md:flex-row md:max-w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+      >
+        <img
+          class="image-sizing mx-5 my-5"
+          src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        />
+        <div class="flex flex-col justify-between p-4 leading-normal">
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Pet Sitting for Small Pets Only(East Coast) @ Katong
+          </h5>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            Reviews
+          </p>
 
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Statistics
-            </p>
-          </div>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            Statistics
+          </p>
         </div>
-        <div class="border-t border-b py-5 ml-5">
-          <!-- add location here -->
-          {{this.info.WorkAddress}}
-        </div>
-        <div class="ml-5">
-          {{this.info.Description}}
-        </div>
-        <div class="py-5 border-t border-b ml-5">Area</div>
-        <div class="my-2 py-5 border-t border-b ml-5">include map here</div>
-
-        <div class="my-2 py-5 border-t border-b ml-5">Reviews</div>
       </div>
+      <div class="border-t border-b py-5 ml-5">
+        <!-- add location here -->
+        {{ this.info.WorkAddress }}
+      </div>
+      <div class="ml-5">
+        {{ this.info.Description }}
+      </div>
+      <div class="py-5 border-t border-b ml-5">Area</div>
+      <div class="my-2 py-5 border-t border-b ml-5">include map here</div>
 
-      <div class="flex flex-col mr-2 items-center border justify-end text-white h-26 flex-auto md:col-span-1 col-span-3">
-        <div class="">
+      <div class="my-2 py-5 border-t border-b ml-5">Reviews</div>
+    </div>
+
+    <div
+      class="flex flex-col mr-2 items-center border justify-end text-white h-26 flex-auto md:col-span-1 col-span-3"
+    >
+      <!-- <div class="">
           <div class="px-4 py-2 font-semibold">Birthday</div>
           <input v-model="birthday" class="px-4 py-2 text-black border" type="date">
         </div>
         <div class="">
           <div class="px-4 py-2 font-semibold">Birthday</div>
           <input v-model="birthday" class="px-4 py-2 text-black border" type="date">
-        </div>
+        </div> -->
 
-                
-        <div class="align-middle">
-          
-          <button
-          @click="showDialog = !showDialog"
-              type="submit"
-              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      <!-- Add Calender here -->
+      <div date-rangepicker class="flex items-center">
+        <div class="relative">
+          <div
+            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Confirm Booking
-            </button>
+              <path
+                fill-rule="evenodd"
+                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            name="start"
+            type="text"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Select date start"
+          />
         </div>
+        <span class="mx-4 text-gray-500">to</span>
+        <div class="relative">
+          <div
+            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            name="end"
+            type="text"
+            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Select date end"
+          />
+        </div>
+      </div>
+      <!-- calender end -->
+      
+      <div class="align-middle">
+        <button
+          @click="showDialog = !showDialog"
+          type="submit"
+          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Confirm Booking
+        </button>
       </div>
     </div>
-  
+  </div>
 </template>
 
 <script>
-
-
-import { getDatabase, onValue, ref,push,child,update } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  ref,
+  push,
+  child,
+  update,
+} from "firebase/database";
 import BaseDialog from "./UI/BaseDialog.vue";
- export default{
+
+export default {
   components: { BaseDialog },
-  data(){
-    return{
-      info:"",
-      showDialog:false,
-    }
+  data() {
+    return {
+      info: "",
+      showDialog: false,
+    };
   },
-  methods:{
+  methods: {
     confirmDialogMsg() {
       this.showDialog = false;
-
     },
-    get_data(){
+    get_data() {
       const db = getDatabase();
       const userRef = ref(db, "bookings/" + this.id);
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        this.info=data
-        
+        this.info = data;
       });
-      
-},
- accept_job(){
-    this.confirmDialogMsg();
-    const db=getDatabase();
-    const usercreds = JSON.parse(localStorage.getItem("userCredential"));
-    var newJobkey = push(child(ref(db), 'accepted_job')).key;
-    update(ref(db, 'accepted_job/' + newJobkey), {
-      buyer_id:usercreds.uid,
-      seller_id:this.info.SellerID,
-  });
-}
- },
- 
-  mounted(){
-    this.id=this.$route.params.id;
+    },
+    accept_job() {
+      this.confirmDialogMsg();
+      const db = getDatabase();
+      const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+      var newJobkey = push(child(ref(db), "accepted_job")).key;
+      update(ref(db, "accepted_job/" + newJobkey), {
+        buyer_id: usercreds.uid,
+        seller_id: this.info.SellerID,
+      });
+    },
+  },
+
+  mounted() {
+    this.id = this.$route.params.id;
     this.get_data();
-    
-  }
- }
+  },
+};
 </script>
