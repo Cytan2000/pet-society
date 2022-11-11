@@ -3,10 +3,12 @@
 </style>
 
 <template>
-    <base-dialog v-if="showDialog">
+    <base-dialog2 v-if="showDialog">
     <template #default>
+
+      <BookingConfirmation></BookingConfirmation>
       <!-- content -->
-      <h1 class="form-title">Confirm Booking?</h1>
+      <!-- <h1 class="form-title">Confirm Booking?</h1>
       <div class="flex flex-row">
       <button 
       @click="confirmDialogMsg"
@@ -15,9 +17,12 @@
       <button 
       class="mx-5 mt-10 w-24 text-white bg-yellow-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       @click="accept_job"
-      
       >Yes</button>
-    </div>
+    </div> -->
+    <!-- content -->
+
+
+
     </template>
     <template #actions>
       <svg
@@ -36,7 +41,7 @@
         />
       </svg>
     </template>
-  </base-dialog>
+  </base-dialog2>
 
   <div>
     <div class="grid grid-cols-3 gap-4 h-full md:flex-row">
@@ -98,9 +103,11 @@
 
 
 import { getDatabase, onValue, ref,push,child,update } from "firebase/database";
-import BaseDialog from "./UI/BaseDialog.vue";
+import BookingConfirmation from "./BookingConfirmation.vue";
+import JobCreation from "./jobs/JobCreation.vue";
+import BaseDialog2 from "./UI/BaseDialog2.vue";
  export default{
-  components: { BaseDialog },
+  components: { BaseDialog2, BookingConfirmation },
   data(){
     return{
       info:"",

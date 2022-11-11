@@ -1,39 +1,18 @@
 <template>
     
     <h2 class="text-3xl font-bold">Create New booking</h2>
-          Booking Address<input
+              Name<input
               type="text"
               class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
-              placeholder="81 Victoria St, Singapore 188065"
+              placeholder="Your Name"
               v-model="bAddress"
             />
+            
+            Enter start date<input class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
+            Enter end date<input class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
 
-            Postal<input
-              type="text"
-              class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
-              placeholder="188065"
-              v-model="bPostal"
-            />
-       Rate<input
-              type="text"
-              class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
-              placeholder="$20"
-              v-model="bRate"
-            />
-
-        Home Type<input
-            type="text"
-            class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
-            placeholder="5-Room HDB"
-            v-model="bHomeType"
-        />
-        Pet Types<input
-            type="text"
-            class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
-            placeholder="Medium Sized Dogs, Cats, Kangaroos"
-            v-model="bPetType"
-        />
-        Description<textarea cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Description" v-model="bDesc">
+           
+        Tell us a little bit about yourself and your pet!<textarea cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Description" v-model="bDesc">
             </textarea>
         Upload Image Here:
         <input type="file"  id="imagefileid" name="filename" multiple/>
