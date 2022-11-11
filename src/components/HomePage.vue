@@ -19,7 +19,7 @@
 
 <template>
 
-<div class="container form-section mx-auto px-4 font-sans">
+<div class="banner h-96 w-full form-section font-sans">
   <form @submit.prevent="submit" class="shadow-md rounded-lg px-8 py-6 border-2 border-gray-200"> 
     <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
       <div class="flex items-center justify-between space-x-4">
