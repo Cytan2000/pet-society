@@ -12,3 +12,28 @@
     width: 60rem;
 
 }
+#myVideo {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  object-fit: fill;
+}
+
+.content {
+  position: absolute;
+  top: 35%;
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+  z-index: 1;
+
+
+}
+.banner{
+  background-image: url("https://i.postimg.cc/jdbNGXFY/8221-FFD8-F787-43-F3-9800-D40-E2-EF13-D65-1-201-a.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  background-size: cover;
+  
+}
