@@ -134,9 +134,9 @@
         <div class="w-full md:w-8/12 mx-2 h-full">
           <!-- Profile tab -->
           <!-- About Section -->
-          <div class="bg-white p-6 shadow-sm rounded-sm">
+          <div class="bg-white px-6 pb-6 pt-3 shadow-sm rounded-sm">
             <div
-              class="flex items-center space-x-2 font-semibold text-gray-900 leading-8"
+              class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 pb-2"
             >
               <span clas="text-green-500">
                 <svg

@@ -38,7 +38,7 @@
     </template>
   </base-dialog>
 
-  <div>
+  
     <div class="grid grid-cols-3 gap-4 h-full md:flex-row">
       <div class="h-26 flex-auto md:col-span-2 col-span-3">
         <div
@@ -78,7 +78,16 @@
       </div>
 
       <div class="flex flex-col mr-2 items-center border justify-end text-white h-26 flex-auto md:col-span-1 col-span-3">
-       
+        <div class="">
+          <div class="px-4 py-2 font-semibold">Birthday</div>
+          <input v-model="birthday" class="px-4 py-2 text-black border" type="date">
+        </div>
+        <div class="">
+          <div class="px-4 py-2 font-semibold">Birthday</div>
+          <input v-model="birthday" class="px-4 py-2 text-black border" type="date">
+        </div>
+
+                
         <div class="align-middle">
           
           <button
@@ -91,7 +100,7 @@
         </div>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>
