@@ -204,6 +204,9 @@ export default {
       });
     },
   },  
+  created(){
+    // this.getBooking();
+  },
   mounted() {
     this.getBooking();
     // console.log(this.list2);

@@ -46,7 +46,7 @@
               <div>
                 <MenuButton class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span class="sr-only">Open user menu </span>
-                  <img class="h-8 w-8 rounded-full" src="" alt="" id="profileimg" referrerpolicy="no-referrer"/>
+                  <img class="h-8 w-8 rounded-full" src="https://media.istockphoto.com/vectors/dog-paw-icon-logo-vector-id1005374612" alt="" id="profileimg" referrerpolicy="no-referrer"/>
                 </MenuButton>
               </div>
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -193,24 +193,25 @@ export default {
 
     }
   },methods:{
-    getProfilePic(){
-      try{
-      const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
-      console.log(image);
+    // getProfilePic(){
+    //   try{
+    //   const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
+    //   console.log(image);
 
-      const img = document.getElementById("profileimg");
-      img.setAttribute('src',image)
-      console.log(image);
-      }catch(error){
-        const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-        const img = document.getElementById("profileimg");
-        img.setAttribute('src',image)
-      }
-    }
+    //   const img = document.getElementById("profileimg");
+    //   img.setAttribute('src',image)
+    //   console.log(image);
+    //   }catch(error){
+    //     const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+    //     const img = document.getElementById("profileimg");
+    //     img.setAttribute('src',image)
+    //   }
+    // }
   },
 
   mounted(){
-    this.getProfilePic();
+    // error function
+    // this.getProfilePic();
   }
 }
 
