@@ -22,8 +22,8 @@
 <div class="banner h-96 w-full form-section font-sans">
   <form @submit.prevent="submit" class="rounded-lg px-8 py-6 content">
     <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
-      <div class="flex items-center justify-center space-x-4">
-        <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 rounded w-3/4 py-2 px-4 bg-white text-gray-700 leading-tight "/>
+      <div class="flex items-center justify-between space-x-4">
+        <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
         <button @click="locatorButtonPressed" class="w-12 h-10 mt-5 rounded bg-yellow-500 text-white">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 24" stroke-width="2" stroke="currentColor" class="w-8 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -43,6 +43,17 @@
       <div class="col-span-2 overflow-auto">
         <div v-for="seller in list1">
           <buyer-card :link="seller.key" :info="seller">
+            <template v-slot:image>
+              <carousel>
+              <div v-for="seller_img in seller.val().imgurls" class="hidden duration-700 ease-in-out" data-carousel-item> 
+                
+                
+                <img :src="seller_img" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                </div>
+              
+            </carousel>
+            
+            </template>
             <template v-slot:name>
               <h1>{{ seller.val().Description }}</h1>
             </template>
