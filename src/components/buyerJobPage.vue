@@ -50,7 +50,7 @@
               
             </template>
             <template v-slot:price>
-              
+              {{job.val().price}}
             </template>
           </job-card>
             </div>
@@ -97,7 +97,7 @@
                 <job-card v-if="job.val().status=='completed'" :link="job.key" :info="job">
                 
             <template v-slot:name>
-              
+              <p class="font-bold text-xl">{{ job.val().name }}</p>
             </template>
             <template v-slot:description>
               
@@ -112,9 +112,9 @@
 </div>
 <div class="invisible md:visible col-span-3 md:col-span-1 order-2 xs:order-2 md:order-2 shadow-md border rounded-lg my-2" >
     
-  <div class="text-2xl text-center bg-yellow-500 mx-5 my-2 p-2 rounded-lg">View your jobs here</div>
+  <div class="text-2xl text-center bg-yellow-500 mx-5 my-2 p-2 rounded-lg">View your Pet updates</div>
   <div class="text-center mx-5">
-    On the left displays the status of all your jobs
+    On the left displays the status of all your pets updates
   </div>
   </div>
 

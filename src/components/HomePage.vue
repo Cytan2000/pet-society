@@ -47,10 +47,10 @@
         <div v-for="seller in list1">
           <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
-              <h1>{{ seller.val().Description }}</h1>
+              <p class="font-bold text-xl">{{ seller.val().ListingName }}</p>
             </template>
             <template v-slot:description>
-              <p>{{ seller.email }}</p>
+              <p class="overflow-hidden">{{ seller.val().Description }}</p>
             </template>
             <template v-slot:price>
               SGD {{seller.val().Rate}}
