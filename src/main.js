@@ -64,10 +64,10 @@ const router = createRouter({
         { path: "/jobs/create",component:CreateNewJob},
         { path: "/AddPet", component:AddPet},
         { path: "/sellerhome", component:SellerHomePage},
-        { path: "/buyerjob", component: BuyerJob},
+        { path: "/buyerjob", component: buyerJobPage},
         { path: "/sellerjob", component: SellerJobs},
         { path: "/JobStatus/:id",name:'JobStatus', component: JobStatus},
-        { path: "/buyerJobPage", component: buyerJobPage},
+        
      ]
 });
 
