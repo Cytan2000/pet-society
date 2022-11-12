@@ -31,7 +31,7 @@
           </svg>
         </button>
       </div>
-      <div class="container mt-5 text-red-400" v-show="error">{{error}}</div>
+      <div class="container mt-5 text-white-400" v-show="error">{{error}}</div>
   </form>
 </div>
 
@@ -78,6 +78,9 @@ import BuyerCard from "./UI/buyerCard.vue";
 import { getDatabase, ref as stoRef, onValue, child } from "firebase/database";
 
 import axios from 'axios';
+var lat_list = [];
+var lng_list = [];
+// var list2 = [];
 
 
 /* var query = firebase.database().ref("bookings").orderByKey();
@@ -114,26 +117,6 @@ export default {
   },
   
   methods: {
-    getBooking() {
-      const db = getDatabase();
-      const dbRef = stoRef(db, "bookings/");
-
-      onValue(
-        dbRef,
-        (snapshot) => {
-          snapshot.forEach((childSnapshot) => {
-              this.list1.push(childSnapshot);
-              
-              
-            
-          });
-        },
-        {
-          onlyOnce: true,
-        }
-      );
-        console.log(this.list1);
-    },
     getSellersLocation() {
       const db = getDatabase();
       const dbRef = stoRef(db, "bookings/");
@@ -143,14 +126,34 @@ export default {
         (snapshot) => {
           snapshot.forEach((childSnapshot)=>{
             // console.log(childSnapshot.val().WorkPostal);
+
             this.list2.push(childSnapshot.val().WorkPostal);
           })
-              //this.list2.push(childSnapshot);
+          console.log(this.list2.length);    
+          //this.list2.push(childSnapshot);
         },
       );
 
-      // console.log(this.list2);
+      // console.log(this.list2.length);
     },
+    getBooking() {
+      const db = getDatabase();
+      const dbRef = stoRef(db, "bookings/");
+
+      onValue(
+        dbRef,
+        (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+              this.list1.push(childSnapshot);
+          });
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+        // console.log(this.list1);
+    },
+    
 
     locatorButtonPressed() {
       if (navigator.geolocation) {
@@ -176,7 +179,7 @@ export default {
       }
     },
     getAddressFrom(lat, long) {
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=dAIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg")
+    axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg")
       .then(response => {
         if (response.data.error_message) {
           this.error = response.data.error_message;
@@ -191,6 +194,49 @@ export default {
         console.log(error.message);
       });
     },
+
+    geocode() {
+      if (lat_list.length != this.list2.length || lng_list.length != this.list2.length) {
+        console.log(lat_list.length);
+        console.log(this.list2.length);
+        for (var j = 0; j < this.list2.length; j++) {
+          console.log(this.list2[j])
+
+          axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+          params: {
+            address: this.list2[j],
+            key: 'AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg'
+          }
+          })
+          .then((response) => {
+            lat_list.push(response.data.results[0].geometry.location.lat);
+            console.log(lat_list.length);
+            lng_list.push(response.data.results[0].geometry.location.lng);
+            // console.log(lng_list);
+          }) 
+          .catch((error) => {
+            console.log(error);
+          })
+          console.log(lat_list.length)
+          function poll(){
+            if (lat_list.length!=0 || lng_list.length!=0){
+              console.log(lat_list);
+              console.log(lng_list)    
+            } 
+            else{
+              setTimeout(poll, 300)
+            }
+          }
+          poll()
+        };
+      } else {
+        console.log(1);
+      }
+
+      // console.log(lat_list); 
+      // console.log(this.lng_list);
+    },
+      
     showUserLocationOnTheMap(latitude, longitude) {
       // Show & center the Map based oon
       var map = new google.maps.Map(document.getElementById("map"), {
@@ -203,14 +249,56 @@ export default {
         position: new google.maps.LatLng(latitude, longitude),
         map: map,
       });
-    },
+
+      console.log(lat_list);
+      console.log(lng_list);
+      for ( var i = 0; i < lat_list.length; i++) {
+        console.log(lat_list.length);
+        /*
+        var seller_marker = new google.maps.Marker({
+        position: {lat:lat_list[i], lng:lng_list[i]},
+        map: map
+      });
+      */
+      addMarker({lat: lat_list[i], lng: lng_list[i]}, "yellow");
+      }
+      function addMarker(latLng, color) {
+        let url = "http://maps.google.com/mapfiles/ms/icons/";
+        url += color + "-dot.png";
+        let marker = new google.maps.Marker({
+          map: map,
+          position: latLng,
+          icon: {
+            url: url,
+          }
+        }); 
+      }
+      /*
+      console.log(lat_list);
+      console.log(lng_list);
+      for ( var i = 0; i < lat_list.length; i++) {
+        console.log(lat_list.length);
+        var seller_marker = new google.maps.Marker({
+        position: {lat:lat_list[i], lng:lng_list[i]},
+        map: map
+      });
+      }
+      */
+    }, 
   },  
   created(){
     this.getBooking();
+    this.getSellersLocation();
   },
-  mounted() {
+  beforeUpdate() {
+
+
+    this.geocode();
+    console.log(this.list2)
+    console.log(this.list2.length)
     // console.log(this.list2);
-    
+    // this.test();
+    console.log(lat_list);
     navigator.geolocation.getCurrentPosition(
       function (position) {
           initMap(position.coords.latitude, position.coords.longitude);
@@ -218,23 +306,65 @@ export default {
       function errorCallback(error) {
           console.log(error);
       }
-    );
+    ); 
     function initMap(lat, lng) {
-    var myLatLng = {
-        lat,
-        lng,
-    };
-    var map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 15,
-            center: myLatLng,
-        });
-    var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-        });
+      var myLatLng = {
+          lat,
+          lng,
+      };
+      var map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 15,
+              center: myLatLng,
+      }); 
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+       });
+       /*
+      addMarker({lat: lat, lng: lng}, "yellow");
+
+      function addMarker(latLng, color) {
+        let url = "http://maps.google.com/mapfiles/ms/icons/";
+        url += color + "-dot.png";
+        let marker = new google.maps.Marker({
+          map: map,
+          position: latLng,
+          icon: {
+            url: url,
+            scaledSize: {width: 50, height: 50},
+            strokeColor: "yellow",
+            strokeWeight: 0.1,
+          }
+        }); 
+      }*/
+      // var lat_list = [1.2968599, 1.289936, 1.345176];
+      // var lng_list = [103.852202, 103.83292, 103.848022];
+      
+      console.log(lat_list);
+      console.log(lng_list);
+      for ( var i = 0; i < lat_list.length; i++) {
+        console.log(lat_list.length);
+        /*
+        var seller_marker = new google.maps.Marker({
+        position: {lat:lat_list[i], lng:lng_list[i]},
+        map: map
+      });
+      */
+      addMarker({lat: lat_list[i], lng: lng_list[i]}, "yellow");
+      }
+      function addMarker(latLng, color) {
+        let url = "http://maps.google.com/mapfiles/ms/icons/";
+        url += color + "-dot.png";
+        let marker = new google.maps.Marker({
+          map: map,
+          position: latLng,
+          icon: {
+            url: url,
+          }
+        }); 
+      }
     }
-    
-    this.getSellersLocation();
+
     var autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
     );
