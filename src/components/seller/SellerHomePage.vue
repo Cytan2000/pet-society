@@ -2,7 +2,7 @@
     <base-dialog2 v-if="showDialog">
       <template #default>
         <!-- content -->
-        <JobCreation></JobCreation>
+        <booking-creation></booking-creation>
       </template>
       <template #actions>
         <svg
@@ -152,12 +152,13 @@
 
 
 <script>
-import JobCreation from "../jobs/JobCreation.vue";
+import BookingCreation from "../Booking/BookingCreation.vue";
 import BaseDialog2 from "../UI/BaseDialog2.vue";
 import { getStorage, ref as stoRef, getDownloadURL  } from 'firebase/storage';
 
+
 export default {
-  components: { JobCreation, BaseDialog2 },
+  components: { BaseDialog2, BookingCreation },
   data() {
     return {
       showDialog: false,
