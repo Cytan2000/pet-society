@@ -35,7 +35,7 @@
         />
         <div >
         Pet Types
-        <div>selected Pet Types: {{ bPetType }}</div>
+        
         <div class="flex flex-row gap-2">
               <div class="flex flex-auto items-center pl-4 rounded border border-gray-200 dark:border-gray-700">
                 <input type="checkbox" id="dog" value="dog" v-model="bPetType" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -205,6 +205,7 @@ import { getAuth }  from "firebase/auth";
           this.bHomeType = ""
           this.bPetType = []
           this.bDesc = ""
+          location.reload();
           }
           
           
