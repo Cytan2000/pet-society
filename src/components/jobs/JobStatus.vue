@@ -354,7 +354,6 @@ export default {
     get(child(dbRef,`jobs/-NGSBee8nn8ivvQGBClB/posts`)).then((snapshot2)=>{
     // console.log(Object.values(snapshot2.val()));
     this.new_post_array = Object.values(snapshot2.val());
-
   })
   }
 };
