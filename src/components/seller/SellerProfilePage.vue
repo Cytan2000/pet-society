@@ -1,199 +1,206 @@
-<!-- component -->
-<style>
-    :root {
-        --main-color: #4a76a8;
-    }
-
-    .bg-main-color {
-        background-color: var(--main-color);
-    }
-
-    .text-main-color {
-        color: var(--main-color);
-    }
-
-
-    
-</style>
-
 <template>
-    
-
-<div class="bg-gray-100">
-    <AddPet>
-        <h1 class="form-title">SELLER PROFILE</h1>
-    </AddPet>
-    <div class="container mx-auto my-5 p-5">
-        <div class="md:flex no-wrap md:-mx-2 ">
-            <!-- Left Side -->
-            <div class="w-full md:w-3/12 md:mx-2">
-                <!-- Profile Card -->
-                <div class="bg-white p-3 border-t-4 border-green-400">
-                    <div class="image overflow-hidden">
-                        <img class="h-auto w-full mx-auto" id="myimg"
-                            src=""
-                            alt=""
-                            />
-                
-                <input type="file"  id="imagefileid" name="filename" @change="upload_image()">
-                
-                
+    <!-- second pop-up -->
+    <base-dialog v-if="showUpload" >
+    <template #default>
+      <!-- content -->
+      <div class="flex items-center justify-center w-full">
+                <label
+                    class="flex flex-col w-full h-32 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                    <div class="flex flex-col items-center justify-center pt-7">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                            Attach a file</p>
                     </div>
-                    <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{fname + " " + lname}}</h1>
-                    <h3 class="text-gray-600 font-lg text-semibold leading-6">Owner at Her Company Inc.</h3>
-                    <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit.
-                        Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur non deserunt</p>
-                    <ul
-                        class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                        <li class="flex items-center py-3">
-                            <span>Status</span>
-                            <span class="ml-auto"><span
-                                    class="bg-green-500 py-1 px-2 rounded text-white text-sm">Active</span></span>
-                        </li>
-                        <li class="flex items-center py-3">
-                            <span>Pet sitter since</span>
-                            <span class="ml-auto">Nov 07, 2016</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- End of profile card -->
-                <div class="my-4"></div>
+                    <input type="file" ref="input1" id="imagefileid" class="opacity-0" @change="previewUser" accept="image/*"/>
+                </label>
             </div>
-
-            <!-- Right Side -->
-            <div class="w-full md:w-9/12 mx-2 h-64">
-                <!-- Profile tab -->
-                <!-- About Section -->
-                <div class="bg-white p-3 shadow-sm rounded-sm">
-                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                        <span clas="text-green-500">
-                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </span>
-                        <span class="tracking-wide">About (click to edit profile)</span>
-                
-                    </div>
-                    <div class="text-gray-700">
-                        <div class="grid md:grid-cols-2 text-sm">
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">First Name</div>
-                                <!-- <div class="px-4 py-2"></div> -->
-                                <input v-model="fname" class="px-4 py-2" type="text">
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Last Name</div>
-                                <input v-model="lname" class="px-4 py-2" type="text">
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Gender</div>
-                                <select  v-model="gender" class="px-4 py-2" name="gender" id="">
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Contact No.</div>
-                                <input v-model="contact" class="px-4 py-2" type="text">
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Address</div>
-                                <input v-model="address" class="px-4 py-2" type="text">
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Contact Email</div>
-                                <input v-model="email" class="px-4 py-2" type="text">
-                            </div>
-                            <div class="grid grid-cols-2">
-                                <div class="px-4 py-2 font-semibold">Birthday</div>
-                                <input v-model="birthday" class="px-4 py-2" type="date">
-                            </div>
+            <img v-if="this.imgURL" :src="this.imgURL"  />
+            <button 
+            @click="upload_image()"
+            type="submit"
+            id="submit_link"
+            class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
+            Submit
+          </button>
+    </template>
+    <template #actions>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 cursor-pointer mx-2"
+        @click="confirmUploadMsg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </template>
+  </base-dialog>
+  
+    <div class="bg-gray-100 h-full">
+      <div class="container mx-auto my-5 p-5">
+              <!-- Left Side -->
+        <div class="md:flex no-wrap md:-mx-2">
+          <!-- Left Side -->
+          <div class="w-full md:w-4/12 md:mx-2">
+            <!-- Profile Card -->
+            <div class="h-full bg-white p-3 border-t-4 border-green-400 h-full">
+              <div class="image overflow-hidden">
+                <!-- insert user profile picture here -->
+                <img 
+                  class="h-auto w-full mx-auto"
+                  id="userimg"
+                  src="https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE="
+                  alt=""
+                />
+                <button class="h-10 bg-blue-500  mt-2 pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
+                @click="showUpload = !showUpload"
+                >
+                    <div class="grid grid-cols-4 items-center justify-center">
+                      
+                        <div class="col-span-3 ">Upload Image</div>
+                        <div class="col-span-1 rounded-full bg-blue-600 w-10 h-10 pt-1">
+                          <span class="text-xl underline">&#8593;</span>
                         </div>
-                        <button @click="modifyProfile()" style="background-color: #4CAF50; " class="">Update Profile</button>
+                      
                     </div>
-                    
-                </div>
-                <!-- End of about section -->
-
-                <div class="my-4"></div>
-
-                <!-- Experience and education -->
-                <div class="bg-white p-3 shadow-sm rounded-sm">
-
-                    <div class="grid grid-cols-2">
-                        <div>
-                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                <span clas="text-green-500">
-                                    <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                </span>
-                                <span class="tracking-wide">Experience</span>
-                            </div>
-                            <ul class="list-inside space-y-2">
-                                <li>
-                                    <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                    <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                </li>
-                                <li>
-                                    <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                    <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                </li>
-                                <li>
-                                    <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                    <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                </li>
-                                <li>
-                                    <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                    <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                                <span clas="text-green-500">
-                                    <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                        <path fill="#fff"
-                                            d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-                                    </svg>
-                                </span>
-                                <span class="tracking-wide">Qualification</span>
-                            </div>
-                            <ul class="list-inside space-y-2">
-                                <li>
-                                    <div class="text-teal-600">Masters Degree in Oxford</div>
-                                    <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                </li>
-                                <li>
-                                    <div class="text-teal-600">Bachelors Degreen in LPU</div>
-                                    <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                </li>
-                            </ul>
-                            
-                        </div>
-                    </div>
-                    <!-- End of Experience and education grid -->
-                </div>
-                <!-- End of profile tab -->
+                </button>
+                <!-- <input type="file"  id="imagefileid" name="filename" @change="upload_image()"> -->
+              </div>
+              <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">
+                {{ fname }} {{ lname }}
+              </h1>
+              <h3 class="text-gray-600 font-lg text-semibold leading-6">
+                Pet Owner
+              </h3>
+              <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
+               
+              </p>
+              <ul
+                class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm"
+              >
+                <li class="flex items-center ">
+                  <span>Status</span>
+                  <span class="ml-auto"
+                    ><span
+                      class="bg-green-500 py-1 px-2 rounded text-white text-sm"
+                      >Active</span
+                    ></span
+                  >
+                </li>
+                <li class="flex items-center py-3">
+                  <span>Member since</span>
+                  <span class="ml-auto">2022</span>
+                </li>
+              </ul>
             </div>
+            <!-- End of profile card -->
+            <div class="my-4"></div>
+            <!-- Friends card -->
+          </div>
+          <!-- Right Side -->
+          <div class="w-full md:w-8/12 mx-2 h-full">
+            <!-- Profile tab -->
+            <!-- About Section -->
+            <div class="bg-white px-6 pb-6 pt-3 shadow-sm rounded-sm">
+              <div
+                class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 pb-2"
+              >
+                <span clas="text-green-500">
+                  <svg
+                    class="h-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                </span>
+                <span class="tracking-wide">About</span>
+              </div>
+              <div class="text-gray-700">
+                <div class="grid md:grid-cols-2 text-sm">
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">First Name</div>
+                    <div class="px-4 py-2">{{ fname }}</div>
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">Last Name</div>
+                    <div class="px-4 py-2">{{ lname }}</div>
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">Address</div>
+                    <div class="px-4 py-2">{{ address}}</div>
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">Email.</div>
+                    <div class="px-4 py-2">
+                      <a class="text-blue-800" href="mailto:jane@example.com"
+                        >{{email}}</a
+                      >
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <!-- <button
+                class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+              >
+                Show Full Information
+              </button> -->
+            </div>
+            <!-- End of about section -->
+  
+            <div class="my-4"></div>
+  
+            <!-- Experience and education -->
+            
+            <div class="bg-white overflow-y-auto" style="height: 26rem;">
+              <div class="flex justify-between">
+                <div class="text-xl p-3">Pets </div>
+                <div class="p-3">
+                  <button
+                  class="py-2 px-4 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
+                  @click="showDialog = !showDialog"
+                >
+                  + Add Pet
+                </button>
+                </div>
+              </div>
+            
+            
+            <!-- End of profile tab -->
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="h-64"></div>
     </div>
-</div>
-</template>
+  </template>
+
 <script>
 import { getAuth} from "firebase/auth";
 import {getDatabase, ref as pref, child, get, update} from "firebase/database"
 import { getStorage, ref as storageref,getDownloadURL, uploadBytes} from "firebase/storage";
+import BaseDialog from "../UI/BaseDialog.vue";
+
 export default {
+    components: { BaseDialog },
     data() {
       return {
         fname: "",
@@ -202,11 +209,21 @@ export default {
         address: "",
         birthday: "",
         contact: "",
-        email: ""
+        email: "",
+        imgURL:null,
+        
+      showUpload: false,
       }
     },
     methods: {
       //this is the function to retrieve image
+      confirmUploadMsg() {
+      this.showUpload = false;
+    },
+    previewUser(){
+      this.imgURL = URL.createObjectURL(event.target.files[0])
+  
+    },
       retrieve_image(){
         this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
         const storage = getStorage();
@@ -230,10 +247,11 @@ export default {
         this.usercreds = JSON.parse(localStorage.getItem("userCredential"));
         const userid = this.usercreds.uid
         const dbRef = pref(getDatabase());
-        console.log(this.bday)
+        
         get(child(dbRef, `users/${userid}`)).then((snapshot) => {
             if (snapshot.exists()) {
-                const profiledata = snapshot.val()
+                const profiledata = snapshot.val();
+                console.log(profiledata);
                 this.fname = profiledata.firstname
                 this.lname = profiledata.lastname
                 this.gender = profiledata.gender
@@ -279,6 +297,7 @@ export default {
         //this will retrieve the image file from the upload
         const selectedFile = document.getElementById('imagefileid').files[0];
         uploadBytes(imagesRef, selectedFile).then((snapshot) => {
+            
             console.log('successfuly uploaded');
             location.reload();
         });

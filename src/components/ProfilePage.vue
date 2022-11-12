@@ -69,6 +69,7 @@
       </svg>
     </template>
   </base-dialog>
+  
   <div class="bg-gray-100 h-full">
     <div class="container mx-auto my-5 p-5">
             <!-- Left Side -->
