@@ -15,7 +15,7 @@ import CreateNewJob from './components/jobs/CreateNewJob'
 import AddPet from './components/AddPet'
 import SellerHomePage from "./components/seller/SellerHomePage"
 import BuyerJob from "./components/Buyer/BuyerJob"
-
+import buyerJobPage from "./components/buyerJobPage"
 import SellerJobs from "./components/seller/SellerJobs"
 import JobStatus from "./components/jobs/JobStatus"
 // Import the functions you need from the SDKs you need
@@ -67,6 +67,8 @@ const router = createRouter({
         { path: "/buyerjob", component: BuyerJob},
         { path: "/sellerjob", component: SellerJobs},
         { path: "/JobStatus", component: JobStatus},
+        { path: "/buyerJobPage", component: buyerJobPage},
+        
      ]
 });
 
