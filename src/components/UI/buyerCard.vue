@@ -1,9 +1,11 @@
 <template>
         <router-link :to=" {name: 'ClientBooking', params: {id:link, data:info}}"
     class="flex flex-row my-3 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-
+    <img class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" :src="info.val().imgurls[0]" alt=""/>
     <div class="flex flex-col justify-between p-4 leading-normal">
+        
         <div class="flex flex-row">
+            
             <div v-if="info.val().PetType.includes('dog')">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/194/194630.png"/>
             </div>
