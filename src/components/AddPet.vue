@@ -139,7 +139,7 @@ export default {
         this.page=""
         this.imageData=""
         this.animal_type=""
-
+        location.reload();
   },
   previewImage(event) {
   var image = document.getElementById('output');

@@ -21,7 +21,9 @@
             </svg>
           </div>
           <div class="sm:min-w-0 sm:flex-1">
+            <div>
             <p class="text-lg font-semibold leading-8 text-gray-900 typed-out">Daily Updates</p>
+          </div>
             <p class="mt-2 text-base leading-7 text-gray-600">Are you wondering if your pet has eaten, slept or played? Pet Society provides you with daily updates about your pet's life!</p>
           </div>
         </div>
