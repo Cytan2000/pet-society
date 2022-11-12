@@ -43,7 +43,7 @@
 
   <section class="container mx-auto">
     <div class="grid grid-cols-3 gap-4">
-      <div class="col-span-2 overflow-auto">
+      <div class="col-span-3 md:col-span-2 overflow-auto order-2 xs:order-1 md:order-1">
         <div v-for="seller in list1">
           <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
@@ -58,7 +58,7 @@
           </buyer-card>
         </div>
       </div>
-      <div id="map" style="width: 100%; height: 80vh">
+      <div class="col-span-3 md:col-span-1 order-1 xs:order-2 md:order-2" id="map" style="width: 100%; height: 80vh">
       </div>
     </div>
       <!-- <h4>Your Position</h4>
