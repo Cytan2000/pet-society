@@ -137,6 +137,7 @@ import { getAuth }  from "firebase/auth";
     const db = getDatabase();
     const usercreds = JSON.parse(localStorage.getItem("userCredential"));
     const uid=usercreds.uid;
+    var Postal=String(bPostal)
     var newBookingKey = push(child(dbRef(db), 'bookings')).key;
     var bookingid=newBookingKey;
     length = document.getElementById('imagefileid').files.length
@@ -152,7 +153,7 @@ import { getAuth }  from "firebase/auth";
       SellerId: uid,
       ListingName: bListing,
       Workaddress: bAddress,
-      WorkPostal: bPostal,
+      WorkPostal: Postal,
       Rate: bRate,
       HomeType: bHomeType,
       PetType: bPetType,
