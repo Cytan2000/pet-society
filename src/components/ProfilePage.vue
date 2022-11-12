@@ -345,8 +345,9 @@ export default {
       const db=getDatabase();
       const petArrayRef = ref(db,`users/${uid}`);
       onValue(petArrayRef, (snapshot)=>{
-
-        snapshot.val().petid_array.forEach((childSnapshot)=>{
+        console.log(snapshot.val().petid_array);
+        if(snapshot.val().petid_array!= null){
+        Object.values(snapshot.val().petid_array).forEach((childSnapshot)=>{
           const new_array = [];
           new_array.push(childSnapshot);
           const dbRef = ref(getDatabase());
@@ -364,6 +365,7 @@ export default {
 
 
         });
+      }
       });
     },
 
