@@ -4,6 +4,7 @@
         <div class="col-span-2">
         <h1 class="underline font-bold font-mono text-2xl">Active</h1>
             <div v-for="job in this.list1">
+                <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='active'" :link="job.key" :info="job">
                 
             <template v-slot:name>
@@ -17,11 +18,13 @@
             </template>
           </job-card>
             </div>
+        </div>
     </div>
 
     <div class="col-span-2">
     <h1 class="underline font-bold font-mono text-2xl text-yellow-400">Pending</h1>
     <div v-for="job in this.list1">
+        <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='pending'" :link="job.key" :info="job">
                 
             <template v-slot:name>
@@ -35,11 +38,13 @@
             </template>
           </job-card>
             </div>
+            </div>
     </div>
 
     <div class="col-span-2">
     <h1 class="underline font-bold font-mono text-red-600 text-2xl">Rejected</h1>
     <div v-for="job in this.list1">
+        <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='rejected'" :link="job.key" :info="job">
                 
             <template v-slot:name>
@@ -53,11 +58,14 @@
             </template>
           </job-card>
             </div>
+            </div>
+        
     </div>
 
     <div class="col-span-2">
     <h1 class="underline font-bold font-mono text-green-600 text-2xl">Completed</h1>
     <div v-for="job in this.list1">
+        <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='completed'" :link="job.key" :info="job">
                 
             <template v-slot:name>
@@ -70,6 +78,7 @@
               
             </template>
           </job-card>
+            </div>
             </div>
     </div>
 </div>
@@ -92,12 +101,14 @@ export default{
 data(){
     return{
         list1:[],
-        
+        user:"",
     }
 },
 
     methods:{
         getJobStatus() {
+        const usercred=JSON.parse(localStorage.getItem("userCredential"))
+        this.user= usercred.uid
       const db = getDatabase();
       const dbRef = ref(db, "jobs/");
 
