@@ -67,7 +67,7 @@
         <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="image-design" />
       </div> -->
 
- 
+
 </template>
 
 <script>
@@ -210,7 +210,7 @@ export default {
           })
           .then((response) => {
             lat_list.push(response.data.results[0].geometry.location.lat);
-            console.log(lat_list.length);
+            //console.log(lat_list.length);
             lng_list.push(response.data.results[0].geometry.location.lng);
             // console.log(lng_list);
           }) 
@@ -220,8 +220,8 @@ export default {
           console.log(lat_list.length)
           function poll(){
             if (lat_list.length!=0 || lng_list.length!=0){
-              console.log(lat_list);
-              console.log(lng_list)    
+              //console.log(lat_list);
+              //console.log(lng_list)    
             } 
             else{
               setTimeout(poll, 300)
@@ -254,12 +254,7 @@ export default {
       console.log(lng_list);
       for ( var i = 0; i < lat_list.length; i++) {
         console.log(lat_list.length);
-        /*
-        var seller_marker = new google.maps.Marker({
-        position: {lat:lat_list[i], lng:lng_list[i]},
-        map: map
-      });
-      */
+
       addMarker({lat: lat_list[i], lng: lng_list[i]}, "yellow");
       }
       function addMarker(latLng, color) {
@@ -273,17 +268,6 @@ export default {
           }
         }); 
       }
-      /*
-      console.log(lat_list);
-      console.log(lng_list);
-      for ( var i = 0; i < lat_list.length; i++) {
-        console.log(lat_list.length);
-        var seller_marker = new google.maps.Marker({
-        position: {lat:lat_list[i], lng:lng_list[i]},
-        map: map
-      });
-      }
-      */
     }, 
   },  
   created(){
@@ -291,11 +275,11 @@ export default {
     this.getSellersLocation();
   },
   beforeUpdate() {
-
-
     this.geocode();
-    console.log(this.list2)
-    console.log(this.list2.length)
+    console.log(this.list1);
+
+    //console.log(this.list2)
+    // console.log(this.list2.length)
     // console.log(this.list2);
     // this.test();
     console.log(lat_list);
@@ -320,38 +304,33 @@ export default {
         position: myLatLng,
         map: map,
        });
-       /*
-      addMarker({lat: lat, lng: lng}, "yellow");
+       function createMarker(lat, lng) {
+          var newmarker = new google.maps.Marker({
+              position: new google.maps.LatLng(lat, lng),
+              map: map,
+              title: "hi",
+              icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
+              }
+          });
 
-      function addMarker(latLng, color) {
-        let url = "http://maps.google.com/mapfiles/ms/icons/";
-        url += color + "-dot.png";
-        let marker = new google.maps.Marker({
-          map: map,
-          position: latLng,
-          icon: {
-            url: url,
-            scaledSize: {width: 50, height: 50},
-            strokeColor: "yellow",
-            strokeWeight: 0.1,
-          }
-        }); 
-      }*/
-      // var lat_list = [1.2968599, 1.289936, 1.345176];
-      // var lng_list = [103.852202, 103.83292, 103.848022];
-      
-      console.log(lat_list);
-      console.log(lng_list);
+          newmarker['infowindow'] = new google.maps.InfoWindow({
+                  content: "<img src='../assets/logo.png' alt='hi'>"
+              });
+
+          google.maps.event.addListener(newmarker, 'click', function() {
+              this['infowindow'].open(map, this);
+          });
+      };
+      //console.log(lat_list);
+      // console.log(lng_list);
       for ( var i = 0; i < lat_list.length; i++) {
-        console.log(lat_list.length);
-        /*
-        var seller_marker = new google.maps.Marker({
-        position: {lat:lat_list[i], lng:lng_list[i]},
-        map: map
-      });
-      */
-      addMarker({lat: lat_list[i], lng: lng_list[i]}, "yellow");
+        //console.log(lat_list.length);
+        //console.log(lat_list);
+        createMarker(lat_list[i],lng_list[i])
+
       }
+      /*
       function addMarker(latLng, color) {
         let url = "http://maps.google.com/mapfiles/ms/icons/";
         url += color + "-dot.png";
@@ -363,6 +342,7 @@ export default {
           }
         }); 
       }
+      */
     }
 
     var autocomplete = new google.maps.places.Autocomplete(
