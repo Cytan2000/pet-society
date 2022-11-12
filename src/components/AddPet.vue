@@ -21,7 +21,7 @@
           />
     
       Pet Age<input
-            type="text"
+            type="number"
             class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500"
             placeholder="Pet Age"
             v-model="page"
