@@ -5,13 +5,12 @@
             Enter end date<input v-model="jenddate" class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
         Tell us a little bit about yourself and your pet!<textarea v-model="jnote" cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Additional Notes">
             </textarea>
-        <!-- find a way to dynamically retrieve the pet data -->
-        <!-- <div v-for="(item, index) in this.petarr" :key="index">{{item}}</div> -->
+        
         Select your pet:
         
         <select size="1" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" v-model="jpets" id="pet-select" multiple>
           <option value="">--Please choose an option--</option>
-          <option v-for="(item, index) in this.petarr" :key="index" :value="item">{{item}}</option>
+          <option v-for="(item, index) in this.petarr" :key="index" :value="this.petids[index]">{{item}}</option>
     </select>
       <button 
               @click="submit_booking"
@@ -37,6 +36,8 @@
       end_date: jenddate,
       notes: jnote,
       pets: jpets,
+      status: "pending"
+      
     })
   }
   
@@ -51,7 +52,8 @@
         jnote: "",
         jpets: [],
         petarr: [],
-        petids: []
+        petids: [],
+        
       }
     },
     methods:{

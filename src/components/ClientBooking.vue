@@ -7,22 +7,7 @@
     <base-dialog2 v-if="showDialog">
 
     <template #default>
-
       <BookingConfirmation></BookingConfirmation>
-      <!-- content -->
-      <!-- <h1 class="form-title">Confirm Booking?</h1>
-      <div class="flex flex-row">
-
-      <button 
-      @click="confirmDialogMsg"
-      class="mx-5 mt-10 w-24 border-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >Cancel</button>
-      <button 
-      class="mx-5 mt-10 w-24 text-white bg-yellow-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      @click="accept_job"
-      >Yes</button>
-    </div> -->
-    <!-- content -->
     </template>
     <template #actions>
       <svg
@@ -51,13 +36,14 @@
       >
         <img
           class="image-sizing mx-5 my-5"
-          src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          
         />
         <div class="flex flex-col justify-between p-4 leading-normal">
           <h5
             class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
-            Pet Sitting for Small Pets Only(East Coast) @ Katong
+      
+          >{{this.info.ListingName}}
+            
           </h5>
           <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
             Reviews
@@ -117,18 +103,7 @@
     </div>
 
     <div
-      class="flex flex-col mr-2 items-center border justify-end text-white h-26 flex-auto md:col-span-1 col-span-3"
-    >
-      <!-- <div class="">
-          <div class="px-4 py-2 font-semibold">Birthday</div>
-          <input v-model="birthday" class="px-4 py-2 text-black border" type="date">
-        </div>
-        <div class="">
-          <div class="px-4 py-2 font-semibold">Birthday</div>
-          <input v-model="birthday" class="px-4 py-2 text-black border" type="date">
-        </div> -->
-
-      <!-- Add Calender here -->
+      class="flex flex-col mr-2 items-center border justify-end text-white h-26 flex-auto md:col-span-1 col-span-3">
       <div date-rangepicker class="flex items-center">
         <div class="relative">
           <div
