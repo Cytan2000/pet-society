@@ -91,7 +91,7 @@ function writeData(userId,pname,pbreed,page,petphoto,animal_type) {
   var pet_array = [];
   get(child(dbRef(db), `users/${userId}/petid_array`)).then((snapshot) => {
   if (snapshot.exists()) {
-    pet_array = snapshot.val();
+    pet_array = Object.values(snapshot.val());
     console.log(pet_array);
     pet_array.push(petid);
     set(userPets,pet_array);
@@ -134,9 +134,11 @@ export default {
         var userId= usercreds.uid
         var petid = writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name,this.animal_type);
         this.onUpload(petid);
-
-       
-        
+        this.pname=""
+        this.pbreed=""
+        this.page=""
+        this.imageData=""
+        this.animal_type=""
 
   },
   previewImage(event) {
