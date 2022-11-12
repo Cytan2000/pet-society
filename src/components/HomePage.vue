@@ -75,7 +75,7 @@
 
 import BuyerCard from "./UI/buyerCard.vue";
 
-import { getDatabase, ref as stoRef, onValue, child } from "firebase/database";
+import { getDatabase, ref as stoRef, onValue, child,get } from "firebase/database";
 
 import axios from 'axios';
 var lat_list = [];
@@ -113,10 +113,30 @@ export default {
       list2: [],
       address: "",
       error:"",
+      emilia_list: [],
     };
   },
   
   methods: {
+    pull_workpostal_and_ListingName(){
+      const ref1 = stoRef(getDatabase());
+      get(child(ref1,`bookings/`)).then((snapshot1)=>{
+        console.log(snapshot1.val());
+        if(snapshot1.exists()){
+          for(var items in snapshot1.val()){
+            var array_to_rtr = [];
+            console.log(Object.values(snapshot1.val()[items]));
+            console.log(Object.values(snapshot1.val()[items])[2]);
+            console.log(Object.values(snapshot1.val()[items])[6]);
+            array_to_rtr.push(Object.values(snapshot1.val()[items])[2]);
+            array_to_rtr.push(Object.values(snapshot1.val()[items])[6]);
+            this.emilia_list.push(array_to_rtr);
+          }
+        
+          localStorage.setItem("map_wpandlistname",JSON.stringify(this.emilia_list));
+        }
+      })
+    },
     getSellersLocation() {
       const db = getDatabase();
       const dbRef = stoRef(db, "bookings/");
@@ -275,6 +295,7 @@ export default {
     this.getSellersLocation();
   },
   beforeUpdate() {
+    this.pull_workpostal_and_ListingName();
     this.geocode();
     console.log(this.list1);
 
@@ -304,7 +325,7 @@ export default {
         position: myLatLng,
         map: map,
        });
-       function createMarker(lat, lng) {
+       function createMarker(lat, lng,altext) {
           var newmarker = new google.maps.Marker({
               position: new google.maps.LatLng(lat, lng),
               map: map,
@@ -313,9 +334,11 @@ export default {
                 url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
               }
           });
+          console.log(altext);
+          
 
           newmarker['infowindow'] = new google.maps.InfoWindow({
-                  content: "<img src='../assets/logo.png' alt='hi'>"
+                  content: `<img src='../assets/logo.png' alt='${altext}'>`
               });
 
           google.maps.event.addListener(newmarker, 'click', function() {
@@ -327,6 +350,7 @@ export default {
       for ( var i = 0; i < lat_list.length; i++) {
         //console.log(lat_list.length);
         //console.log(lat_list);
+
         createMarker(lat_list[i],lng_list[i])
 
       }
