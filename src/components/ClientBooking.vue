@@ -28,16 +28,12 @@
     </template>
   </base-dialog2>
 
-  <div class="grid grid-cols-3 gap-4 h-full md:flex-row">
-    <div class="h-26 flex-auto md:col-span-2 col-span-3">
+  <div class="grid grid-cols-6 gap-4 h-full md:flex-row">
+    <div class="h-26 flex-auto md:col-span-5 col-span-5">
       <div
         href="#"
-        class="flex flex-col items-center bg-white border md:flex-row md:max-w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-      >
-        <img
-          class="image-sizing mx-5 my-5"
-          
-        />
+        class="flex flex-col items-center bg-white border md:flex-row md:max-w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <img class="image-sizing mx-5 my-5" :src="this.info.imgurls" />
         <div class="flex flex-col justify-between p-4 leading-normal">
           <h5
             class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -55,26 +51,28 @@
             <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fourth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
             <svg aria-hidden="true" class="w-5 h-5 text-gray-300 dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fifth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
         </div>
-          
-
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Statistics
-          </p>
         </div>
       </div>
       <div class="border-t border-b py-5 ml-5">
         <!-- add location here -->
-        {{ this.info.WorkAddress }}
+        <h4 class="text-xl font-semibold">Address:</h4>{{ this.info.Workaddress}}
       </div>
-      <div class="ml-5">
+      <div class="border-t border-b py-5 ml-5">
+        <h4 class="text-xl font-semibold">Description:</h4>
         {{ this.info.Description }}
       </div>
-      <div class="py-5 border-t border-b ml-5">Area</div>
-      <div class="my-2 py-5 border-t border-b ml-5">include map here</div>
-
-      <div class="my-2 py-5 border-t border-b ml-5">Review
+      <div class="grid content-center">
+        <button
+          @click="showDialog = !showDialog"
+          type="submit"
+          class="w-50 content-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Create New Job
+        </button>
+      </div>
+      <div class="my-2 py-5 border-t  ml-5">Review
       <article>
-    <div class="flex items-center mb-4 space-x-4">
+    <div class="flex items-center  mb-4 space-x-4">
         <img class="w-10 h-10 rounded-full" src="https://picsum.photos/200/300" alt="">
         <div class="space-y-1 font-medium dark:text-white">
             <p>Jese Leos <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500 dark:text-gray-400">Joined on August 2014</time></p>
@@ -101,10 +99,11 @@
   </article>
   </div>
     </div>
-
     <div
-      class="flex flex-col mr-2 items-center border justify-end text-white h-26 flex-auto md:col-span-1 col-span-3">
-      <div date-rangepicker class="flex items-center">
+      class="flex flex-col mr-2 items-center border justify-top text-white h-26 flex-auto md:col-span-1 col-span-3">
+     <img src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.35.21%20PM.png?alt=media&token=198b45c2-dc84-421c-9804-6720d1fd751a" alt="">
+     <img class="pb-3" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.39.46%20PM.png?alt=media&token=fd2ce56b-6cdd-4c5b-941d-5a235b14e219" alt="">
+      <!-- <div date-rangepicker class="flex items-center">
         <div class="relative">
           <div
             class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
@@ -156,10 +155,10 @@
             placeholder="Select date end"
           />
         </div>
-      </div>
+      </div> -->
       <!-- calender end -->
       
-      <div class="align-middle">
+      <!-- <div class="align-middle">
         <button
           @click="showDialog = !showDialog"
           type="submit"
@@ -167,7 +166,7 @@
         >
           Create New Job
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
