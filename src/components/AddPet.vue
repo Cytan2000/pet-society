@@ -134,9 +134,11 @@ export default {
         var userId= usercreds.uid
         var petid = writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name,this.animal_type);
         this.onUpload(petid);
-
-       
-        
+        this.pname=""
+        this.pbreed=""
+        this.page=""
+        this.imageData=""
+        this.animal_type=""
 
   },
   previewImage(event) {

@@ -1,5 +1,5 @@
 <template>
-  <base-dialog v-if="showDialog">
+  <base-dialog2 v-if="showDialog">
     <template #default>
       <!-- content -->
       <h1 class="form-title">Your Pet</h1>
@@ -22,9 +22,9 @@
         />
       </svg>
     </template>
-  </base-dialog>
+  </base-dialog2>
   <!-- second pop-up -->
-  <base-dialog v-if="showUpload" >
+  <base-dialog2 v-if="showUpload" >
     <template #default>
       <!-- content -->
       <div class="flex items-center justify-center w-full">
@@ -68,7 +68,7 @@
         />
       </svg>
     </template>
-  </base-dialog>
+  </base-dialog2>
   
   <div class="bg-gray-100 h-full">
     <div class="container mx-auto my-5 p-5">
@@ -281,12 +281,12 @@
 
 <script>
 import AddPet from "./AddPet.vue";
-import BaseDialog from "./UI/BaseDialog.vue";
+import BaseDialog2 from "./UI/BaseDialog2.vue";
 import { getDatabase, onValue, ref, child,get } from "firebase/database";
 import { getStorage, ref as stoRef, getDownloadURL,uploadBytes } from "firebase/storage";
 
 export default {
-  components: { AddPet, BaseDialog },
+  components: { AddPet, BaseDialog2 },
   data() {
     return {
       showDialog: false,
