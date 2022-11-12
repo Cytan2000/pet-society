@@ -125,19 +125,22 @@ export default {
     pull_workpostal_and_ListingName(){
       const ref1 = stoRef(getDatabase());
       get(child(ref1,`bookings/`)).then((snapshot1)=>{
-        console.log(snapshot1.val());
+        // console.log(snapshot1.val());
         if(snapshot1.exists()){
           for(var items in snapshot1.val()){
             var array_to_rtr = [];
-            console.log(Object.values(snapshot1.val()[items]));
-            console.log(Object.values(snapshot1.val()[items])[2]);
-            console.log(Object.values(snapshot1.val()[items])[6]);
+            // console.log(Object.values(snapshot1.val()[items]));
+            // console.log(Object.values(snapshot1.val()[items])[2]);
+            // console.log(Object.values(snapshot1.val()[items])[6]);
+            // console.log(Object.values(snapshot1.val()[items])[8][0]);
             array_to_rtr.push(Object.values(snapshot1.val()[items])[2]);
             array_to_rtr.push(Object.values(snapshot1.val()[items])[6]);
+            array_to_rtr.push(Object.values(snapshot1.val()[items])[8][0]);
             this.emilia_list.push(array_to_rtr);
           }
         
           localStorage.setItem("map_wpandlistname",JSON.stringify(this.emilia_list));
+          // console.log(this.emilia_list)
         }
       })
     },
@@ -153,7 +156,7 @@ export default {
 
             this.list2.push(childSnapshot.val().WorkPostal);
           })
-          console.log(this.list2.length);    
+          // console.log(this.list2.length);    
           //this.list2.push(childSnapshot);
         },
       );
@@ -221,10 +224,10 @@ export default {
 
     geocode() {
       if (lat_list.length != this.list2.length || lng_list.length != this.list2.length) {
-        console.log(lat_list.length);
-        console.log(this.list2.length);
+        // console.log(lat_list.length);
+        // console.log(this.list2.length);
         for (var j = 0; j < this.list2.length; j++) {
-          console.log(this.list2[j])
+          //console.log(this.list2[j])
 
           axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params: {
@@ -241,7 +244,7 @@ export default {
           .catch((error) => {
             console.log(error);
           })
-          console.log(lat_list.length)
+          // console.log(lat_list.length)
           function poll(){
             if (lat_list.length!=0 || lng_list.length!=0){
               //console.log(lat_list);
@@ -274,10 +277,10 @@ export default {
         map: map,
       });
 
-      console.log(lat_list);
-      console.log(lng_list);
+      // console.log(lat_list);
+      // console.log(lng_list);
       for ( var i = 0; i < lat_list.length; i++) {
-        console.log(lat_list.length);
+        // console.log(lat_list.length);
 
       addMarker({lat: lat_list[i], lng: lng_list[i]}, "yellow");
       }
@@ -301,13 +304,12 @@ export default {
   beforeUpdate() {
     this.pull_workpostal_and_ListingName();
     this.geocode();
-    console.log(this.list1);
 
     //console.log(this.list2)
     // console.log(this.list2.length)
     // console.log(this.list2);
     // this.test();
-    console.log(lat_list);
+    // console.log(lat_list);
     navigator.geolocation.getCurrentPosition(
       function (position) {
           initMap(position.coords.latitude, position.coords.longitude);
@@ -338,11 +340,14 @@ export default {
                 url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
               }
           });
-          console.log(altext);
-          
+
+          var info_data = JSON.parse(localStorage.getItem("map_wpandlistname"));
+          //console.log(info_data)
+
 
           newmarker['infowindow'] = new google.maps.InfoWindow({
-                  content: `<img src='../assets/logo.png' alt='${altext}'>`
+                  content: `<img src='${info_data[i][2]}' alt='img' style="width:60%; height:60%">
+                            <h3>${info_data[i][0]}</h3>`
               });
 
           google.maps.event.addListener(newmarker, 'click', function() {
