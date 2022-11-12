@@ -205,9 +205,11 @@ import { getAuth }  from "firebase/auth";
           this.bHomeType = ""
           this.bPetType = []
           this.bDesc = ""
-          location.reload();
+          const timeout = setTimeout(reload,1000);
           }
-          
+          function reload() {
+            window.location.href = '/sellerhome';
+          }
           
           //need a way to return the id of the booking
     },
