@@ -56,6 +56,16 @@
     },
     methods:{
       submit_booking() {
+          const db = getDatabase();
+          const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+          const uid=usercreds.uid;
+          const userRef = dbRef(db, "bookings/" + this.$route.params.id);
+          onValue(userRef, (snapshot) => {
+            const data = snapshot.val();
+            this.jsellerid = data.SellerId
+
+          })
+          this.jbuyerid = uid
           writeData(this.jsellerid, this.jbuyerid, this.$route.params.id,this.jstartdate, this.jenddate, this.jnote, this.jpets);
           this.jstartdate = ""
           this.jenddate = ""
@@ -66,7 +76,9 @@
   },
   mounted(){
     const db = getDatabase();
-    const userRef = dbRef(db, "users/" + "VRPFjZpz1uOORs1MavU7NvhVyqb2");
+    const usercreds = JSON.parse(localStorage.getItem("userCredential"));
+    const uid=usercreds.uid;
+    const userRef = dbRef(db, "users/" + uid);
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
       this.petids = data.petid_array;

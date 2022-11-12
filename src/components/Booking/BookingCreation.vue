@@ -103,6 +103,8 @@
               class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
               Submit
             </button>
+
+        <div v-if="error" >Please upload at least 1 picture!</div>
   </template>
   
   <script>
@@ -149,6 +151,7 @@ import { getAuth }  from "firebase/auth";
       if (imgurlarr.length!=0) {
         // Do something with el
         console.log(imgurlarr)
+        bPetType.push("")
         update(dbRef(db, 'bookings/' + bookingid), {
       SellerId: uid,
       ListingName: bListing,
@@ -184,18 +187,26 @@ import { getAuth }  from "firebase/auth";
         bDesc: "",
         bListing: "",
         showimg:[],
+        error: false
       }
     },
     methods:{
       submit_booking() {
-          writeData(this.bListing,this.bAddress, this.bPostal, this.bRate, this.bHomeType, this.bPetType, this.bDesc);
+          length = document.getElementById('imagefileid').files.length
+          if (length==0){
+            this.error = true
+          }
+          else{
+            writeData(this.bListing,this.bAddress, this.bPostal, this.bRate, this.bHomeType, this.bPetType, this.bDesc);
           this.bListing= "";
           this.bAddress = "";
           this.bPostal = "";
           this.bRate = ""
           this.bHomeType = ""
-          this.bPetType =[]
+          this.bPetType = []
           this.bDesc = ""
+          }
+          
           
           //need a way to return the id of the booking
     },
