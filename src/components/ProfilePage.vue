@@ -77,7 +77,7 @@
         <!-- Left Side -->
         <div class="w-full md:w-4/12 md:mx-2">
           <!-- Profile Card -->
-          <div class="h-full bg-white p-3 border-t-4 border-green-400 h-full">
+          <div class="h-full bg-white p-3 border-t-4 border-green-400">
             <div class="image overflow-hidden">
               <!-- insert user profile picture here -->
               <img 
@@ -126,9 +126,7 @@
                 <span class="ml-auto">2022</span>
               </li>
             </ul>
-            <div class="w-full h-full">
-              <img class="" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2FScreenshot%202022-11-12%20at%2019.15.24.png?alt=media&token=ed75bce8-9327-49ff-98d9-aa97ddef3dd3"/>
-            </div>
+            
           </div>
           <!-- End of profile card -->
           <div class="my-4"></div>
@@ -172,7 +170,7 @@
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Address</div>
-                  <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
+                  <div class="px-4 py-2">{{ address }}</div>
                 </div>
                 <div class="grid grid-cols-2">
                   <div class="px-4 py-2 font-semibold">Email.</div>
@@ -197,7 +195,7 @@
 
           <!-- Experience and education -->
           
-          <div class="bg-white overflow-y-auto" style="height: 26rem;">
+          <div class="bg-white overflow-y-auto" style="height: 26rem;" >
             <div class="flex justify-between">
               <div class="text-xl p-3">Pets </div>
               <div class="p-3">
@@ -305,6 +303,7 @@ export default {
       petbreed: "",
       petid: "",
       pet_array: [],
+      address:"",
 
     };
   },
@@ -335,6 +334,7 @@ export default {
         this.lastname = data.lastname;
         this.email=data.email;
         this.petid = data.petid;
+        this.address= data.address;
         localStorage.setItem("petid", `${data.petid}`)
       });
       this.retrieve_user_image()
