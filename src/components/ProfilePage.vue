@@ -126,6 +126,9 @@
                 <span class="ml-auto">2022</span>
               </li>
             </ul>
+            <div class="w-full h-full">
+              <img class="" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2FScreenshot%202022-11-12%20at%2019.15.24.png?alt=media&token=ed75bce8-9327-49ff-98d9-aa97ddef3dd3"/>
+            </div>
           </div>
           <!-- End of profile card -->
           <div class="my-4"></div>

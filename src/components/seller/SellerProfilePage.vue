@@ -102,13 +102,16 @@
                   <span class="ml-auto">2022</span>
                 </li>
               </ul>
+              <div class="w-full h-full">
+              <img class="" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2FScreenshot%202022-11-12%20at%2019.15.24.png?alt=media&token=ed75bce8-9327-49ff-98d9-aa97ddef3dd3"/>
+            </div>
             </div>
             <!-- End of profile card -->
             <div class="my-4"></div>
             <!-- Friends card -->
           </div>
           <!-- Right Side -->
-          <div class="w-full md:w-8/12 mx-2 h-full">
+          <div class="w-full md:w-8/12 mx-2">
             <!-- Profile tab -->
             <!-- About Section -->
             <div class="bg-white px-6 pb-6 pt-3 shadow-sm rounded-sm">
@@ -170,9 +173,9 @@
   
             <!-- Experience and education -->
             
-            <div class="bg-white overflow-y-auto" style="height: 26rem;">
+            <div class="bg-white h-full" >
               <div class="flex justify-between">
-                
+                Hii
               </div>
             
             
