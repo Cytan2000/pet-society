@@ -172,15 +172,7 @@
             
             <div class="bg-white overflow-y-auto" style="height: 26rem;">
               <div class="flex justify-between">
-                <div class="text-xl p-3">Pets </div>
-                <div class="p-3">
-                  <button
-                  class="py-2 px-4 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
-                  @click="showDialog = !showDialog"
-                >
-                  + Add Pet
-                </button>
-                </div>
+                
               </div>
             
             
