@@ -191,7 +191,7 @@ const getout = () => {
     .then(() => {
       window.localStorage.clear();
       console.log("Successfully Signed Out");
-      router.push("/login");
+      router.push("/");
     })
     .catch((error) => {
       console.log(error.code);
@@ -204,7 +204,7 @@ const signInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      router.push("/home");
+      router.push("/");
     })
     .catch((error) => {
       const errorCode = error.code;
