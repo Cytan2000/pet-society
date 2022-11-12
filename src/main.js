@@ -66,9 +66,8 @@ const router = createRouter({
         { path: "/sellerhome", component:SellerHomePage},
         { path: "/buyerjob", component: BuyerJob},
         { path: "/sellerjob", component: SellerJobs},
-        { path: "/JobStatus", component: JobStatus},
+        { path: "/JobStatus/:id",name:'JobStatus', component: JobStatus},
         { path: "/buyerJobPage", component: buyerJobPage},
-        
      ]
 });
 

@@ -185,6 +185,7 @@ import BaseDialog2 from "./UI/BaseDialog2.vue";
     return{
       info:"",
       showDialog:false,
+      id:"",
     }
 
   },

@@ -177,8 +177,9 @@ export default {
         {
           onlyOnce: true,
         }
+
       );
-        // console.log(this.list1);
+        console.log(this.list1);
     },
     
 

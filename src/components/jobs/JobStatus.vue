@@ -270,6 +270,7 @@ export default {
   components: { BaseDialog },
   data() {
     return {
+      info:"",
       imgURL:null,
       showUpload: false,
       new_chat_array:[],
@@ -277,9 +278,11 @@ export default {
       text:"",
       title:"",
       account_type:"",
+      id:"",
     };
   },
   methods:{
+    
     enter_chat(){
       var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
       var photoURL = JSON.parse(localStorage.getItem("userCredential"))["providerData"][0]["photoURL"];
@@ -339,6 +342,7 @@ export default {
     }
   },
   mounted() {
+    this.id = this.$route.params.id;
     const dbRef = ref(getDatabase());
     var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
 
