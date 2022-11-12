@@ -1,16 +1,80 @@
+
 <template>
     
     <router-link :to=" {name: 'ClientBooking', params: {id:link, data:info}}"
     class="flex flex-row my-3 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-    <img class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="/docs/images/blog/image-4.jpg" alt="">
+
+<div id="carouselExampleCaptions" class="carousel slide relative h-40 w-40" data-bs-ride="carousel">
+  <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="2"
+      aria-label="Slide 3"
+    ></button>
+  </div>
+  <div  class="carousel-inner relative w-full overflow-hidden">
+    <div v-for="picture in info.val().imgurls" class="carousel-item active relative float-left w-full">
+      <img
+        :src="picture"
+        class="block w-full object-contain"
+        alt="..."
+      />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
     <div class="flex flex-col justify-between p-4 leading-normal">
         <div class="flex flex-row">
-            <div>
+            <div v-if="info.val().PetType.includes('dog')">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/194/194630.png"/>
             </div>
-            <div>
+            <div v-if="info.val().PetType.includes('cat')">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/185/185846.png"/>
             </div>
+            <div v-if="info.val().PetType.includes('rodent')">
+                <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/2372/2372882.png"/>
+            </div>
+            <div v-if="info.val().PetType.includes('rabbit')">
+                <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/4775/4775505.png"/>
+            </div>
+            <div v-if="info.val().PetType.includes('aquatic')">
+                <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/121/121905.png"/>
+            </div>
+
             
         </div>
         

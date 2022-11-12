@@ -40,16 +40,16 @@
   <section class="container mx-auto">
     <div class="grid grid-cols-3 gap-4">
       <div class="col-span-2 overflow-auto">
-        <div v-for="seller in list1">
-          <buyer-card :link="seller.key" :info="seller">
+        <div v-for="booking in list1">
+          <buyer-card :link="booking.key" :info="booking">
             <template v-slot:name>
-              <h1>{{ seller.val().Description }}</h1>
+              <h1>{{ booking.val().Description }}</h1>
             </template>
             <template v-slot:description>
-              <p>{{ seller.email }}</p>
+              <p>{{ booking.email }}</p>
             </template>
             <template v-slot:price>
-              SGD {{seller.val().Rate}}
+              SGD {{booking.val().Rate}}
             </template>
           </buyer-card>
         </div>
