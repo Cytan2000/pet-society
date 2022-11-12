@@ -1,32 +1,18 @@
 <template>
     
     <h2 class="text-3xl font-bold">Create New Job!</h2>
-              Name<input
-              type="text"
-              class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
-              placeholder="Your Name"
-              v-model="bAddress"
-            />
-            
-            Enter start date<input class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
-            Enter end date<input class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
-
-           
-        Tell us a little bit about yourself and your pet!<textarea cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Description" v-model="bDesc">
+            Enter start date<input v-model="jstartdate" class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
+            Enter end date<input v-model="jenddate" class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
+        Tell us a little bit about yourself and your pet!<textarea v-model="jnote" cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Additional Notes">
             </textarea>
         <!-- find a way to dynamically retrieve the pet data -->
         <!-- <div v-for="(item, index) in this.petarr" :key="index">{{item}}</div> -->
         Select your pet:
         
-        <select size="1" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" name="pets" id="pet-select" multiple>
+        <select size="1" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" v-model="jpets" id="pet-select" multiple>
           <option value="">--Please choose an option--</option>
           <option v-for="(item, index) in this.petarr" :key="index" :value="item">{{item}}</option>
     </select>
-
-
-        Upload Image Here:
-        <input type="file"  id="imagefileid" name="filename" multiple/>
-    
       <button 
               @click="submit_booking"
               type="submit"
@@ -37,102 +23,46 @@
   </template>
   
   <script>
-  import { numberLiteralTypeAnnotation } from "@babel/types";
-  import { getAuth }  from "firebase/auth";
   import { getDatabase, ref as dbRef, onValue, set ,update,push,child } from "firebase/database";
-  import { getStorage, ref as StoRef, uploadBytes,getDownloadURL} from 'firebase/storage';
-  var imgurlarr = new Array()
-  
 
-  function upload_image(mybookingid, count){
-        const storage = getStorage();
-        const imagename = 'Booking/' + mybookingid + count
-        const imagesRef = StoRef(storage, imagename);
-        //this will retrieve the image file from the upload
-        const selectedFile = document.getElementById('imagefileid').files[count];
-        uploadBytes(imagesRef, selectedFile).then((snapshot) => {getDownloadURL(imagesRef)
-            .then((url) => {
-            // this retrieves the image and inserts it into the img tag
-            
-            imgurlarr.push(url)
-            
-
-            })
-            .catch((error) => {
-            // Handle any errors
-            });});
-        
-        }
-
-  function writeData(bAddress, bPostal, bRate, bHomeType, bPetType, bDesc) {
+  function writeData(jsellerid, jbuyerid, jbookingid, jstartdate, jenddate, jnote, jpets) {
     const db = getDatabase();
-    var newBookingKey = push(child(dbRef(db), 'bookings')).key;
-    var bookingid=newBookingKey;
-    length = document.getElementById('imagefileid').files.length
-    for (let i=0; i<length; i++){
-          upload_image(bookingid,i)
-    }
-    
-    function poll () {
-      if (imgurlarr.length!=0) {
-        // Do something with el
-        console.log(imgurlarr)
-        update(dbRef(db, 'bookings/' + bookingid), {
-      SellerId: "testing1",
-      Workaddress: bAddress,
-      WorkPostal: bPostal,
-      Rate: bRate,
-      HomeType: bHomeType,
-      PetType: bPetType,
-      Description: bDesc,
-      imgurls: imgurlarr
-  })
-
-      } else {
-        setTimeout(poll, 300); // try again in 300 milliseconds
-      }
-    }
-    poll()
-    
-  
-    
-        ;
+    var newJobKey = push(child(dbRef(db), 'jobs')).key;
+    var jobid=newJobKey;
+    update(dbRef(db, 'jobs/' + jobid), {
+      buyer_id: jbuyerid,
+      seller_id: jsellerid,
+      booking_id: jbookingid,
+      start_date: jstartdate,
+      end_date: jenddate,
+      notes: jnote,
+      pets: jpets,
+    })
   }
-  
   
   export default {
     data(){
       return{
-        bAddress: "",
-        bPostal: "",
-        bRate: "",
-        bHomeType: "",
-        bPetType: "",
-        bDesc: "",
-        imgurlarr:[],
+        jsellerid: "",
+        jbuyerid: "",
+        jbookingid: "",
+        jstartdate: "",
+        jenddate: "",
+        jnote: "",
+        jpets: [],
         petarr: [],
         petids: []
       }
     },
     methods:{
       submit_booking() {
-          writeData(this.bAddress, this.bPostal, this.bRate, this.bHomeType, this.bPetType, this.bDesc);
-          this.bAddress = ""
-          this.bPostal = ""
-          this.bRate = ""
-          this.bHomeType = ""
-          this.bPetType =""
-          this.bDesc = ""
-          
-          //need a way to return the id of the booking
+          writeData(this.jsellerid, this.jbuyerid, this.$route.params.id,this.jstartdate, this.jenddate, this.jnote, this.jpets);
+          this.jstartdate = ""
+          this.jenddate = ""
+          this.jnote = ""
+          this.jpets = []
     },
-      previewImage(event) {
-      var image = document.getElementById('output');
-      this.imageData = event.target.files[0];
-      image.src = URL.createObjectURL(event.target.files[0]);
-      
-    },
-
+    
   },
   mounted(){
     const db = getDatabase();
@@ -149,15 +79,5 @@
       }
     })
   }
-
-
-
-
-
-
-
 }
-
-
-  
   </script>
