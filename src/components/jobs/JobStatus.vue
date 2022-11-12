@@ -284,6 +284,7 @@ export default {
   methods:{
     
     enter_chat(){
+      
       var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
       var photoURL = JSON.parse(localStorage.getItem("userCredential"))["providerData"][0]["photoURL"];
       var msg_to_send = document.getElementById("input_message").value;
@@ -291,11 +292,10 @@ export default {
         photoURL = "https://picsum.photos/200/300"
       }
       console.log(photoURL);
-      get((ref(getDatabase(),"jobs/-NGSBee8nn8ivvQGBClB/message"))).then((snapshot3)=>{
-
+      get((ref(getDatabase(),"jobs/" + this.$route.params.id + "/message"))).then((snapshot3)=>{
         var msg_array = Object.values(snapshot3.val());
         msg_array.push([account_type,photoURL,msg_to_send]);
-        set(ref(getDatabase(),`jobs/-NGSBee8nn8ivvQGBClB/message`),msg_array);
+        set(ref(getDatabase(),`jobs/` + this.$route.params.id + `/message`),msg_array);
         console.log("Database Recorded the message");
         window.location.reload()
       })
@@ -313,7 +313,7 @@ export default {
         // const userid = this.usercreds.uid
         const selectedFile = document.getElementById('imagefileid').files[0];
         //NEED TO CHANGE USERID
-        const imagename = 'jobs/-NGSBee8nn8ivvQGBClB/'  + selectedFile.name;
+        const imagename = 'jobs/' + this.$route.params.id + '/'  + selectedFile.name;
         const imagesRef = stoRef(storage, imagename);
         //this will retrieve the image file from the upload
         console.log(selectedFile);
@@ -322,7 +322,7 @@ export default {
             console.log(snapshot);
             getDownloadURL(imagesRef)
           .then((url)=>{
-            get((ref(getDatabase(),"jobs/-NGSBee8nn8ivvQGBClB/posts"))).then((snapshot1)=>{
+            get((ref(getDatabase(),"jobs/" + this.$route.params.id + "/posts"))).then((snapshot1)=>{
               console.log(Object.values(snapshot1.val()));
               if(snapshot1.exists()){
                 console.log("Went into if statement");
@@ -330,11 +330,11 @@ export default {
                 var array_temp1 = [url,this.title,this.text];
                 post_2.push(array_temp1)
                 console.log(post_2);
-                set(ref(getDatabase(),`jobs/-NGSBee8nn8ivvQGBClB/posts/`),post_2);
+                set(ref(getDatabase(),`jobs/` + this.$route.params.id + `/posts/`),post_2);
               }else{
                 console.log("Went into the Else statement");
                 post_2 = [url,"title","body"];
-                set(ref(getDatabase(),`jobs/-NGSBee8nn8ivvQGBClB/posts/`),post_2);
+                set(ref(getDatabase(),`jobs/`+this.$route.params.id + `/posts/`),post_2);
               }
             })
           })
@@ -345,19 +345,17 @@ export default {
     this.id = this.$route.params.id;
     const dbRef = ref(getDatabase());
     var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
-
-
-    get(child(dbRef, `jobs/-NGSBee8nn8ivvQGBClB/message`)).then((snapshot) => {
+    get(child(dbRef, `jobs/`+ this.id + `/message`)).then((snapshot) => {
       if (snapshot.exists()) {
-        // console.log(Object.values(snapshot.val()));
+        console.log(Object.values(snapshot.val()));
         this.new_chat_array = Object.values(snapshot.val());
       }
     });
 
 
-    get(child(dbRef,`jobs/-NGSBee8nn8ivvQGBClB/posts`)).then((snapshot2)=>{
-    // console.log(Object.values(snapshot2.val()));
-    this.new_post_array = Object.values(snapshot2.val());
+    get(child(dbRef,`jobs/`+ this.id + `/posts`)).then((snapshot2)=>{
+    console.log(Object.values(snapshot2.val()));
+      this.new_post_array = Object.values(snapshot2.val());
   })
   }
 };
