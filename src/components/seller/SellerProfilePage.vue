@@ -233,7 +233,7 @@ export default {
         getDownloadURL(imagesRef)
             .then((url) => {
             // this retrieves the image and inserts it into the img tag
-            const img = document.getElementById('myimg');
+            const img = document.getElementById('userimg');
             img.setAttribute('src', url);
             })
             .catch((error) => {
