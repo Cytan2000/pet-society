@@ -6,22 +6,23 @@
 
 <template>
     <Disclosure as="nav" class="sticky top-0 backdrop-filter backdrop-blur-lg" v-slot="{ open }">
-      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 h-20">
+      <div class=" px-2 sm:px-6 lg:px-8 h-20">
         <div class="relative flex h-20 items-center justify-between">
           <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <!-- Mobile menu button-->
-            <DisclosureButton class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <DisclosureButton class="inline-flex items-center justify-center rounded-md p-2 text-gray-800 ring-2 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span class="sr-only">Open main menu</span>
               <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
               <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
             </DisclosureButton>
           </div>
           <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div class="flex flex-shrink-0 items-center">
-              <img class="block h-8 w-auto lg:hidden" src="https://media.istockphoto.com/vectors/dog-paw-icon-logo-vector-id1005374612" alt="Your Company" />
-              <img class="hidden h-8 w-auto lg:block" src="https://media.istockphoto.com/vectors/dog-paw-icon-logo-vector-id1005374612" alt="Your Company" />
+            <div class="flex flex-shrink-0">
+              <img class="block h-14 w-auto lg:hidden rounded-lg" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2F4C76B58E-4920-4FE7-BC14-426088722C74.jpeg?alt=media&token=ebbc62e2-9757-440e-8e51-0cf5b382fdc6" alt="Your Company" />
+              <img class="hidden h-14 w-auto lg:block rounded-lg" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2F4C76B58E-4920-4FE7-BC14-426088722C74.jpeg?alt=media&token=ebbc62e2-9757-440e-8e51-0cf5b382fdc6" alt="Your Company" />
             </div>
-            <div class="hidden sm:ml-6 sm:block">
+            <!-- buttons -->
+            <div class="hidden sm:ml-6 sm:block flex items-center sm:mt-4">
               <!-- Navbar buttons -->
               <div v-if="account=='buyer'" class="flex space-x-4">
                 <a v-for="item in buyer_navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-yellow-500 text-black dark:text-white' : 'text-black hover:bg-yellow-500 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
@@ -39,9 +40,14 @@
             
   
             <!-- Profile dropdown -->
-            <Menu as="div" class="relative ml-3">
+            <div v-if="!isLoggedIn">
+              
+              <a href="/login" class="no-underline hover:underline text-blue-600">Login</a>
+           
+            </div>
+            <Menu v-if="isLoggedIn" as="div" class="relative ml-3 hover:underline ">
               <div>
-                <MenuButton class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <MenuButton class="flex mt-2 rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span class="sr-only">Open user menu </span>
                   <img class="h-8 w-8 rounded-full" src="https://i.postimg.cc/5N2WHwrd/Screenshot-2022-11-11-at-9-59-58-AM.png" alt="" id="profileimg" referrerpolicy="no-referrer"/>
                 </MenuButton>
@@ -69,6 +75,7 @@
                 </MenuItems>
               </transition>
             </Menu>
+            
           </div>
         </div>
       </div>
@@ -161,7 +168,7 @@ onMounted(() => {
  
   
   const buyer_navigation = [
-    { name: 'Home', href: '/home', current: true, },
+    { name: 'Home', href: '/', current: true, },
     { name: 'Pet Updates', href: '/buyerjob', current: false },
     { name: 'About', href: '/about', current: false },
     { name: 'Notfound', href: '*', current: false },
@@ -175,7 +182,7 @@ onMounted(() => {
     
   ]
   const navigation = [
-    { name: 'Home', href: '/home', current: true, },
+    { name: 'Home', href: '/', current: true, },
     { name: 'About', href: '/about', current: false },
     
   ]

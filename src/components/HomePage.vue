@@ -20,8 +20,12 @@
 <template>
 
 <div class="banner h-96 w-full font-sans">
-  <form @submit.prevent="submit" class="content-items rounded-lg px-8 py-6 "> 
-    <h3 class="text-xl text-center font-bold text-yellow-500"> Services Near Me</h3>
+  <form @submit.prevent="submit" class="content-items rounded-lg px-8 py-6"> 
+    <div class="lol">
+      <div class="mx-auto">
+    <h3 class="text-5xl font-bold text-yellow-500 typed-out"> Find Pet sitters near you!</h3>
+  </div>
+  </div>
       <div class="flex items-center justify-between space-x-4">
         <input id="autocomplete" type="text" placeholder="Location" v-model="address" class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-yellow-500"/>
         <button @click="locatorButtonPressed" class="w-12 h-10 mt-5 rounded bg-yellow-500 text-white">
