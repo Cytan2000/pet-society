@@ -1,6 +1,6 @@
 <template>
     
-    <h2 class="text-3xl font-bold">Create New booking</h2>
+    <h2 class="text-3xl font-bold">Create New Job!</h2>
               Name<input
               type="text"
               class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
@@ -14,6 +14,16 @@
            
         Tell us a little bit about yourself and your pet!<textarea cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Description" v-model="bDesc">
             </textarea>
+        <!-- find a way to dynamically retrieve the pet data -->
+        <!-- <div v-for="(item, index) in this.petarr" :key="index">{{item}}</div> -->
+        Select your pet:
+        
+        <select size="1" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" name="pets" id="pet-select" multiple>
+          <option value="">--Please choose an option--</option>
+          <option v-for="(item, index) in this.petarr" :key="index" :value="item">{{item}}</option>
+    </select>
+
+
         Upload Image Here:
         <input type="file"  id="imagefileid" name="filename" multiple/>
     
@@ -28,15 +38,16 @@
   
   <script>
   import { numberLiteralTypeAnnotation } from "@babel/types";
-import { getAuth }  from "firebase/auth";
-  import { getDatabase, ref as dbRef, set ,update,push,child } from "firebase/database";
+  import { getAuth }  from "firebase/auth";
+  import { getDatabase, ref as dbRef, onValue, set ,update,push,child } from "firebase/database";
   import { getStorage, ref as StoRef, uploadBytes,getDownloadURL} from 'firebase/storage';
   var imgurlarr = new Array()
+  
+
   function upload_image(mybookingid, count){
         const storage = getStorage();
         const imagename = 'Booking/' + mybookingid + count
         const imagesRef = StoRef(storage, imagename);
-        console.log(mybookingid)
         //this will retrieve the image file from the upload
         const selectedFile = document.getElementById('imagefileid').files[count];
         uploadBytes(imagesRef, selectedFile).then((snapshot) => {getDownloadURL(imagesRef)
@@ -99,6 +110,8 @@ import { getAuth }  from "firebase/auth";
         bPetType: "",
         bDesc: "",
         imgurlarr:[],
+        petarr: [],
+        petids: []
       }
     },
     methods:{
@@ -113,15 +126,38 @@ import { getAuth }  from "firebase/auth";
           
           //need a way to return the id of the booking
     },
-    previewImage(event) {
-    var image = document.getElementById('output');
-    this.imageData = event.target.files[0];
-    image.src = URL.createObjectURL(event.target.files[0]);
-    
+      previewImage(event) {
+      var image = document.getElementById('output');
+      this.imageData = event.target.files[0];
+      image.src = URL.createObjectURL(event.target.files[0]);
+      
+    },
+
   },
- 
-    
+  mounted(){
+    const db = getDatabase();
+    const userRef = dbRef(db, "users/" + "VRPFjZpz1uOORs1MavU7NvhVyqb2");
+    onValue(userRef, (snapshot) => {
+      const data = snapshot.val();
+      this.petids = data.petid_array;
+      for (var i=0; i<this.petids.length; i++){
+        const petRef = dbRef(db, "pets/" + this.petids[i]);
+        onValue(petRef, (snapshot) => {
+          const petdata = snapshot.val()
+          this.petarr.push(petdata.petname)
+        })
+      }
+    })
   }
-  }
+
+
+
+
+
+
+
+}
+
+
   
   </script>
