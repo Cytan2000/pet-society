@@ -61,7 +61,7 @@
       <div class="h-26 flex-auto md:col-span-2 col-span-3">
         <article
           class="
-            mt-4
+            mt-5
             p-6
             bg-white
             rounded-lg
@@ -111,7 +111,7 @@
               />
               <span class="font-medium dark:text-white"> Snoopy + Jason </span>
             </div>
-            <div>
+            <div v-if="account_type=='seller'">
               <button class="h-10 bg-blue-500  mt-2 pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
               @click="showUpload = !showUpload"
               >
@@ -182,6 +182,7 @@
       <div
         class="
           w-full
+          mt-5
           px-5
           flex flex-col
           bg-yellow-100
@@ -275,6 +276,7 @@ export default {
       new_post_array:[],
       text:"",
       title:"",
+      account_type:"",
     };
   },
   methods:{
@@ -338,6 +340,8 @@ export default {
   },
   mounted() {
     const dbRef = ref(getDatabase());
+    var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
+
 
     get(child(dbRef, `jobs/-NGSBee8nn8ivvQGBClB/message`)).then((snapshot) => {
       if (snapshot.exists()) {

@@ -182,6 +182,7 @@ const signIn = () => {
           errMsg.value = "Email or password was incorrect";
           break;
       }
+      alert(errMsg.value);
     });
 };
 
