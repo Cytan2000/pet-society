@@ -18,7 +18,7 @@
 </style>
 
 <template>
-<div class="back">
+<div class="back-color">
 <div class="banner h-96 w-full font-sans">
   <form @submit.prevent="submit" class="content-items rounded-lg px-8 py-6"> 
     <div class="lol">

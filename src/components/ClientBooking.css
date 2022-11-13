@@ -1,5 +1,9 @@
 .image-sizing{
-    border-radius: 25%;
-    width: 10rem;
-    height: 10rem;
+    
+    max-height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+.back-color{
+    background-color: #e8eaed;
 }

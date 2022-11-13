@@ -2,7 +2,7 @@
 @import "./ClientBooking.css";
 </style>
 
-<template>
+<template >
 
     <base-dialog2 v-if="showDialog">
 
@@ -28,13 +28,54 @@
     </template>
   </base-dialog2>
 
-  <div class="grid grid-cols-6 gap-4 h-full md:flex-row">
+  <div class="grid grid-cols-6 gap-4 h-full md:flex-row back-color">
     <div class="h-26 flex-auto md:col-span-5 col-span-5">
       <div
         href="#"
         class="flex flex-col items-center bg-white border md:flex-row md:max-w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img class="image-sizing mx-5 my-5" :src="this.info.imgurls" />
-        <div class="flex flex-col justify-between p-4 leading-normal">
+        <img class="object-fill w-full" :src="this.info.imgurls" style="height: 36rem;"/>
+        
+      </div>
+      <div class="flex flex-row justify-between">
+      <div class="w-1/2 h-96 rounded-lg shadow-md mx-2 my-3 bg-yellow-200">
+        
+        <div class="p-3">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{this.info.ListingName}}</h5>
+        </div>
+
+        <div class="border-t border-b border-black py-5">
+        <!-- add location here -->
+        <h4 class="text-xl font-semibold px-3">Address:</h4>
+        <div class="px-3">
+        {{ this.info.Workaddress}} {{this.info.WorkPostal}}
+        </div>
+        
+      </div>
+      <div>
+        <div class="px-3">
+            {{this.info.Description}}
+        </div>
+        <div class="my-2">
+          Accepted 
+        </div>
+      </div>
+      </div>
+
+
+
+      <div class="w-1/2 h-96  mx-2 my-3  flex justify-end">
+        <div class=" bg-yellow-200 rounded-lg shadow-md" style="width:90%">
+            HI
+        </div>
+      </div>
+      </div>
+
+
+
+
+
+
+      <div class="flex flex-col justify-between p-4 leading-normal">
           <h5
             class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
       
@@ -52,7 +93,6 @@
             <svg aria-hidden="true" class="w-5 h-5 text-gray-300 dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fifth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
         </div>
         </div>
-      </div>
       <div class="border-t border-b py-5 ml-5">
         <!-- add location here -->
         <h4 class="text-xl font-semibold">Address:</h4>{{ this.info.Workaddress}}
@@ -99,6 +139,9 @@
   </article>
   </div>
     </div>
+
+
+
     <div
       class="flex flex-col mr-2 items-center border justify-top text-white h-26 flex-auto md:col-span-1 col-span-3">
      <img src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.35.21%20PM.png?alt=media&token=198b45c2-dc84-421c-9804-6720d1fd751a" alt="">
