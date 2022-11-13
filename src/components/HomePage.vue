@@ -115,6 +115,7 @@ export default {
   data() {
     return {
       list1: [],
+      list3: [],
       address: "",
       error:"",
     };
@@ -135,11 +136,11 @@ export default {
             array_to_rtr.push(Object.values(snapshot1.val()[items])[2]);
             array_to_rtr.push(Object.values(snapshot1.val()[items])[6]);
             array_to_rtr.push(Object.values(snapshot1.val()[items])[8][0]);
-            this.list2.push(array_to_rtr);
+            this.list3.push(array_to_rtr);
           }
         
-          localStorage.setItem("map_wpandlistname",JSON.stringify(this.list2));
-          // console.log(this.list2)
+          localStorage.setItem("map_wpandlistname",JSON.stringify(this.list3));
+          // console.log(this.list3)
         }
       })
     },
