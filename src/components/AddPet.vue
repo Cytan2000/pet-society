@@ -139,6 +139,11 @@ export default {
         this.page=""
         this.imageData=""
         this.animal_type=""
+        const timeout = setTimeout(reload,1000);
+          
+          function reload() {
+            window.location.href = '/profile';
+          }
         
   },
   previewImage(event) {

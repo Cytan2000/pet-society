@@ -27,9 +27,68 @@
       </svg>
     </template>
   </base-dialog2>
+<div class="flex flex-wrap">
+  <div class="w-full md:w-1/2 xl:w-3/4 p-6">
+    <img class="object-fill w-full" :src="this.info.imgurls" style="height: 36rem;"/>
+  </div>
+  <div class="w-full md:w-1/2 xl:w-1/4 p-6">
+    <img class="py-3" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.35.21%20PM.png?alt=media&token=198b45c2-dc84-421c-9804-6720d1fd751a" alt="">
+    <img class="py-3" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.39.46%20PM.png?alt=media&token=fd2ce56b-6cdd-4c5b-941d-5a235b14e219" alt="">
+  </div>
+</div>
+  
+  <div class="flex flex-wrap">
+    <div class="w-full md:w-1/2 xl:w-4/8 p-6">
+        <div class="bg-gradient-to-b from-yellow-500 to-yellow-300 border-b-4 border-yellow-600 rounded-lg shadow-2xl p-5">
+            <div class="flex flex-row items-center">
+                <div class="flex-1 text-right md:text-left">
+                    <h5 class="font-bold uppercase text-gray-600">What We Offer </h5>
+                    <div class="border-t border-black mt-2 py-2">
+                      <h3 class="font-bold text-lg">Address:</h3>
+                    <h3 class="text-sm">{{ this.info.Workaddress}} {{this.info.WorkPostal}}</h3>
+                    </div>
+                    <div class="border-t border-black mt-2 py-2">
+                      <h3 class="font-bold text-lg">Description:</h3>
+                      <h3 class="text-sm">{{ this.info.Description}}</h3>
+                    </div>
+                    <div class="border-t border-black mt-2 py-2">
+                      <h3 class="font-bold text-lg">Accepted Pet Types:</h3>
+                      <h3 class="text-sm -ml-3 -mr-8">
+                        <span v-for="pet in this.info.PetType" class="px-3">{{pet}}</span>
+                      </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <div class="w-full md:w-1/2 xl:w-4/8 p-6">
+        <div class="bg-gradient-to-b from-yellow-500 to-yellow-300 border-b-4 border-yellow-600 rounded-lg shadow-2xl p-5">
+            <div class="flex flex-row items-center">
+                <div class="flex-1 text-right md:text-left">
+                    <h5 class="font-bold uppercase text-gray-600">What We Offer </h5>
+                    <h3 class="font-bold text-lg">Pet Boarding</h3>
+                </div>
+            </div>
+            <div class="flex-1 text-right md:text-left">
+              <h3 class="font-bold text-md mb-3">@ only SGD{{this.info.Rate}} per night </h3>
+              <h3 class="font-bold text-md mb-3">Book via Pet society to enjoy Premium Insurance, 24/7 support, booking guarantee, photo updates and more!</h3>
+              <button @click="showDialog = !showDialog" type="submit" class="w-50 content-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Create New Job
+              </button>
+            </div>
+        </div>
+    </div>
+                
+</div>
 
+
+
+
+<!---
   <div class="grid grid-cols-6 gap-4 h-full md:flex-row back-color">
     <div class="h-26 flex-auto md:col-span-5 col-span-5">
+      // img
       <div
         href="#"
         class="flex flex-col items-center bg-white border md:flex-row md:max-w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -37,14 +96,14 @@
         
       </div>
       <div class="flex flex-row justify-between">
-      <div class="w-1/2 h-96 rounded-lg shadow-md mx-2 my-3 bg-yellow-200">
+      <div class="w-1/2 h-96 rounded-lg shadow-2xl mx-2 my-3 bg-white">
         
         <div class="p-3">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{this.info.ListingName}}</h5>
         </div>
 
         <div class="border-t border-b border-black py-5">
-        <!-- add location here -->
+
         <h4 class="text-xl font-semibold px-3">Address:</h4>
         <div class="px-3">
         {{ this.info.Workaddress}} {{this.info.WorkPostal}}
@@ -65,31 +124,30 @@
       </div>
       </div>
 
-
-
+</div>
+-->
+<!--
       <div class="w-1/2 h-96  mx-2 my-3  flex justify-end">
-        <div class=" bg-yellow-200 rounded-lg shadow-md " style="width:90%">
-          <div class="text-center text-3xl border border-black"> What We Offer </div>
-          <div class="flex flex-row w-full">
-            <div>
-          <div class="text-gray-500 pt-4">Pet Boarding</div>
-          <div class="pb-4">@ only SGD{{this.info.Rate}} per night</div>
+        <div class=" bg-white rounded-xl shadow-2xl " style="width:90%">
+          <div class="text-center text-3xl border border-grey p-4"> What We Offer </div>
+          <div class="flex flex-row w-full"><div>
+          <div class="text-gray-500 pl-4 pt-4">Pet Boarding</div>
+          <div class="pb-4 px-4">@ only SGD{{this.info.Rate}} per night</div>
           </div>
           <div>
-            <div class="flex justify-center items-center">
+            <div class="flex mt-6 px-4">
               <button
           @click="showDialog = !showDialog"
           type="submit"
-          class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Create New Job
         </button>
             </div>
             </div>
           
-        
       </div>
-          <div>Book via Pet society to enjoy Premium Insurance, 24/7 support, booking guarantee, photo updates and more!</div>
+          <div class="px-4">Book via Pet society to enjoy Premium Insurance, 24/7 support, booking guarantee, photo updates and more!</div>
           <div class="flex justify-center">
             
       </div>
@@ -121,7 +179,7 @@
         </div>
         </div>
       <div class="border-t border-b py-5 ml-5">
-        <!-- add location here -->
+
         <h4 class="text-xl font-semibold">Address:</h4>{{ this.info.Workaddress}}
       </div>
       <div class="border-t border-b py-5 ml-5">
@@ -173,6 +231,7 @@
       class="flex flex-col mr-2 items-center border justify-top text-white h-26 flex-auto md:col-span-1 col-span-3">
      <img src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.35.21%20PM.png?alt=media&token=198b45c2-dc84-421c-9804-6720d1fd751a" alt="">
      <img class="pb-3" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.39.46%20PM.png?alt=media&token=fd2ce56b-6cdd-4c5b-941d-5a235b14e219" alt="">
+    -->
       <!-- <div date-rangepicker class="flex items-center">
         <div class="relative">
           <div
@@ -236,9 +295,10 @@
         >
           Create New Job
         </button>
-      </div> -->
+      </div> 
     </div>
   </div>
+  -->
 </template>
 
 <script>
