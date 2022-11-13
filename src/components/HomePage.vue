@@ -18,7 +18,7 @@
 </style>
 
 <template>
-<div class="back-color">
+<div class="backk">
 <div class="banner h-96 w-full font-sans">
   <form @submit.prevent="submit" class="content-items rounded-lg px-8 py-6"> 
     <div class="lol">
@@ -82,6 +82,7 @@ import BuyerCard from "./UI/buyerCard.vue";
 import { getDatabase, ref as stoRef, onValue, child,get } from "firebase/database";
 
 import axios from 'axios';
+import { safeGet } from "@firebase/util";
 var lat_list = [];
 var lng_list = [];
 // var list2 = [];
@@ -114,10 +115,8 @@ export default {
   data() {
     return {
       list1: [],
-      list2: [],
       address: "",
       error:"",
-      emilia_list: [],
     };
   },
   
@@ -136,33 +135,15 @@ export default {
             array_to_rtr.push(Object.values(snapshot1.val()[items])[2]);
             array_to_rtr.push(Object.values(snapshot1.val()[items])[6]);
             array_to_rtr.push(Object.values(snapshot1.val()[items])[8][0]);
-            this.emilia_list.push(array_to_rtr);
+            this.list2.push(array_to_rtr);
           }
         
-          localStorage.setItem("map_wpandlistname",JSON.stringify(this.emilia_list));
-          // console.log(this.emilia_list)
+          localStorage.setItem("map_wpandlistname",JSON.stringify(this.list2));
+          // console.log(this.list2)
         }
       })
     },
-    getSellersLocation() {
-      const db = getDatabase();
-      const dbRef = stoRef(db, "bookings/");
 
-      onValue(
-        dbRef,
-        (snapshot) => {
-          snapshot.forEach((childSnapshot)=>{
-            // console.log(childSnapshot.val().WorkPostal);
-
-            this.list2.push(childSnapshot.val().WorkPostal);
-          })
-          // console.log(this.list2.length);    
-          //this.list2.push(childSnapshot);
-        },
-      );
-
-      // console.log(this.list2.length);
-    },
     getBooking() {
       const db = getDatabase();
       const dbRef = stoRef(db, "bookings/");
@@ -224,16 +205,21 @@ export default {
     },
 
     geocode() {
-      if (lat_list.length != this.list2.length || lng_list.length != this.list2.length) {
-        // console.log(lat_list.length);
-        // console.log(this.list2.length);
-        for (var j = 0; j < this.list2.length; j++) {
-          //console.log(this.list2[j])
+      var list3 = JSON.parse(localStorage.getItem("map_wpandlistname"));
+    console.log(list3)
+      if (lat_list.length < list3.length || lng_list.length < list3.length) {
+        console.log(lat_list.length);
+        console.log(list3.length);
+        console.log(lat_list.length)
+        for (var j = 0; j < list3.length; j++) {
+          console.log(list3[j][1])
 
           axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params: {
-            address: this.list2[j],
-            key: 'AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg'
+            address: list3[j][1],
+            key: 'AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg',
+            region: 'sg',
+            country: 'sg',
           }
           })
           .then((response) => {
@@ -291,6 +277,7 @@ export default {
         let marker = new google.maps.Marker({
           map: map,
           position: latLng,
+          region: 'sg',
           icon: {
             url: url,
           }
@@ -300,13 +287,14 @@ export default {
   },  
   created(){
     this.getBooking();
-    this.getSellersLocation();
+    this.pull_workpostal_and_ListingName();
   },
   beforeUpdate() {
-    this.pull_workpostal_and_ListingName();
+    var list3 = JSON.parse(localStorage.getItem("map_wpandlistname"));
+    console.log(list3)
     this.geocode();
-
-    //console.log(this.list2)
+    
+    console.log(list3)
     // console.log(this.list2.length)
     // console.log(this.list2);
     // this.test();
@@ -336,21 +324,21 @@ export default {
           var newmarker = new google.maps.Marker({
               position: new google.maps.LatLng(lat, lng),
               map: map,
+              country: 'SG',
               title: "hi",
               icon: {
                 url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png",
               }
           });
 
-          var info_data = JSON.parse(localStorage.getItem("map_wpandlistname"));
-          //console.log(info_data)
+     
 
 
           newmarker['infowindow'] = new google.maps.InfoWindow({
-                  content: `<img src='${info_data[i][2]}' alt='img' style="width:60%; height:60%">
-                            <h3>${info_data[i][0]}</h3>`
+                  content: `<img src='${list3[i][2]}' alt='img' style="width:60%; height:60%">
+                            <h3>${list3[i][0]}</h3>`
               });
-
+              console.log(list3[i][0])
           google.maps.event.addListener(newmarker, 'click', function() {
               this['infowindow'].open(map, this);
           });
@@ -358,7 +346,7 @@ export default {
       //console.log(lat_list);
       // console.log(lng_list);
       for ( var i = 0; i < lat_list.length; i++) {
-        //console.log(lat_list.length);
+        console.log(lat_list.length);
         //console.log(lat_list);
 
         createMarker(lat_list[i],lng_list[i])
