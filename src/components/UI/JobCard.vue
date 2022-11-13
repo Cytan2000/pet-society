@@ -26,7 +26,7 @@
         <div class="flex flex-row">
             
             <slot name="name">
-                <p class="font-bold text-xl ">Pet Sitting for Small pets Only</p>
+                
             </slot>
         </div>
         <div class="flex flex-row"> 

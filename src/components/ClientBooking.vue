@@ -55,17 +55,44 @@
         <div class="px-3">
             {{this.info.Description}}
         </div>
-        <div class="my-2">
-          Accepted 
+        <div class="px-3 my-2 text-xl font-semibold">
+          Accepted Pet Types :
         </div>
+
+        <span v-for="pet in this.info.PetType" class="px-3">
+          {{pet}}
+        </span>
       </div>
       </div>
 
 
 
       <div class="w-1/2 h-96  mx-2 my-3  flex justify-end">
-        <div class=" bg-yellow-200 rounded-lg shadow-md" style="width:90%">
-            HI
+        <div class=" bg-yellow-200 rounded-lg shadow-md " style="width:90%">
+          <div class="text-center text-3xl border border-black"> What We Offer </div>
+          <div class="flex flex-row w-full">
+            <div>
+          <div class="text-gray-500 pt-4">Pet Boarding</div>
+          <div class="pb-4">@ only SGD{{this.info.Rate}} per night</div>
+          </div>
+          <div>
+            <div class="flex justify-center items-center">
+              <button
+          @click="showDialog = !showDialog"
+          type="submit"
+          class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Create New Job
+        </button>
+            </div>
+            </div>
+          
+        
+      </div>
+          <div>Book via Pet society to enjoy Premium Insurance, 24/7 support, booking guarantee, photo updates and more!</div>
+          <div class="flex justify-center">
+            
+      </div>
         </div>
       </div>
       </div>
