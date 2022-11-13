@@ -42,7 +42,7 @@
         <div class="bg-gradient-to-b from-yellow-500 to-yellow-300 border-b-4 border-yellow-600 rounded-lg shadow-2xl p-5">
             <div class="flex flex-row items-center">
                 <div class="flex-1 text-right md:text-left">
-                    <h5 class="font-bold uppercase text-gray-600">Our Details </h5>
+                    <h5 class="font-bold uppercase text-gray-600">{{this.info.ListingName}} </h5>
                     <div class="border-t border-black mt-2 py-2">
                       <h3 class="font-bold text-lg">Address:</h3>
                     <h3 class="text-sm">{{ this.info.Workaddress}} {{this.info.WorkPostal}}</h3>
@@ -67,14 +67,15 @@
             <div class="flex flex-row items-center">
                 <div class="flex-1 text-right md:text-left">
                     <h5 class="font-bold uppercase text-gray-600">What We Offer </h5>
-                    <h3 class="font-bold text-lg">Pet Boarding</h3>
+                    <div class="border-t border-black mt-2 py-2">
+                      <h3 class="font-bold text-lg mt-2">Pet Boarding</h3>
+                    </div>
                 </div>
             </div>
             <div class="flex-1 text-right md:text-left">
-              <h3 class="font-bold text-md mb-3">At only SGD{{this.info.Rate}} per night </h3>
+              <h3 class="font-bold text-md mb-3">@ only SGD{{this.info.Rate}} per night </h3>
               <h3 class="font-bold text-md mb-3">Book via Pet society to enjoy Premium Insurance, 24/7 support, booking guarantee, photo updates and more!</h3>
-              <div class="flex justify-between">
-                <button @click="showDialog = !showDialog" type="submit" class="w-50 content-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <button @click="showDialog = !showDialog" type="submit" class="w-50 content-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Create New Job
               </button>
               </div>
