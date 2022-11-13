@@ -289,10 +289,29 @@ export default {
     }, 
   },  
   created(){
+    try{
+      var load = JSON.parse(localStorage.getItem("loadinggg")).first;
+      if (!load){
+      localStorage.setItem("loadinggg", JSON.stringify({first:true}))
+      const timeout = setTimeout(() => {
+          location.reload();
+            }, "1")
+    }  
+    }
+    catch{
+      localStorage.setItem("loadinggg", JSON.stringify({first:false}))
+      localStorage.setItem("loadinggg", JSON.stringify({first:true}))
+      const timeout = setTimeout(() => {
+          location.reload();
+            }, "1")
+    }  
+    
+  
     this.getBooking();
     this.pull_workpostal_and_ListingName();
   },
   beforeUpdate() {
+    
     var list3 = JSON.parse(localStorage.getItem("map_wpandlistname"));
     console.log(list3)
     this.geocode();

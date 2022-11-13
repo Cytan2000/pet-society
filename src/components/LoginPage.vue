@@ -164,6 +164,8 @@ const signIn = () => {
       console.log(userCredential);
       // pls fix this routing
       // if(JSON.parse(localStorage.getItem("db_data")))
+      localStorage.setItem("loadinggg", JSON.stringify({first:false}))
+
       
     })
     .catch((error) => {
