@@ -298,14 +298,23 @@ export default {
   methods:{
     reject(){
       update((ref(getDatabase(),"jobs/" + this.$route.params.id)), {status:"rejected"})
+      const timeout = setTimeout(() => {
+          window.location.href = '/jobstatus/'+this.$route.params.id;
+            }, "800")
     },
 
     accept(){
       update((ref(getDatabase(),"jobs/" + this.$route.params.id)), {status:"active"})
+      const timeout = setTimeout(() => {
+          window.location.href = '/jobstatus/'+this.$route.params.id;
+            }, "800")
     },
 
     completed(){
       update((ref(getDatabase(),"jobs/" + this.$route.params.id)), {status:"completed"})
+      const timeout = setTimeout(() => {
+          window.location.href = '/jobstatus/'+this.$route.params.id;
+            }, "800")
     },
 
 
