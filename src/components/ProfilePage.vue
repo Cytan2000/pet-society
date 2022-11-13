@@ -77,7 +77,7 @@
         <!-- Left Side -->
         <div class="w-full md:w-4/12 md:mx-2">
           <!-- Profile Card -->
-          <div class="h-full bg-white p-3 border-t-4 border-green-400">
+          <div class="h-full bg-white p-3 border-t-4 border-b-4 border-yellow-400">
             <div class="image overflow-hidden">
               <!-- insert user profile picture here -->
               <img 
@@ -214,20 +214,7 @@
                   class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3"
                 >
                   <span clas="text-green-500">
-                    <svg
-                      class="h-5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
+                    <img class="w-5" src="https://cdn-icons-png.flaticon.com/512/2171/2171990.png"/>
                   </span>
                   <span class="tracking-wide">{{pet[1]}}</span>
                   

@@ -53,7 +53,7 @@
           <!-- Left Side -->
           <div class="w-full md:w-4/12 md:mx-2">
             <!-- Profile Card -->
-            <div class="h-full bg-white p-3 border-t-4 border-green-400 h-full">
+            <div class="h-full bg-white p-3 border-t-4 border-b-4 border-yellow-400 h-full">
               <div class="image overflow-hidden">
                 <!-- insert user profile picture here -->
                 <img 
@@ -167,14 +167,15 @@
             </div>
             <!-- End of about section -->
   
-            <div class="my-4"></div>
+            
   
             <!-- Experience and education -->
             
-            <div class="bg-white h-full" >
-              <div class="flex justify-between">
-                Hii
-              </div>
+            <div class="my-4 bg-white flex justify-between h-3/4" >
+              
+                <div class="m-5">Continue supporting us as a Pet sitter !</div>
+                <img class="w-40" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2FCA75EF75-85FD-4FF7-87C9-E7A9E974A892.jpeg?alt=media&token=ab1f966a-31b3-475f-ace4-d39fc2ff326c"/>
+              
             
             
             <!-- End of profile tab -->
