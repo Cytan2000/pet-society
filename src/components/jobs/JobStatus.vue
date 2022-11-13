@@ -1,3 +1,7 @@
+<style>
+  @import "../buyerJobPage.css";
+</style>
+
 <template>
   <base-dialog v-if="showUpload">
   <template #default>
@@ -85,7 +89,8 @@
               "
               >Pet Status</span
             >
-            <span class="text-sm">{{status}}</span>
+            <span class="text-sm text-black">{{status}}</span>
+            
           </div>
           <h2
             class="
@@ -106,19 +111,27 @@
             <div class="flex items-center space-x-4">
               <span class="font-medium dark:text-white"> {{sellername}} + {{buyername}} </span>
             </div>
-            <button 
-            @click="showUpload=true"
-            v-if="showbtn"
-            type="submit"
-            id=""
-            class="py-1 bg-blue-400 px-3 rounded text-blue-50 font-bold hover:bg-blue-700 ">
-            Upload new post!
-          </button>
-            <div v-if="account_type=='seller'">
-              <button class="h-10 bg-blue-500  mt-2 pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
-              @click="showUpload = !showUpload">
+            <div class="inline-flex">
+
+
+  <div v-if="account_type=='seller'">
+    <button v-if="status=='active'" @click="completed()" class="bg-purple-400 hover:bg-purple-200 text-gray-800 font-bold py-2 px-4 rounded-r rounded-l">
+    Complete!
+  </button>
+  <div v-if="status=='pending'"><button @click="reject()" class="bg-red-500 hover:bg-red-400  text-gray-800 font-bold py-2 px-4 rounded-l">
+    Reject
+  </button>
+  <button @click="accept()" class="bg-green-500 hover:bg-green-400  text-gray-800 font-bold py-2 px-4 rounded-r">
+    Accept
+  </button></div>
+  </div>
+</div>
+          
+            <div v-if="showbtn">
+              <button type="submit" class="h-10 bg-blue-500  mt-2 pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
+              @click="showUpload=true">
                   <div class="grid grid-cols-4 items-center justify-center">
-                      <div class="col-span-3 ">Upload Image</div>
+                      <div class="col-span-3 ">Upload new post!</div>
                       <div class="col-span-1 rounded-full bg-blue-600 w-10 h-10 pt-1">
                         <span class="text-xl underline">&#8593;</span>
                       </div>
@@ -160,11 +173,11 @@
                     dark:text-white
                   "
                 >
-                  {{post[2]}}
+                  {{post[1]}}
                 </h5>
 
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                {{post[1]}}
+                {{post[2]}}
               </p>
               <!-- <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Read more
@@ -238,9 +251,8 @@
             id="input_message"
             class="w-full bg-black text-white py-5 px-3 rounded-xl"
             type="text"
-            placeholder="type your message here..." @keypress.enter="enter_chat"
+            placeholder="Enter to send message" @keypress.enter="enter_chat"
           />
-          <button onclick="">Submit</button>
         </div>
       </div>
     </div>
@@ -284,7 +296,19 @@ export default {
     };
   },
   methods:{
-    
+    reject(){
+      update((ref(getDatabase(),"jobs/" + this.$route.params.id)), {status:"rejected"})
+    },
+
+    accept(){
+      update((ref(getDatabase(),"jobs/" + this.$route.params.id)), {status:"active"})
+    },
+
+    completed(){
+      update((ref(getDatabase(),"jobs/" + this.$route.params.id)), {status:"completed"})
+    },
+
+
     enter_chat(){
       
       var account_type = JSON.parse(localStorage.getItem("userCredential"))["uid"];
@@ -355,8 +379,8 @@ export default {
     this.id = this.$route.params.id;
     this.myid = JSON.parse(localStorage.getItem("userCredential"))["uid"];
     const dbRef = ref(getDatabase());
-    var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
-    if (account_type=="seller"){
+    this.account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
+    if (this.account_type=="seller"){
       this.showbtn = true
     }
     get(child(dbRef, `jobs/`+ this.id)).then((snapshot) => {
