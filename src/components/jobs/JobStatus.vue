@@ -116,14 +116,14 @@
           </p>
           <div class="flex justify-between items-center">
             <div class="flex items-center space-x-4">
-              <span class="font-medium dark:text-white"> {{sellername}} + {{buyername}} </span>
+              <span class="font-medium dark:text-white"> {{sellername}}    |    {{buyername}} </span>
             </div>
             <div class="inline-flex">
 
 
   <div v-if="account_type=='seller'">
     <button v-if="status=='active'" @click="completed()" class="bg-purple-400 hover:bg-purple-200 text-gray-800 font-bold py-2 px-4 rounded-r rounded-l">
-    Complete!
+    Complete
   </button>
   <div v-if="status=='pending'"><button @click="reject()" class="bg-red-500 hover:bg-red-400  text-gray-800 font-bold py-2 px-4 rounded-l">
     Reject
