@@ -16,7 +16,7 @@ import AddPet from './components/AddPet'
 import SellerHomePage from "./components/seller/SellerHomePage"
 import BuyerJob from "./components/Buyer/BuyerJob"
 import buyerJobPage from "./components/buyerJobPage"
-import SellerJobs from "./components/seller/SellerJobs"
+
 import JobStatus from "./components/jobs/JobStatus"
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -65,7 +65,7 @@ const router = createRouter({
         { path: "/AddPet", component:AddPet},
         { path: "/sellerhome", component:SellerHomePage},
         { path: "/buyerjob", component: buyerJobPage},
-        { path: "/sellerjob", component: SellerJobs},
+
         { path: "/JobStatus/:id",name:'JobStatus', component: JobStatus},
         
      ]
