@@ -165,7 +165,7 @@ data(){
         }
 
       );
-        console.log(this.list1);
+
     },getBookingData(id){
       
       const db=getDatabase();
@@ -173,7 +173,7 @@ data(){
       onValue(
         dbRef,
         (snapshot) => {
-          console.log(snapshot.val().ListingName)
+
           return snapshot.val().ListingName;
         },
         {

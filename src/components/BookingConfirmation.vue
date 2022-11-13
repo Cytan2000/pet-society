@@ -104,7 +104,7 @@
             this.jprice=data.Rate;
             this.jname=data.ListingName;
             this.jaddress=data.Workaddress;
-            console.log(data.Workaddress);
+
           })
           this.jbuyerid = uid
           if(this.validate_date()==true){

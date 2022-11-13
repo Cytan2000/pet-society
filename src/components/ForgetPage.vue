@@ -46,7 +46,7 @@ const forgetpass = () =>{
     }).catch((error)=>{
         const errorCode = error.code;
         const errorMessage = error.errorMessage;
-        console.log(errorMessage)
+
 
 })
 }

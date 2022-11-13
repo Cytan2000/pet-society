@@ -337,20 +337,20 @@ export default {
       if(photoURL == null){
         photoURL = "https://picsum.photos/200/300"
       }
-      console.log(photoURL);
+
       get((ref(getDatabase(),"jobs/" + this.$route.params.id + "/message"))).then((snapshot3)=>{
         var msg_array = Object.values(snapshot3.val());
         msg_array.push([account_type,photoURL,msg_to_send]);
         set(ref(getDatabase(),`jobs/` + this.$route.params.id + `/message`),msg_array);
-        console.log("Database Recorded the message");
+
         window.location.reload()
       })
 
     }, 
     convertmonth(mdate){
-      console.log(typeof mdate)
+
       const ndate = new Date(date)
-      console.log(ndate.toDateString())
+
     } ,
     previewUser(){
       this.imgURL = URL.createObjectURL(event.target.files[0])
@@ -367,23 +367,23 @@ export default {
         const imagename = 'jobs/' + this.$route.params.id + '/'  + selectedFile.name;
         const imagesRef = stoRef(storage, imagename);
         //this will retrieve the image file from the upload
-        console.log(selectedFile);
+
         uploadBytes(imagesRef, selectedFile).then((snapshot) => {
-            console.log('successfuly uploaded');
-            console.log(snapshot);
+
+
             getDownloadURL(imagesRef)
           .then((url)=>{
             get((ref(getDatabase(),"jobs/" + this.$route.params.id + "/posts"))).then((snapshot1)=>{
-              console.log(Object.values(snapshot1.val()));
+
               if(snapshot1.exists()){
-                console.log("Went into if statement");
+
                 var post_2 = Object.values(snapshot1.val())
                 var array_temp1 = [url,this.title,this.text];
                 post_2.push(array_temp1)
-                console.log(post_2);
+
                 set(ref(getDatabase(),`jobs/` + this.$route.params.id + `/posts/`),post_2);
               }else{
-                console.log("Went into the Else statement");
+
                 post_2 = [url,"title","body"];
                 set(ref(getDatabase(),`jobs/`+this.$route.params.id + `/posts/`),post_2);
               }
@@ -405,7 +405,7 @@ export default {
     }
     get(child(dbRef, `jobs/`+ this.id)).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(Object.values(snapshot.val()));
+
         this.new_chat_array = Object.values(snapshot.val().message);
         this.buyerid = snapshot.val().buyer_id
         this.sellerid = snapshot.val().seller_id
@@ -434,7 +434,7 @@ export default {
       })
 
     get(child(dbRef,`jobs/`+ this.id + `/posts`)).then((snapshot2)=>{
-    console.log(Object.values(snapshot2.val()));
+
       this.new_post_array = Object.values(snapshot2.val());
   })
 
@@ -442,7 +442,7 @@ export default {
       this.bid = snapshot.val();
       get(child(dbRef,'bookings/'+this.bid+'/ListingName')).then((snapshot)=>{
         this.lname = snapshot.val()
-        console.log(this.lname)
+
       })
   })
 

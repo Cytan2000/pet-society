@@ -183,7 +183,7 @@ window.addEventListener('keyup', function(event) {
     });
 
 const register = () => {
-  console.log(document.querySelector('input[name="acc"]:checked').value);
+
   acctype.value = document.querySelector('input[name="acc"]:checked').value;
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
@@ -199,23 +199,23 @@ const register = () => {
 
       });
       //after account creation is successful, redirect to the login page
-      console.log(user.uid);
+
       signOut(getAuth())
         .then(() => {
-          console.log("Successfully registered!");
+
           window.localStorage.clear();
           router.push("/login");
         })
         .catch((error) => {
-          console.log(error.code);
+
         });
       router.push("/login");
     })
 
     //if cannot create account
     .catch((error) => {
-      console.log(error.code);
-      console.log("cannot create account");
+
+
       alert(error.message);
     });
 };

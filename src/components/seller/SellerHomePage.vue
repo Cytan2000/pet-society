@@ -80,7 +80,7 @@ export default {
         dbRef,
         (snapshot) => {
           snapshot.forEach((childSnapshot) => {
-            console.log(childSnapshot.val().SellerId);
+
             if(childSnapshot.val().SellerId==user){
                 this.list1.push(childSnapshot);
             }
@@ -92,7 +92,7 @@ export default {
           onlyOnce: true,
         }
       );
-        console.log(this.list1);
+
     },
   },
   mounted(){

@@ -22,7 +22,7 @@ export default{
           const childData = childSnapshot.val();
           if (childData["acc_type"]=="seller"){
           list1.push(childData);
-          console.log(list1)
+
           }
   });
 }, {

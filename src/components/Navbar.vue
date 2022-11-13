@@ -201,19 +201,7 @@ export default {
     }
   },
   methods:{
-    // getProfilePic(){
-    //   try{
-    //   const image = JSON.parse(localStorage.getItem("userCredential")).photoURL;
-    //   console.log(image);
-
-    //   const img = document.getElementById("profileimg");
-    //   img.setAttribute('src',image)
-    //   console.log(image);
-    //   }catch(error){
-    //     const image = "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-    //     const img = document.getElementById("profileimg");
-    //     img.setAttribute('src',image)
-    //   }
+   
     // }
   },
 

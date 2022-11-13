@@ -232,7 +232,7 @@ export default {
             })
             .catch((error) => {
             // Handle any errors
-            console.log('image not found')
+
             img.setAttribute('src', "https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE=");
             });
       },
@@ -245,7 +245,7 @@ export default {
         get(child(dbRef, `users/${userid}`)).then((snapshot) => {
             if (snapshot.exists()) {
                 const profiledata = snapshot.val();
-                console.log(profiledata);
+
                 this.fname = profiledata.firstname
                 this.lname = profiledata.lastname
                 this.gender = profiledata.gender
@@ -254,10 +254,10 @@ export default {
                 this.email = profiledata.email
                 this.birthday = profiledata.birthday
             } else {
-                console.log("No data available");
+
             }
             }).catch((error) => {
-            console.error(error);
+
             });
       },
       //this function will be called when there is any change to the data in the profile page
@@ -274,7 +274,7 @@ export default {
         email: this.email,
         address: this.address
             })
-        console.log("successfully updated")
+
         //refresh page!
         
 
@@ -292,7 +292,7 @@ export default {
         const selectedFile = document.getElementById('imagefileid').files[0];
         uploadBytes(imagesRef, selectedFile).then((snapshot) => {
             
-            console.log('successfuly uploaded');
+
             location.reload();
         });
         }

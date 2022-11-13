@@ -166,9 +166,8 @@ const storageRef=StoRef(storage,`Images/${this.imageData.name}`)
 uploadBytes(storageRef,this.imageData)
 .then(function(snapshot){
       const usercreds = JSON.parse(localStorage.getItem("userCredential"));
-      console.log(usercreds);
-          console.log("Uploaded a file");
-          console.log(snapshot);
+
+
           getDownloadURL(storageRef)
           .then((url)=>{
             update(dbRef(getDatabase(),"pets/" + petid),{

@@ -117,10 +117,10 @@ import { getAuth }  from "firebase/auth";
         const storage = getStorage();
         const imagename = 'Booking/' + mybookingid + count
         const imagesRef = StoRef(storage, imagename);
-        console.log(mybookingid)
+
         //this will retrieve the image file from the upload
         const selectedFile = document.getElementById('imagefileid').files[count];
-        console.log(selectedFile);
+
         uploadBytes(imagesRef, selectedFile).then((snapshot) => {getDownloadURL(imagesRef)
             .then((url) => {
             // this retrieves the image and inserts it into the img tag
@@ -153,7 +153,7 @@ import { getAuth }  from "firebase/auth";
     function poll () {
       if (imgurlarr.length!=0) {
         // Do something with el
-        console.log(imgurlarr)
+
         bPetType.push("")
         update(dbRef(db, 'bookings/' + bookingid), {
       SellerId: uid,
@@ -219,7 +219,7 @@ import { getAuth }  from "firebase/auth";
     previewImage(event) {
     var new_array = event.target.files;
     
-    console.log(new_array)
+
     var final_array=[]
     for(let i of new_array){
       final_array.push(URL.createObjectURL(i))

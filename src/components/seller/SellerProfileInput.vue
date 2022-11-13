@@ -110,7 +110,7 @@
       submit_click_post() {
         const auth = getAuth();
         const user = auth.currentUser;
-        console.log(this.fname, this.lname)
+
         UpdateUserData(user.uid,this.fname, this.lname)
       },
 
@@ -123,7 +123,7 @@
       //this will retrieve the image file from the upload
       const selectedFile = document.getElementById('imagefileid').files[0];
       uploadBytes(imagesRef, selectedFile).then((snapshot) => {
-        console.log('successfuly uploaded');
+
       });
       },
       
@@ -141,7 +141,7 @@
         })
         .catch((error) => {
           // Handle any errors
-          console.log('image not found')
+
         });
       }
     }

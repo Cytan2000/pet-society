@@ -308,7 +308,7 @@ export default {
     },
     getData() {
       const usercreds = JSON.parse(localStorage.getItem("userCredential"));
-      console.log(usercreds)
+
       const db = getDatabase();
       const userRef = ref(db, "users/" + usercreds.uid);
       
@@ -316,7 +316,7 @@ export default {
       
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data.petid);
+
         this.firstname = data.firstname;
         this.lastname = data.lastname;
         this.email=data.email;
@@ -331,11 +331,11 @@ export default {
     getPetdata(){
       const usercreds = JSON.parse(localStorage.getItem("userCredential"));
       const uid = usercreds.uid
-      console.log(uid);
+
       const db=getDatabase();
       const petArrayRef = ref(db,`users/${uid}`);
       onValue(petArrayRef, (snapshot)=>{
-        console.log(snapshot.val().petid_array);
+
         if(snapshot.val().petid_array!= null){
         Object.values(snapshot.val().petid_array).forEach((childSnapshot)=>{
           const new_array = [];
@@ -363,7 +363,7 @@ export default {
     publishPetData(petid){
       const dbRef = ref(getDatabase());
       get(child(dbRef,`pets/${petid}`)).then((snapshot)=>{
-        console.log(snapshot.val());
+
         this.petname= snapshot.val().petname;
         this.petage = snapshot.val().petage;
       }
@@ -379,14 +379,14 @@ export default {
       getDownloadURL(imagesRef)
         .then((url) => {
           // this retrieves the image and inserts it into the img tag
-          console.log(url);
+
 
           const img = document.getElementById("myimg");
           img.setAttribute("src", url);
         })
         .catch((error) => {
           // Handle any errors
-          console.log("image not found");
+
         });
     },
     retrieve_user_image(){
@@ -404,7 +404,7 @@ export default {
             })
             .catch((error) => {
             // Handle any errors
-            console.log('image not found')
+
             img.setAttribute('src', "https://media.istockphoto.com/vectors/user-avatar-profile-icon-black-vector-illustration-vector-id1209654046?k=20&m=1209654046&s=612x612&w=0&h=Atw7VdjWG8KgyST8AXXJdmBkzn0lvgqyWod9vTb2XoE=");
             });
     },
@@ -417,7 +417,7 @@ export default {
         //this will retrieve the image file from the upload
         const selectedFile = document.getElementById('imagefileid').files[0];
         uploadBytes(imagesRef, selectedFile).then((snapshot) => {
-            console.log('successfuly uploaded');
+
             location.reload();
         });
         }
