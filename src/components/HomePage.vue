@@ -23,7 +23,7 @@
   <form @submit.prevent="submit" class="content-items rounded-lg px-8 py-6"> 
     <div class="lol">
       <div class="mx-auto">
-    <h3 class="text-5xl font-bold text-yellow-500 typed-out" style="font-family:'Cantata One'"> Find Pet sitters near you!</h3>
+    <h3 class="text-5xl font-bold text-yellow-500 typed-out"> Find Pet sitters near you!</h3>
   </div>
   </div>
       <div class="flex items-center justify-between space-x-4">
