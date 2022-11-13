@@ -50,8 +50,8 @@ Pet Owners can create jobs by clicking on the listing to hire the Pet Sitter.
 
 ###
 
-To access the Google Maps API: \
-1.  Open the page \
-2.  Click the orange location button \
-3.  Allow location \
+To access the Google Maps API: 
+1.  Open the page 
+2.  Click the orange location button 
+3.  Allow location 
 4.  Refresh the page
