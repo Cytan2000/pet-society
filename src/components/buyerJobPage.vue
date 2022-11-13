@@ -16,15 +16,16 @@
             <div v-for="job in this.list1" class="fancy_card">
                 <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='active'" :link="job.key" :info="job" >
-                
             <template v-slot:name>
-              {{job.val().name}}
+             SGD {{job.val().name}}
             </template>
             <template v-slot:description>
-              {{job.val().address}}
+              SGD {{job.val().address}}
             </template>
             <template v-slot:price>
-              {{job.val().price}}
+              <p class="mr-5 mt-8 pr-3 text-md text-center font-bold">
+              SGD <span class="text-blue-500"> {{job.val().price}}</span>
+              </p>
             </template>
           </job-card>
             </div>
@@ -50,7 +51,9 @@
               {{job.val().address}}
             </template>
             <template v-slot:price>
-              {{job.val().price}}
+              <p class="mr-5 mt-8 pr-3 text-md text-center font-bold">
+             SGD <span class="text-blue-500"> {{job.val().price}}</span>
+            </p>
             </template>
           </job-card>
             </div>
@@ -76,7 +79,9 @@
               {{job.val().address}}
             </template>
             <template v-slot:price>
-              {{job.val().price}}
+              <p class="mr-5 mt-8 pr-3 text-md text-center font-bold">
+              SGD <span class="text-blue-500"> {{job.val().price}}</span>
+              </p>
             </template>
           </job-card>
             </div>
@@ -103,7 +108,9 @@
               {{job.val().address}}
             </template>
             <template v-slot:price>
-              {{job.val().price}}
+              <p class="mr-5 mt-8 pr-3 text-md text-center font-bold">
+              SGD <span class="text-blue-500"> {{job.val().price}}</span>
+              </p>
             </template>
           </job-card>
             </div>

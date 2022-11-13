@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class=" flex">
-        <span>$
+        <span>
         <slot name="price"></slot>
             /night
         </span> 
