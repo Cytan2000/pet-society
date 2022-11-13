@@ -12,19 +12,19 @@
         </div>
         <div class="flex flex-row">
             
-            <div v-if="info.val().PetType.includes('dog')">
+            <div v-if="info.val().PetType.includes('dog')" class="mx-1">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/194/194630.png"/>
             </div>
-            <div v-if="info.val().PetType.includes('cat')">
+            <div v-if="info.val().PetType.includes('cat')" class="mx-1">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/185/185846.png"/>
             </div>
-            <div v-if="info.val().PetType.includes('rodent')">
+            <div v-if="info.val().PetType.includes('rodent')" class="mx-1">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/2372/2372882.png"/>
             </div>
-            <div v-if="info.val().PetType.includes('rabbit')">
+            <div v-if="info.val().PetType.includes('rabbit')" class="mx-1">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/4775/4775505.png"/>
             </div>
-            <div v-if="info.val().PetType.includes('aquatic')">
+            <div v-if="info.val().PetType.includes('aquatic')" class="mx-1">
                 <img class="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/121/121905.png"/>
             </div>
 
@@ -34,7 +34,7 @@
         
         <div class="flex flex-row">
             
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <p class="mb-3 font-semibold text-gray-700 dark:text-gray-400">
             <slot name="description">
                 <p>Farmer</p>
             </slot>
@@ -44,7 +44,7 @@
         </div>
         </div>
     </div>
-    <div class="ml-auto mb-auto">
+    <div class="ml-auto mb-auto font-semibold">
         <span>
         <slot name="price"></slot>
             /night
