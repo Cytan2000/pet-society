@@ -1,5 +1,12 @@
 <style>
   @import "../buyerJobPage.css";
+.backer-img{
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2Fjob562-nunoon-04-a.jpg?alt=media&token=4a23677b-2765-4039-bd09-3548be2597fa");
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  background-size: cover;
+}
 </style>
 
 <template>
@@ -78,7 +85,7 @@
             <span
               class="
                 bg-primary-100
-                text-primary-800 text-xs
+                text-primary-800 text-l
                 font-medium
                 inline-flex
                 items-center
@@ -87,9 +94,9 @@
                 rounded
                 dark:bg-primary-200 dark:text-primary-800
               "
-              >Pet Status</span
+              >Pet status</span
             >
-            <span class="text-sm text-black">{{status}}</span>
+            <span class="text-sm text-black">Job Status: {{status}}</span>
             
           </div>
           <h2
@@ -143,17 +150,20 @@
           </div>
         </article>
 
-        <div class="grid grid-cols-3 mt-3 gap-6">
+        <div class="grid grid-cols-3 mt-3 gap-6 overflow-y-auto" style="height:30rem">
           <template v-for="post in new_post_array.slice().reverse()">
             <div
             class="
               max-w-sm
               bg-white
-              ml-4
+             
               rounded-lg
               border border-gray-200
               shadow-md
-              dark:bg-gray-800 dark:border-gray-700"
+              dark:bg-gray-800 dark:border-gray-700
+              col-span-3
+              md:col-span-1
+              "
               v-if="post[0]!=''">
               <img
                 class="rounded-t-lg"
@@ -200,16 +210,17 @@
           w-full
           mt-5
           px-5
-          flex flex-col
-          bg-yellow-100
+          md:col-span-1 
+          col-span-3
           justify-between
           border-gray-200
           shadow-md
           dark:bg-gray-800 dark:border-gray-700
           rounded
+          backer-img
         "
       >
-        <div class="flex flex-col mt-3">
+        <div class="flex flex-col mt-3 w-full overflow-y-auto" style="height:37rem">
           <div v-for="item in new_chat_array">
 
             <div class="flex justify-end mb-4" v-if="item[0]==myid && item[0]!=''">
