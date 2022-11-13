@@ -57,10 +57,6 @@
       </div>
     </div>
 </div> 
-<div v-if="noimg" class="text-red-500 font-bold
-">Please upload at least 1 image</div>
-
-
     <button 
             @click="submit_pet_post"
             type="submit"
@@ -68,6 +64,8 @@
             class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
             Submit
           </button>
+          <div v-if="noimg" class="text-red-600 font-bold
+">Please upload at least 1 image</div>
 </template>
 
 <script>
