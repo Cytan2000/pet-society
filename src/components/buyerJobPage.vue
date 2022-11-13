@@ -18,13 +18,13 @@
                 <job-card v-if="job.val().status=='active'" :link="job.key" :info="job">
                 
             <template v-slot:name>
-              
+              {{job.val().name}}
             </template>
             <template v-slot:description>
-              
+              {{job.val().address}}
             </template>
             <template v-slot:price>
-              
+              {{job.val().price}}
             </template>
           </job-card>
             </div>
@@ -43,11 +43,11 @@
         <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='pending'" :link="job.key" :info="job">
                 
-            <template v-slot:name>
-              
+                  <template v-slot:name>
+              {{job.val().name}}
             </template>
             <template v-slot:description>
-              
+              {{job.val().address}}
             </template>
             <template v-slot:price>
               {{job.val().price}}
@@ -69,14 +69,14 @@
         <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='rejected'" :link="job.key" :info="job">
                 
-            <template v-slot:name>
-              
+                  <template v-slot:name>
+              {{job.val().name}}
             </template>
             <template v-slot:description>
-              
+              {{job.val().address}}
             </template>
             <template v-slot:price>
-              
+              {{job.val().price}}
             </template>
           </job-card>
             </div>
@@ -96,14 +96,14 @@
         <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
                 <job-card v-if="job.val().status=='completed'" :link="job.key" :info="job">
                 
-            <template v-slot:name>
-              <p class="font-bold text-xl">{{ job.val().name }}</p>
+              <template v-slot:name>
+              {{job.val().name}}
             </template>
             <template v-slot:description>
-              
+              {{job.val().address}}
             </template>
             <template v-slot:price>
-              
+              {{job.val().price}}
             </template>
           </job-card>
             </div>
@@ -159,7 +159,22 @@ data(){
 
       );
         console.log(this.list1);
-    },
+    },getBookingData(id){
+      
+      const db=getDatabase();
+      const dbRef = ref(db,"bookings/"+id);
+      onValue(
+        dbRef,
+        (snapshot) => {
+          console.log(snapshot.val().ListingName)
+          return snapshot.val().ListingName;
+        },
+        {
+          onlyOnce: true,
+        }
+
+      );
+    }
         
     },
 

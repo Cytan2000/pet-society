@@ -24,7 +24,7 @@
   <script>
   import { getDatabase, ref as dbRef, onValue, set ,update,push,child } from "firebase/database";
 
-  function writeData(jname,jprice,jsellerid, jbuyerid, jbookingid, jstartdate, jenddate, jnote, jpets) {
+  function writeData(jaddress,jname,jprice,jsellerid, jbuyerid, jbookingid, jstartdate, jenddate, jnote, jpets) {
     const db = getDatabase();
     var newJobKey = push(child(dbRef(db), 'jobs')).key;
     var jobid=newJobKey;
@@ -38,7 +38,10 @@
       pets: jpets,
       status: "pending",
       posts: [[""]],
-      message: [[""]]
+      message: [[""]],
+      name:jname,
+      price:jprice,
+      address:jaddress
     })
   }
   
@@ -53,9 +56,11 @@
         jnote: "",
         jprice:"",
         jname:"",
+        jaddress:"",
         jpets: [],
         petarr: [],
         petids: [],
+
         
       }
     },
@@ -70,9 +75,11 @@
             this.jsellerid = data.SellerId;
             this.jprice=data.Rate;
             this.jname=data.ListingName;
+            this.jaddress=data.Workaddress;
+            console.log(data.Workaddress);
           })
           this.jbuyerid = uid
-          writeData(this.jname,this.jprice,this.jsellerid, this.jbuyerid, this.$route.params.id,this.jstartdate, this.jenddate, this.jnote, this.jpets);
+          writeData(this.jaddress,this.jname,this.jprice,this.jsellerid, this.jbuyerid, this.$route.params.id,this.jstartdate, this.jenddate, this.jnote, this.jpets);
           this.jstartdate = ""
           this.jenddate = ""
           this.jnote = ""
