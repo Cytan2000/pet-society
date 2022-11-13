@@ -140,6 +140,9 @@ import { getAuth }  from "firebase/auth";
     const usercreds = JSON.parse(localStorage.getItem("userCredential"));
     const uid=usercreds.uid;
     var Postal=String(bPostal)
+    while (Postal.length != 6){
+      Postal = "0"+ Postal
+    }
     var newBookingKey = push(child(dbRef(db), 'bookings')).key;
     var bookingid=newBookingKey;
     length = document.getElementById('imagefileid').files.length
