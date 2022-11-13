@@ -28,17 +28,17 @@
     </template>
   </base-dialog2>
 <div class="flex flex-wrap">
-  <div class="w-full md:w-1/2 xl:w-3/4 p-6">
+  <div class="w-full md:w-3/4 lg:w-3/4 xl:w-3/4 p-6 ">
     <img class="object-fill w-full" :src="this.info.imgurls" style="height: 36rem;"/>
   </div>
-  <div class="w-full md:w-1/2 xl:w-1/4 p-6">
+  <div class="w-full md:w-1/4 lg:w-1/4 xl:w-1/4 p-6 hidden md:block">
     <img class="py-3" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.35.21%20PM.png?alt=media&token=198b45c2-dc84-421c-9804-6720d1fd751a" alt="">
     <img class="py-3" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/Screenshot%202022-11-12%20at%209.39.46%20PM.png?alt=media&token=fd2ce56b-6cdd-4c5b-941d-5a235b14e219" alt="">
   </div>
 </div>
   
-  <div class="flex flex-wrap">
-    <div class="w-full md:w-1/2 xl:w-4/8 p-6">
+  <div class="flex flex-wrap ">
+    <div class="w-full md:w-1/2 xl:w-4/8 p-6 ">
         <div class="bg-gradient-to-b from-yellow-500 to-yellow-300 border-b-4 border-yellow-600 rounded-lg shadow-2xl p-5">
             <div class="flex flex-row items-center">
                 <div class="flex-1 text-right md:text-left">
