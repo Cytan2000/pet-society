@@ -42,9 +42,9 @@
   
 
 <div class="back-color">
-  <section class="container-fluid p-2">
+  <section class="container-fluid pr-4">
     <div class="grid grid-cols-3 gap-4">
-      <div class="col-span-3 px-4 md:col-span-2 overflow-y-auto order-2 xs:order-1 md:order-1 " style="height:46rem">
+      <div class="col-span-3 pl-4 md:col-span-2 overflow-y-auto order-2 xs:order-1 md:order-1 " style="height:46rem">
         <div v-for="seller in list1" class="fancy_card">
           <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
