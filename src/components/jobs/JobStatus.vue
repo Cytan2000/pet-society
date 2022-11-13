@@ -18,8 +18,8 @@
                 </label>
             </div>
             <img v-if="this.imgURL" :src="this.imgURL"  />
-            <input type="text" placeholder="Title of Post" v-model="title">
-            <input type="text" placeholder="Text of Post" v-model="text">
+            <input type="text" class="my-2 w-full bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Title of Post" v-model="title">
+            <input type="text" class="my-2 w-full bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Text of Post" v-model="text">
             <button 
             @click="uploadcontent"
             type="submit"
@@ -85,7 +85,7 @@
               "
               >Pet Status</span
             >
-            <span class="text-sm">In Progress</span>
+            <span class="text-sm">{{status}}</span>
           </div>
           <h2
             class="
@@ -100,23 +100,24 @@
             <a href="#">{{this.lname}}</a>
           </h2>
           <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
-            Duration of Stay: 10th Feb - 20th Feb
+            Duration of Stay: {{textsdate}} - {{textedate}}
           </p>
           <div class="flex justify-between items-center">
             <div class="flex items-center space-x-4">
-              <img
-                class="w-7 h-7 rounded-full"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                alt="Jese Leos avatar"
-              />
-              <span class="font-medium dark:text-white"> Snoopy + Jason </span>
+              <span class="font-medium dark:text-white"> {{sellername}} + {{buyername}} </span>
             </div>
+            <button 
+            @click="showUpload=true"
+            v-if="showbtn"
+            type="submit"
+            id=""
+            class="py-1 bg-blue-400 px-3 rounded text-blue-50 font-bold hover:bg-blue-700 ">
+            Upload new post!
+          </button>
             <div v-if="account_type=='seller'">
               <button class="h-10 bg-blue-500  mt-2 pl-2 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light focus:outline-none active:shadow-none mr-2"
-              @click="showUpload = !showUpload"
-              >
+              @click="showUpload = !showUpload">
                   <div class="grid grid-cols-4 items-center justify-center">
-                    
                       <div class="col-span-3 ">Upload Image</div>
                       <div class="col-span-1 rounded-full bg-blue-600 w-10 h-10 pt-1">
                         <span class="text-xl underline">&#8593;</span>
@@ -130,7 +131,7 @@
         </article>
 
         <div class="grid grid-cols-3 mt-3 gap-6">
-          <template v-for="post in new_post_array">
+          <template v-for="post in new_post_array.slice().reverse()">
             <div
             class="
               max-w-sm
@@ -148,7 +149,7 @@
                 alt=""
               />
             <div class="p-5">
-              <a href="#">
+              
                 <h5
                   class="
                     mb-2
@@ -161,7 +162,7 @@
                 >
                   {{post[2]}}
                 </h5>
-              </a>
+
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                 {{post[1]}}
               </p>
@@ -230,22 +231,7 @@
               {{item[2]}}
             </div>
           </div>
-
-            
-            
-          </div>
-
-          <!-- code for seller message -->
-          <!-- <div class="flex justify-start mb-4">
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              class="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-            <div class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
-              My pleasure! Happy to be able to help :)
-            </div>
-          </div> -->
+        </div>
         </div>
         <div class="py-5">
           <input
@@ -274,6 +260,10 @@ export default {
   components: { BaseDialog },
   data() {
     return {
+      buyername: "",
+      sellername: "",
+      buyerid: "",
+      sellerid: "",
       info:"",
       imgURL:null,
       showUpload: false,
@@ -285,7 +275,12 @@ export default {
       id:"",
       myid: "",
       bid: "",
-      lname: ""
+      lname: "",
+      textsdate:"",
+      textedate: "",
+      sdate: "",
+      edate: "",
+      status: "",
     };
   },
   methods:{
@@ -307,7 +302,12 @@ export default {
         window.location.reload()
       })
 
-    },  
+    }, 
+    convertmonth(mdate){
+      console.log(typeof mdate)
+      const ndate = new Date(date)
+      console.log(ndate.toDateString())
+    } ,
     previewUser(){
       this.imgURL = URL.createObjectURL(event.target.files[0])
     },
@@ -346,6 +346,9 @@ export default {
             })
           })
         });
+        const timeout = setTimeout(() => {
+          window.location.href = '/jobstatus/'+this.$route.params.id;
+            }, "800")
     }
   },
   mounted() {
@@ -353,13 +356,38 @@ export default {
     this.myid = JSON.parse(localStorage.getItem("userCredential"))["uid"];
     const dbRef = ref(getDatabase());
     var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
-    get(child(dbRef, `jobs/`+ this.id + `/message`)).then((snapshot) => {
+    if (account_type=="seller"){
+      this.showbtn = true
+    }
+    get(child(dbRef, `jobs/`+ this.id)).then((snapshot) => {
       if (snapshot.exists()) {
         console.log(Object.values(snapshot.val()));
-        this.new_chat_array = Object.values(snapshot.val());
+        this.new_chat_array = Object.values(snapshot.val().message);
+        this.buyerid = snapshot.val().buyer_id
+        this.sellerid = snapshot.val().seller_id
+        this.status = snapshot.val().status
+        get(child(dbRef, 'users/'+ this.sellerid + '/username')).then((snapshot => {
+      this.sellername = snapshot.val()
+      
+    }))
+
+    get(child(dbRef, 'users/'+ this.buyerid + '/username')).then((snapshot => {
+      this.buyername = snapshot.val()
+      
+    }))
       }
     });
 
+  
+
+    get(child(dbRef,`jobs/`+ this.id)).then((snapshot)=>{
+      this.sdate = snapshot.val().start_date;
+      this.edate = snapshot.val().end_date;
+      const sdateobj = new Date(this.sdate)
+      const edateobj = new Date(this.edate)
+      this.textsdate = sdateobj.toDateString()
+      this.textedate = edateobj.toDateString()
+      })
 
     get(child(dbRef,`jobs/`+ this.id + `/posts`)).then((snapshot2)=>{
     console.log(Object.values(snapshot2.val()));
