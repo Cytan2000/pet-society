@@ -71,8 +71,24 @@
 
 <div class="container -mt-28 py-10 px-10 mx-0 min-w-full flex flex-col items-center">
   <h2 class="text-2xl font-bold mb-3 text-yellow-400">Ready to book a spot in paradise for your pet?</h2>
-  <button class="bg-yellow-500 text-white hover:bg-red-400 font-bold py-2 px-4 mt-3 rounded"><a href="">Click here!</a></button>
+  <button class="bg-yellow-500 text-white hover:bg-red-400 font-bold py-2 px-4 mt-3 rounded"><a href="" v-if="this.acct_type=='buyer'">Click here!</a><a href="/sellerhome" v-else>Click Here</a></button>
 </div>
 
 </template>
 
+
+<script>
+export default{
+  data(){
+    return{
+      acct_type:"",
+    }
+  },
+  mounted(){
+    this.acct_type = JSON.parse(localStorage.getItem("db_data")).acc_type;
+    console.log(this.acct_type);
+
+  }
+}
+
+</script>
