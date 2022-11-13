@@ -2,7 +2,7 @@
         <router-link :to=" {name: 'ClientBooking', params: {id:link, data:info}}"
     class="flex flex-row my-3 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
     <img class="object-cover w-24 h-40 pl-2 rounded-lg md:h-auto md:rounded-none md:rounded-l-lg" :src="info.val().imgurls[0]" alt=""/>
-    <div class="flex flex-col justify-between p-4 leading-normal">
+    <div class="flex flex-col justify-between p-4 leading-normal" style="width:80%">
 
         <div class="flex flex-row">
             
