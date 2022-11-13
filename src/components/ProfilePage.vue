@@ -173,7 +173,7 @@
                   <div class="px-4 py-2">{{ address }}</div>
                 </div>
                 <div class="grid grid-cols-2">
-                  <div class="px-4 py-2 font-semibold">Email.</div>
+                  <div class="px-4 py-2 font-semibold">Email</div>
                   <div class="px-4 py-2">
                     <a class="text-blue-800" href="mailto:jane@example.com"
                       >{{email}}</a
@@ -349,6 +349,7 @@ export default {
           new_array.push(snapshot.val().animal_type);
           this.imageURL = new_array[3]
           this.pet_array.push(new_array);
+
         }
       )
           
