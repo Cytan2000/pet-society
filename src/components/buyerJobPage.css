@@ -1,0 +1,16 @@
+.button-danger{
+    background-color: #f3cdcf;
+   
+}
+
+.button-healthy{
+ background-color: #A4D1A2;
+}
+
+.button-pending{
+    background-color: #ECE3A1;
+}
+
+.button-active{
+    background-color: lightgray;
+}

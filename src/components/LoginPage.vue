@@ -136,7 +136,7 @@ onMounted(() => {
           localStorage.setItem("db_data",JSON.stringify(snapshot.val()));
           console.log(snapshot.val());
           if(snapshot.val().acc_type == "buyer"){
-            router.push("/home");
+            router.push("/");
           }else{
             router.push("/sellerhome");
           }

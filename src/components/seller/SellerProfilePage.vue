@@ -102,13 +102,14 @@
                   <span class="ml-auto">2022</span>
                 </li>
               </ul>
+              
             </div>
             <!-- End of profile card -->
             <div class="my-4"></div>
             <!-- Friends card -->
           </div>
           <!-- Right Side -->
-          <div class="w-full md:w-8/12 mx-2 h-full">
+          <div class="w-full md:w-8/12 mx-2">
             <!-- Profile tab -->
             <!-- About Section -->
             <div class="bg-white px-6 pb-6 pt-3 shadow-sm rounded-sm">
@@ -145,7 +146,7 @@
                   </div>
                   <div class="grid grid-cols-2">
                     <div class="px-4 py-2 font-semibold">Address</div>
-                    <div class="px-4 py-2">{{ address}}</div>
+                    <div class="px-4 py-2">{{ address }}</div>
                   </div>
                   <div class="grid grid-cols-2">
                     <div class="px-4 py-2 font-semibold">Email.</div>
@@ -170,9 +171,9 @@
   
             <!-- Experience and education -->
             
-            <div class="bg-white overflow-y-auto" style="height: 26rem;">
+            <div class="bg-white h-full" >
               <div class="flex justify-between">
-                
+                Hii
               </div>
             
             

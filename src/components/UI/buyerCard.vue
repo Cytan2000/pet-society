@@ -1,9 +1,15 @@
 <template>
         <router-link :to=" {name: 'ClientBooking', params: {id:link, data:info}}"
     class="flex flex-row my-3 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-    <img class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" :src="info.val().imgurls[0]" alt=""/>
+    <img class="object-cover w-24 max-h-80 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" :src="info.val().imgurls[0]" alt=""/>
     <div class="flex flex-col justify-between p-4 leading-normal">
-        
+
+        <div class="flex flex-row">
+            
+            <slot name="name">
+                <p class="font-bold text-xl ">Pet Sitting for Small pets Only</p>
+            </slot>
+        </div>
         <div class="flex flex-row">
             
             <div v-if="info.val().PetType.includes('dog')">
@@ -26,12 +32,8 @@
         </div>
         
         
-        <div class="flex flex-row">
-            <h5 class="mb-2 tracking-tight text-gray-900 dark:text-white">
-            <slot name="name">
-                <h2 class="font-bold text-xl ">Pet Sitting for Small pets Only</h2>
-            </slot>
-        </h5>
+        <div class="flex flex-row ">
+            
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
             <slot name="description">
                 <p>Farmer</p>
@@ -43,9 +45,10 @@
         </div>
     </div>
     <div class="ml-auto mb-auto">
-        From 
+        <span>From
         <slot name="price"></slot>
-        <p>/night</p>
+            /night
+        </span> 
     </div>
     </router-link>
 </template>

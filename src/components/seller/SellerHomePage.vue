@@ -23,10 +23,13 @@
       </template>
     </base-dialog2>
 
-
-    <h1>My Bookings</h1>
-
-    <div v-for="seller in list1">
+    <div class="flex flex-row justify-between mt-5">
+    <h1 class="mx-8 my-auto text-2xl font-bold">All Bookings</h1>
+    <button @click="showDialog = true" class="bg-blue-500 mt-6 mx-8 mb-8 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+    Add Booking!
+  </button>
+</div>
+    <div v-for="seller in list1" class="mx-8">
           <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
               <h1>{{ seller.val().Description }}</h1>
@@ -43,9 +46,7 @@
 
 
 
-<button @click="showDialog = true" class="bg-blue-500  mx-4 mb-8 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-  Add Booking!
-</button>
+
 
 
 
