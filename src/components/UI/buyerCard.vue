@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="ml-auto mb-auto">
-        <span>From
+        <span>
         <slot name="price"></slot>
             /night
         </span> 

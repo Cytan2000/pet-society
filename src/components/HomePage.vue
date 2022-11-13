@@ -54,7 +54,7 @@
               <p class="overflow-hidden">{{ seller.val().Description }}</p>
             </template>
             <template v-slot:price>
-              SGD {{seller.val().Rate}}
+              <p class="mr-5 mt-8 pr-3 text-md text-center font-bold">SGD <span class="text-blue-500">{{seller.val().Rate}}</span></p>
             </template>
           </buyer-card>
         </div>
