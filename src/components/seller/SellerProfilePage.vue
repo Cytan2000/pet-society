@@ -174,7 +174,7 @@
             <div class="my-4 bg-white flex justify-between h-3/4" >
               
                 <div class="m-5">Continue supporting us as a Pet sitter !</div>
-                <img class="w-40" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2FCA75EF75-85FD-4FF7-87C9-E7A9E974A892.jpeg?alt=media&token=ab1f966a-31b3-475f-ace4-d39fc2ff326c"/>
+                <!-- <img class="w-40" src="https://firebasestorage.googleapis.com/v0/b/wad2-e6bc2.appspot.com/o/logo%2FCA75EF75-85FD-4FF7-87C9-E7A9E974A892.jpeg?alt=media&token=ab1f966a-31b3-475f-ace4-d39fc2ff326c"/> -->
               
             
             

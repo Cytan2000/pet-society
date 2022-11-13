@@ -29,8 +29,8 @@
     + Add Booking!
   </button>
 </div>
-    <div v-for="seller in list1" class="mx-8 p-2 fancy_card">
-          <buyer-card :link="seller.key" :info="seller">
+    <div v-for="seller in list1" class="mx-8 p-2">
+          <buyer-card :link="seller.key" :info="seller" class="fancy_card">
             <template v-slot:name>
               <h1 class="text-2xl font-bold">{{ seller.val().ListingName }}</h1>
             </template>
