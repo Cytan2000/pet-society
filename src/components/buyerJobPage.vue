@@ -13,9 +13,9 @@
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
             </span>
         </div>
-            <div v-for="job in this.list1" class="mx-8">
+            <div v-for="job in this.list1" class="mx-8 ">
                 <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
-                <job-card v-if="job.val().status=='active'" :link="job.key" :info="job">
+                <job-card v-if="job.val().status=='active'" :link="job.key" :info="job" >
                 
             <template v-slot:name>
               {{job.val().name}}
@@ -39,9 +39,9 @@
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
             </span>
         </div>
-    <div v-for="job in this.list1">
+    <div v-for="job in this.list1" >
         <div v-if="job.val().buyer_id==this.user || job.val().seller_id==this.user" >
-                <job-card v-if="job.val().status=='pending'" :link="job.key" :info="job">
+                <job-card v-if="job.val().status=='pending'" :link="job.key" :info="job" >
                 
                   <template v-slot:name>
               {{job.val().name}}

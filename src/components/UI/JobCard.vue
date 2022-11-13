@@ -19,13 +19,13 @@
 
 <template>
         <router-link :to=" {name: 'JobStatus', params: {id:link, data:info}}"
-        class="flex flex-row my-3 items-center bg-white rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        class="flex flex-row justify-between my-3 items-center rounded-lg border shadow-md md:flex-row max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700" >
 
-    <div class="flex flex-col justify-between p-4 leading-normal">
+    <div class="flex flex-col  p-4 leading-normal">
 
-        <div class="flex flex-row">
-            
-            <slot name="name">
+        <div class="flex flex-row text-2xl">
+            Job Name:
+            <slot name="name" >
                 
             </slot>
         </div>
@@ -36,17 +36,16 @@
         <div class="flex flex-row ">
             
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            Location:
             <slot name="description">
                 
             </slot>
         </p>
-        <div>
-            <slot name="rating"></slot>
-        </div>
+        
         </div>
     </div>
-    <div class="ml-auto mb-auto">
-        <span>From
+    <div class=" flex">
+        <span>$
         <slot name="price"></slot>
             /night
         </span> 
