@@ -24,9 +24,9 @@
     </base-dialog2>
 
     <div class="flex flex-row justify-between mt-5">
-    <h1 class="mx-8 my-auto text-2xl font-bold">All Bookings</h1>
+    <h1 class="mx-8 my-auto text-2xl font-bold">All Listings</h1>
     <button @click="showDialog = true" class="shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-light bg-blue-light mt-6 mx-8 mb-8 py-2 px-4 focus:outline-none active:shadow-none ">
-    + Add Booking!
+    + Add Listing!
   </button>
 </div>
     <div v-for="seller in list1" class="mx-8 p-2">

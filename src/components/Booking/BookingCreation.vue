@@ -7,14 +7,14 @@
           placeholder="Listing Name"
           v-model="bListing"
           />
-          Booking Address<input
+          Listing Address<input
               type="text"
               class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
               placeholder="81 Victoria St, Singapore 188065"
               v-model="bAddress"
             />
 
-            Postal<input
+            Postal Code<input
               type="number"
               class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500"
               placeholder="188065"
