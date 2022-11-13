@@ -114,9 +114,9 @@
             >
               <li class="flex items-center ">
                 <span>Status</span>
-                <span class="ml-auto"
+                <span class="my-2 ml-auto"
                   ><span
-                    class="bg-green-500 py-1 px-2 rounded text-white text-sm"
+                    class="bg-green-500 py-1 px-2 rounded text-white  text-sm"
                     >Active</span
                   ></span
                 >
@@ -221,7 +221,7 @@
                 </div>
                 <!-- insert pet image here -->
                 <img
-                  class="h-auto w-full mx-auto"
+                  class="h-auto w-full mx-auto "
                   id="myimg"
                   v-bind:src="pet[4]"
                   alt=""
@@ -233,7 +233,7 @@
                 >
                   <!-- <span class="text-green-500">{{pet}} </span> -->
                 </div>
-                <ul class="list-inside space-y-2">
+                <ul class="list-inside space-y-2 mx-3">
                   <!-- <li>
                     <div class="text-teal-600 mt-10">Pet Name</div>
                     <div class="text-gray-500">{{ pet[1] }}</div>

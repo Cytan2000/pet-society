@@ -3,8 +3,9 @@
         <select name="animal" id="animal_type" v-model="animal_type" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded hover:ring-1 outline-blue-500">
           <option value="Dog">Dog</option>
           <option value="Cat">Cat</option>
-          <option value="Kangaroo">Kangaroo</option>
-          <option value="Giraffe" selected>Giraffe</option>
+          <option value="Rodent">Rodent</option>
+          <option value="Rabbit" selected>Rabbit</option>
+          <option value="Aquatic" selected>Aquatic</option>
         </select>
         Pet Name<input
             type="text"
@@ -56,11 +57,12 @@
       </div>
     </div>
 </div> 
+<div v-if="noimg" class="text-red-500 font-bold
+">Please upload at least 1 image</div>
 
 
     <button 
             @click="submit_pet_post"
-            
             type="submit"
             id="submit_link"
             class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
@@ -98,7 +100,6 @@ function writeData(userId,pname,pbreed,page,petphoto,animal_type) {
     
   } else {
     pet_array.push(petid);
-    console.log("hI");
     set(userPets,pet_array);
     console.log("snapshot doesn't exist");
   }
@@ -125,11 +126,15 @@ export default {
       animal_type:"",
       petid_array: [],
       imageURL: null,
+      noimg: false
       
     }
   },
   methods:{
     submit_pet_post() {
+        if (this.imageData.length == 0){
+          this.noimg = true
+        }
         var usercreds = JSON.parse(localStorage.getItem("userCredential"));
         var userId= usercreds.uid
         var petid = writeData(userId,this.pname,this.pbreed,this.page,this.imageData.name,this.animal_type);
@@ -156,6 +161,7 @@ click1() {
   this.$refs.input1.click()   
 },
 onUpload(petid){
+  //this uploads the new photo
 const storage = getStorage();
 this.img1=null;
 const storageRef=StoRef(storage,`Images/${this.imageData.name}`)
