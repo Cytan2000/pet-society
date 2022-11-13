@@ -1,6 +1,6 @@
 <template>
     
-    <h2 class="text-3xl font-bold">Create New Job!</h2>
+    <h2 class="text-3xl font-bold">Apply for Pet Sitting!</h2>
             Enter start date<input v-model="jstartdate" class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
             Enter end date<input v-model="jenddate" class=" w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" type="date">
         Tell us a little bit about yourself and your pet!<textarea v-model="jnote" cols="30" rows="10" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" placeholder="Additional Notes">
@@ -9,7 +9,7 @@
         Select your pet:
         
         <select size="1" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" v-model="jpets" id="pet-select" multiple>
-          <option value="">--Please choose an option--</option>
+          
           <option v-for="(item, index) in this.petarr" :key="index" :value="this.petids[index]">{{item}}</option>
     </select>
       <button 
@@ -19,6 +19,9 @@
               class="py-4 bg-blue-400 w-full rounded text-blue-50 font-bold hover:bg-blue-700 my-2">
               Submit
             </button>
+        <div v-if="this.correct_date==false">
+            <span class="text-red-600">Please input a valid date range</span>
+        </div>
   </template>
   
   <script>
@@ -60,11 +63,30 @@
         jpets: [],
         petarr: [],
         petids: [],
-
+        correct_date:true,
         
       }
     },
     methods:{
+      validate_date(){
+    var input1 = this.jstartdate;
+    var input2 = this.jenddate;
+  if(input1 != "" && input2 != ""){
+      var date1 = new Date(input1);
+      var date2 = new Date(input2);
+      
+      if(date2 < date1) {
+
+          
+          this.correct_date=false;
+          return false;
+
+      }else{
+          this.correct_date=true;
+          return true;
+      }
+    }
+  },
       submit_booking() {
           const db = getDatabase();
           const usercreds = JSON.parse(localStorage.getItem("userCredential"));
@@ -79,11 +101,17 @@
             console.log(data.Workaddress);
           })
           this.jbuyerid = uid
+          if(this.validate_date()==true){
           writeData(this.jaddress,this.jname,this.jprice,this.jsellerid, this.jbuyerid, this.$route.params.id,this.jstartdate, this.jenddate, this.jnote, this.jpets);
           this.jstartdate = ""
           this.jenddate = ""
           this.jnote = ""
           this.jpets = []
+          
+        }else{
+            
+          }
+          
     },
     
   },
