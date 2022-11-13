@@ -46,6 +46,12 @@
       price:jprice,
       address:jaddress
     })
+    const timeout = setTimeout(reload,1000);
+          function reload() {
+            window.location.href = 'JobStatus/'+jobid;
+          }
+
+
   }
   
   export default {
@@ -107,7 +113,7 @@
           this.jenddate = ""
           this.jnote = ""
           this.jpets = []
-          
+         
         }else{
             
           }
