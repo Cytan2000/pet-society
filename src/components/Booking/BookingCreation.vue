@@ -87,7 +87,7 @@
       <!-- <div class="overflow-hidden max-h-5">
         {{this.imageData.name}}
       </div> -->
-      Uploaded Images:
+      Uploaded Image:
       <div class="flex flex-row">
       <div v-for="image in this.showimg">
         
