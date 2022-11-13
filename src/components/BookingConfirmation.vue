@@ -8,7 +8,7 @@
         
         Select your pet:
         
-        <select size="1" class="w-full py-4 px-8 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" v-model="jpets" id="pet-select" multiple>
+        <select size="1" class="w-full py-4 bg-slate-200 placeholder:font-semibold rounded ring-1 outline-blue-500" v-model="jpets" id="pet-select">
           
           <option v-for="(item, index) in this.petarr" :key="index" :value="this.petids[index]">{{item}}</option>
     </select>
@@ -20,7 +20,7 @@
               Submit
             </button>
         <div v-if="this.correct_date==false">
-            <span class="text-red-600">Please input a valid date range</span>
+            <span class="text-red-600 font-bold">Please input a valid date range</span>
         </div>
   </template>
   
