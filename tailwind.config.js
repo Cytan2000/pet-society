@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {colors: {
+      amber: colors.amber,
+      emerald: colors.emerald,
+    }
+  },
     screens:{
       'xs': '640px',
     }

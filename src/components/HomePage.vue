@@ -42,7 +42,7 @@
   
 
 <div class="back-color">
-  <section class="container p-3">
+  <section class="container-fluid p-2">
     <div class="grid grid-cols-3 gap-4">
       <div class="col-span-3 px-4 md:col-span-2 overflow-y-auto order-2 xs:order-1 md:order-1 " style="height:46rem">
         <div v-for="seller in list1" class="fancy_card">
@@ -59,7 +59,7 @@
           </buyer-card>
         </div>
       </div>
-      <div class="col-span-3 mt-3 md:col-span-1 order-1 xs:order-2 md:order-2 border rounded-lg" id="map" style="width: 40rem; height: 45rem">
+      <div class="col-span-3 mt-3 md:col-span-1 lg:col-span-1 order-1 xs:order-2 md:order-2 border rounded-lg" id="map" style="height:45rem;width:100%">
       </div>
     </div>
       <!-- <h4>Your Position</h4>
