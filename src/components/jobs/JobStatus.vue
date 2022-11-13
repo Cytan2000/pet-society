@@ -97,7 +97,7 @@
               dark:text-white
             "
           >
-            <a href="#">Snoopy's Adventure with Jason</a>
+            <a href="#">{{this.lname}}</a>
           </h2>
           <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
             Duration of Stay: 10th Feb - 20th Feb
@@ -130,7 +130,8 @@
         </article>
 
         <div class="grid grid-cols-3 mt-3 gap-6">
-          <div
+          <template v-for="post in new_post_array">
+            <div
             class="
               max-w-sm
               bg-white
@@ -138,10 +139,8 @@
               rounded-lg
               border border-gray-200
               shadow-md
-              dark:bg-gray-800 dark:border-gray-700
-            " v-for="post in new_post_array"
-          >
-            
+              dark:bg-gray-800 dark:border-gray-700"
+              v-if="post[0]!=''">
               <img
                 class="rounded-t-lg"
                 style="display: block; margin: auto"
@@ -172,6 +171,9 @@
               <!-- </a> -->
             </div>
           </div>
+          </template>
+
+          
 
           
 
@@ -195,20 +197,8 @@
       >
         <div class="flex flex-col mt-3">
           <div v-for="item in new_chat_array">
-            <div class="flex justify-start mb-4" v-if="item[0]=='seller'">
-            <img
-              v-bind:src="item[1]"
-              class="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-            <div
-              class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-            >
-              {{item[2]}}
-            </div>
-          </div>
 
-            <div class="flex justify-end mb-4" v-if="item[0]=='buyer'">
+            <div class="flex justify-end mb-4" v-if="item[0]==myid && item[0]!=''">
               <div
                 class="
                   mr-2
@@ -228,6 +218,20 @@
               />
             </div>
 
+            <div class="flex justify-start mb-4" v-if="item[0]!=myid && item[0]!=''">
+            <img
+              v-bind:src="item[1]"
+              class="object-cover h-8 w-8 rounded-full"
+              alt=""
+            />
+            <div
+              class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
+            >
+              {{item[2]}}
+            </div>
+          </div>
+
+            
             
           </div>
 
@@ -279,13 +283,16 @@ export default {
       title:"",
       account_type:"",
       id:"",
+      myid: "",
+      bid: "",
+      lname: ""
     };
   },
   methods:{
     
     enter_chat(){
       
-      var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
+      var account_type = JSON.parse(localStorage.getItem("userCredential"))["uid"];
       var photoURL = JSON.parse(localStorage.getItem("userCredential"))["providerData"][0]["photoURL"];
       var msg_to_send = document.getElementById("input_message").value;
       if(photoURL == null){
@@ -343,6 +350,7 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.id;
+    this.myid = JSON.parse(localStorage.getItem("userCredential"))["uid"];
     const dbRef = ref(getDatabase());
     var account_type = JSON.parse(localStorage.getItem("db_data"))["acc_type"];
     get(child(dbRef, `jobs/`+ this.id + `/message`)).then((snapshot) => {
@@ -357,6 +365,17 @@ export default {
     console.log(Object.values(snapshot2.val()));
       this.new_post_array = Object.values(snapshot2.val());
   })
+
+  get(child(dbRef,`jobs/`+ this.id + `/booking_id`)).then((snapshot)=>{
+      this.bid = snapshot.val();
+      get(child(dbRef,'bookings/'+this.bid+'/ListingName')).then((snapshot)=>{
+        this.lname = snapshot.val()
+        console.log(this.lname)
+      })
+  })
+
+
+
   }
 };
 </script>

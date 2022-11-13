@@ -36,8 +36,9 @@
       end_date: jenddate,
       notes: jnote,
       pets: jpets,
-      status: "pending"
-      
+      status: "pending",
+      posts: [[""]],
+      message: [[""]]
     })
   }
   
