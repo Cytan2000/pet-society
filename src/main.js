@@ -51,7 +51,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes:[
         { path: '/about', component: AboutPage},
-        { path: '/', component: HomePage},
+        { path: '', component: HomePage},
         { path: "/:pathMatch(.*)*", component: NotFound },
         { path: "/login", component: LoginPage},
         { path: "/register", component: Register},

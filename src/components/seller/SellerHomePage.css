@@ -1,21 +1,3 @@
-.button-danger{
-    background-color: #f3cdcf;
-   
-}
-
-.button-healthy{
- background-color: #A4D1A2;
-}
-
-.button-pending{
-    background-color: #ECE3A1;
-}
-
-.button-active{
-    background-color: lightgray;
-}
-
-
 .fancy_card {
     box-shadow: 8px 14px 38px rgba(39,44,49,.06), 1px 3px 8px rgba(39,44,49,.03);
     transition: all .5s ease; /* back to normal */
