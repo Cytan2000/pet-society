@@ -129,22 +129,21 @@ export default {
       get(child(ref1,`bookings/`)).then((snapshot1)=>{
         // console.log(snapshot1.val());
         if(snapshot1.exists()){
-          for(var items in snapshot1.val()){
-            var array_to_rtr = [];
+          snapshot1.forEach((childSnapshot1)=>{
+            this.list3.push(childSnapshot1);
+          })
             // console.log(Object.values(snapshot1.val()[items]));
             // console.log(Object.values(snapshot1.val()[items])[2]);
             // console.log(Object.values(snapshot1.val()[items])[6]);
             // console.log(Object.values(snapshot1.val()[items])[8][0]);
-            array_to_rtr.push(Object.values(snapshot1.val()[items])[2]);
-            array_to_rtr.push(Object.values(snapshot1.val()[items])[6]);
-            array_to_rtr.push(Object.values(snapshot1.val()[items])[8][0]);
-            this.list3.push(array_to_rtr);
+            // array_to_rtr.push(Object.values(snapshot1.val()[items])[2]);
+            // array_to_rtr.push(Object.values(snapshot1.val()[items])[6]);
+            // array_to_rtr.push(Object.values(snapshot1.val()[items])[8][0]);
           }
-        
-          localStorage.setItem("map_wpandlistname",JSON.stringify(this.list3));
+          console.log(this.list3);
           // console.log(this.list3)
         }
-      })
+      )
     },
 
     getBooking() {
@@ -207,19 +206,17 @@ export default {
       });
     },
 
-    geocode() {
-      var list3 = JSON.parse(localStorage.getItem("map_wpandlistname"));
-    console.log(list3)
-      if (lat_list.length < list3.length || lng_list.length < list3.length) {
-        console.log(lat_list.length);
-        console.log(list3.length);
-        console.log(lat_list.length)
-        for (var j = 0; j < list3.length; j++) {
-          console.log(list3[j][1])
+    geocode(){
+      console.log(this.list3);
+      // var list3 = JSON.parse(localStorage.getItem("map_wpandlistname"));
+      var counter = 0;
+        for (var items of this.list3) {
+          console.log(items);
+          counter += 1
 
           axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
           params: {
-            address: list3[j][1],
+            address: list4[counter][1],
             key: 'AIzaSyCsXXU1MDegDrBps_d3fK8rglvT4G8zbEg',
             region: 'sg',
             country: 'sg',
@@ -246,9 +243,7 @@ export default {
           }
           poll()
         };
-      } else {
-        console.log(1);
-      }
+      
 
       // console.log(lat_list); 
       // console.log(this.lng_list);
@@ -291,13 +286,12 @@ export default {
   created(){
     this.getBooking();
     this.pull_workpostal_and_ListingName();
+    this.geocode();
   },
   beforeUpdate() {
-    var list3 = JSON.parse(localStorage.getItem("map_wpandlistname"));
-    console.log(list3)
-    this.geocode();
+    // console.log(list3)
     
-    console.log(list3)
+    // console.log(list3)
     // console.log(this.list2.length)
     // console.log(this.list2);
     // this.test();
@@ -389,3 +383,4 @@ export default {
 
 
 </script>
+
