@@ -76,7 +76,7 @@
               <h3 class="font-bold text-md mb-3">@ only SGD{{this.info.Rate}} per night </h3>
               <h3 class="font-bold text-md mb-3">Book via Pet society to enjoy Premium Insurance, 24/7 support, booking guarantee, photo updates and more!</h3>
               <button @click="showDialog = !showDialog" type="submit" class="w-50 content-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Create New Job
+                Apply for pet sitter
               </button>
               </div>
             </div>
