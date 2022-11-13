@@ -32,10 +32,10 @@
     <div v-for="seller in list1" class="mx-8 p-2 fancy_card">
           <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
-              <h1>{{ seller.val().Description }}</h1>
+              <h1 class="text-2xl font-bold">{{ seller.val().ListingName }}</h1>
             </template>
             <template v-slot:description>
-              <p>{{ seller.email }}</p>
+              <p>{{ seller.val().Description }}</p>
             </template>
             <template v-slot:price>
               SGD {{seller.val().Rate}}
