@@ -91,7 +91,6 @@
 
 import { getDatabase, onValue, ref,push,child,update } from "firebase/database";
 import BookingConfirmation from "./BookingConfirmation.vue";
-
 import BaseDialog2 from "./UI/BaseDialog2.vue";
  export default{
   components: { BaseDialog2, BookingConfirmation },
