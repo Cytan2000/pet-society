@@ -18,7 +18,7 @@
 </style>
 
 <template>
-<div class="backk">
+<div class="back">
 <div class="banner h-96 w-full font-sans">
   <form @submit.prevent="submit" class="content-items rounded-lg px-8 py-6"> 
     <div class="lol">
@@ -41,10 +41,10 @@
 
   
 
-  <section class="container mx-auto ">
+  <section class="container mx-auto p-3">
     <div class="grid grid-cols-3 gap-4">
-      <div class="col-span-3 md:col-span-2 overflow-y-auto order-2 xs:order-1 md:order-1 " style="height:42rem">
-        <div v-for="seller in list1">
+      <div class="col-span-3 px-4 md:col-span-2 overflow-y-auto order-2 xs:order-1 md:order-1 " style="height:42rem">
+        <div v-for="seller in list1" class="fancy_card">
           <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
               <p class="font-bold text-xl">{{ seller.val().ListingName }}</p>
