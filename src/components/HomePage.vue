@@ -18,7 +18,7 @@
 </style>
 
 <template>
-<div class="backk">
+<div class="back-color">
 <div class="banner h-96 w-full font-sans">
   <form @submit.prevent="submit" class="content-items rounded-lg px-8 py-6"> 
     <div class="lol">
@@ -41,9 +41,10 @@
 
   
 
-  <section class="container mx-auto p-3">
+<div class="back-color">
+  <section class="container p-3">
     <div class="grid grid-cols-3 gap-4">
-      <div class="col-span-3 px-4 md:col-span-2 overflow-y-auto order-2 xs:order-1 md:order-1 " style="height:42rem">
+      <div class="col-span-3 px-4 md:col-span-2 overflow-y-auto order-2 xs:order-1 md:order-1 " style="height:46rem">
         <div v-for="seller in list1" class="fancy_card">
           <buyer-card :link="seller.key" :info="seller">
             <template v-slot:name>
@@ -58,7 +59,7 @@
           </buyer-card>
         </div>
       </div>
-      <div class="col-span-3 mt-3 md:col-span-1 order-1 xs:order-2 md:order-2 border rounded-lg" id="map" style="width: 100%; height: 80vh">
+      <div class="col-span-3 mt-3 md:col-span-1 order-1 xs:order-2 md:order-2 border rounded-lg" id="map" style="width: 40rem; height: 45rem">
       </div>
     </div>
       <!-- <h4>Your Position</h4>
@@ -66,6 +67,7 @@
       {{ currPos.lng.toFixed(2) }} -->
 
   </section>
+</div>
 </div>
   <!-- <div class="md:w-max  flex justify-center md:justify-end">
         <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="image-design" />
